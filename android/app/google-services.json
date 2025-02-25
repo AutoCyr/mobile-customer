@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "935343070936",
+    "project_id": "autocyr-8530d",
+    "storage_bucket": "autocyr-8530d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935343070936:android:123ccd1af1e03b71c101ad",
+        "android_client_info": {
+          "package_name": "com.gine.autocyr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNOXUj4hcIZvG7B37k6etwAENZb2v8EzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

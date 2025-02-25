@@ -1,0 +1,162 @@
+import 'dart:math';
+
+import 'package:autocyr/domain/models/pieces/detail_piece.dart';
+import 'package:autocyr/presentation/notifier/customer_notifier.dart';
+import 'package:autocyr/presentation/ui/atoms/buttons/progress_button.dart';
+import 'package:autocyr/presentation/ui/atoms/labels/label10.dart';
+import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
+import 'package:autocyr/presentation/ui/core/theme.dart';
+import 'package:autocyr/presentation/ui/helpers/state.dart';
+import 'package:autocyr/presentation/ui/screens/helpers/piece_widget.dart';
+import 'package:autocyr/presentation/ui/screens/pages/searchs/filter.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
+
+class StoreScreen extends StatefulWidget {
+  const StoreScreen({super.key});
+
+  @override
+  State<StoreScreen> createState() => _StoreScreenState();
+}
+
+class _StoreScreenState extends State<StoreScreen> {
+
+  bool _search = false;
+
+  List<DetailPiece> pieces = [];
+  List<DetailPiece> filteredPieces = [];
+
+  retrievePieces() async {
+    final customer = Provider.of<CustomerNotifier>(context, listen: false);
+    if(customer.pieces.isEmpty) {
+      await customer.retrievePieces(context: context);
+    }
+    setState(() {
+      filteredPieces = pieces = customer.pieces;
+    });
+  }
+
+  void filterList(String searchQuery) {
+    List<DetailPiece> filtered = [];
+    for (var value in pieces) {
+      if (value.piece!.nomPiece.toLowerCase().contains(searchQuery.toLowerCase()) || value.article!.name.toLowerCase().contains(searchQuery.toLowerCase())) {
+        filtered.add(value);
+      }
+    }
+    setState(() {
+      filteredPieces = filtered;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      retrievePieces();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: GlobalThemeData.lightColorScheme.onTertiary,
+        title: _search == false ?
+          Label14(text: "Articles", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+            :
+        SizedBox(
+          height: 45,
+          child: TextFormField(
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+                filled: true,
+                fillColor: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
+                focusColor: GlobalThemeData.lightColorScheme.tertiary,
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: GlobalThemeData.lightColorScheme.tertiary,
+                    width: 2
+                  )
+                ),
+                labelText: "Rechercher",
+                labelStyle: TextStyle(
+                  color: GlobalThemeData.lightColorScheme.tertiary,
+                  fontSize: 13
+                )
+            ),
+            style: const TextStyle(
+                fontSize: 13
+            ),
+            autofocus: true,
+            onChanged: (value) => filterList(value),
+            cursorColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
+          ),
+        ).animate().fadeIn(),
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _search = !_search;
+                filterList("");
+              });
+            },
+            icon: _search ? const Icon(Icons.clear) : const Icon(Icons.search_sharp),
+          ).animate().fadeIn(),
+          IconButton(
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FilterScreen())),
+            icon: const Icon(Icons.tune_rounded),
+          ).animate().fadeIn(),
+        ],
+      ),
+      body: Consumer<CustomerNotifier>(
+        builder: (context, customer, child) {
+
+          if(customer.filling) {
+            return SizedBox(
+              width: size.width,
+              height: size.height - kToolbarHeight,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ProgressButton(
+                        widthSize: size.width * 0.9,
+                        context: context,
+                        bgColor: GlobalThemeData.lightColorScheme.onTertiary,
+                        shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                    ),
+                    const Gap(20),
+                    Label10(text: "Chargement des pièces...", color: Colors.black, weight: FontWeight.bold, maxLines: 1),
+                  ]
+              ).animate().fadeIn(),
+            );
+          }
+
+          if(customer.pieces.isEmpty && !customer.filling) {
+            return const StateScreen(icon: Icons.not_interested_sharp, message: "Aucune pièce trouvée.", isError: false,);
+          }
+
+          if(customer.pieces.isEmpty && customer.errorPieces.isNotEmpty && !customer.filling) {
+            return StateScreen(icon: Icons.not_interested_sharp, message: customer.errorPieces, isError: true, function: retrievePieces());
+          }
+
+          return GridView.count(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            mainAxisSpacing: 32,
+            crossAxisCount: 2,
+            crossAxisSpacing: 8,
+            childAspectRatio: 0.7,
+            children: [
+              ...filteredPieces.map((piece) => PieceWidget(piece: piece)),
+            ],
+          );
+        }
+      )
+    );
+  }
+}
