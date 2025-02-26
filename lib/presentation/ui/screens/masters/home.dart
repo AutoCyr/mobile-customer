@@ -42,6 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   ];
 
+  updateFCM() async {
+    final auth = Provider.of<AuthNotifier>(context, listen: false);
+    await auth.updateFCM(context: context);
+  }
+
   retrieveCommons() async {
     final common = Provider.of<CommonNotifier>(context, listen: false);
     if(!common.filling) {
@@ -60,7 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      updateFCM();
       retrieveCommons();
     });
   }
