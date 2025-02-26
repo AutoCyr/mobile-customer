@@ -5,13 +5,15 @@ import 'package:autocyr/presentation/ui/atoms/labels/label10.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label12.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
+import 'package:autocyr/presentation/ui/helpers/snacks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
 class FilterScreen extends StatefulWidget {
-  const FilterScreen({super.key});
+  final Function onUpdate;
+  const FilterScreen({super.key, required this.onUpdate});
 
   @override
   State<FilterScreen> createState() => _FilterScreenState();
@@ -22,6 +24,15 @@ class _FilterScreenState extends State<FilterScreen> {
   List<int> autos = [];
   List<int> moteurs = [];
   List<int> categories = [];
+
+  loadFilters() async {
+    final customer = Provider.of<CustomerNotifier>(context, listen: false);
+    setState(() {
+      autos = customer.autoFilters;
+      moteurs = customer.motorFilters;
+      categories = customer.categoryFilters;
+    });
+  }
 
   retrieveCommons() async {
     final common = Provider.of<CommonNotifier>(context, listen: false);
@@ -41,8 +52,9 @@ class _FilterScreenState extends State<FilterScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      retrieveCommons();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await retrieveCommons();
+      loadFilters();
     });
   }
 
@@ -53,7 +65,28 @@ class _FilterScreenState extends State<FilterScreen> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.onTertiary),
         backgroundColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
-        title: Label14(text: "Choisir des options", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+        title: Label14(text: "Choisir des options", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+        actions: [
+          Consumer2<CommonNotifier, CustomerNotifier>(
+            builder: (context, common, customer, child) {
+              if(!common.filling) {
+                return IconButton(
+                  onPressed: () async {
+                    await customer.setAutoFilters(autos);
+                    await customer.setMotorFilters(moteurs);
+                    await customer.setCategoryFilters(categories);
+                    Snacks.successBar("Filtres mis à jour", context);
+                    await widget.onUpdate();
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.check),
+                ).animate().fadeIn();
+              }
+
+              return const SizedBox();
+            }
+          )
+        ],
       ),
       body: Consumer2<CommonNotifier, CustomerNotifier>(
         builder: (context, common, customer, child) {
@@ -101,7 +134,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       children: [
                         Checkbox(
                           value: autos.contains(auto.id),
-                          onChanged: (value) {
+                          onChanged: (value) async {
                             setState(() {
                               if(autos.contains(auto.id)) {
                                 autos.remove(auto.id);
@@ -143,7 +176,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       children: [
                         Checkbox(
                           value: moteurs.contains(motor.id),
-                          onChanged: (value) {
+                          onChanged: (value) async {
                             setState(() {
                               if(moteurs.contains(motor.id)) {
                                 moteurs.remove(motor.id);
@@ -185,7 +218,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       children: [
                         Checkbox(
                           value: categories.contains(category.id),
-                          onChanged: (value) {
+                          onChanged: (value) async {
                             setState(() {
                               if(categories.contains(category.id)) {
                                 categories.remove(category.id);

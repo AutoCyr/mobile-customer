@@ -8,8 +8,8 @@ class CustomerRepositoryImpl extends CustomerRepository {
   CustomerRepositoryImpl(this._customerDataSourceImpl);
 
   @override
-  Future getPieces() async {
-    return await _customerDataSourceImpl.getPieces();
+  Future getPieces(Map<String, dynamic> params) async {
+    return await _customerDataSourceImpl.getPieces(params);
   }
 
   @override
@@ -25,5 +25,20 @@ class CustomerRepositoryImpl extends CustomerRepository {
   @override
   Future getTypePieces(Map<String, dynamic> params) async {
     return await _customerDataSourceImpl.getTypePieces(params);
+  }
+
+  @override
+  Future getSubcategoryPieces(Map<String, dynamic> params) async {
+    return await _customerDataSourceImpl.getSubcategoryPieces(params);
+  }
+
+  @override
+  Future getCommandes(Map<String, dynamic> params) async {
+    return await _customerDataSourceImpl.getCommandes(params);
+  }
+
+  @override
+  Future createCommande(Map<String, dynamic> body) async {
+    return await _customerDataSourceImpl.createCommande(body);
   }
 }

@@ -38,8 +38,12 @@ mixin _$CategoryDisponibility {
   @JsonKey(name: 'categorie_engin')
   EnginCategory get categorieEngin => throw _privateConstructorUsedError;
 
+  /// Serializes this CategoryDisponibility to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CategoryDisponibility
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CategoryDisponibilityCopyWith<CategoryDisponibility> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -74,6 +78,8 @@ class _$CategoryDisponibilityCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CategoryDisponibility
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -122,6 +128,8 @@ class _$CategoryDisponibilityCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of CategoryDisponibility
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $EnginCategoryCopyWith<$Res> get categorieEngin {
@@ -163,6 +171,8 @@ class __$$CategoryDisponibilityImplCopyWithImpl<$Res>
       $Res Function(_$CategoryDisponibilityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CategoryDisponibility
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -281,7 +291,7 @@ class _$CategoryDisponibilityImpl implements _CategoryDisponibility {
                 other.categorieEngin == categorieEngin));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -294,7 +304,9 @@ class _$CategoryDisponibilityImpl implements _CategoryDisponibility {
       updatedAt,
       categorieEngin);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CategoryDisponibility
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CategoryDisponibilityImplCopyWith<_$CategoryDisponibilityImpl>
@@ -350,8 +362,11 @@ abstract class _CategoryDisponibility implements CategoryDisponibility {
   @override
   @JsonKey(name: 'categorie_engin')
   EnginCategory get categorieEngin;
+
+  /// Create a copy of CategoryDisponibility
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CategoryDisponibilityImplCopyWith<_$CategoryDisponibilityImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

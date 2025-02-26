@@ -20,6 +20,7 @@ Meta _$MetaFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Meta {
+  @JsonKey(name: 'total')
   int get total => throw _privateConstructorUsedError;
   @JsonKey(name: 'per_page')
   int get perPage => throw _privateConstructorUsedError;
@@ -27,8 +28,6 @@ mixin _$Meta {
   int get currentPage => throw _privateConstructorUsedError;
   @JsonKey(name: 'last_page')
   int get lastPage => throw _privateConstructorUsedError;
-  @JsonKey(name: 'first_page')
-  int get firstPage => throw _privateConstructorUsedError;
   @JsonKey(name: 'first_page_url')
   String? get firstPageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'last_page_url')
@@ -53,11 +52,10 @@ abstract class $MetaCopyWith<$Res> {
       _$MetaCopyWithImpl<$Res, Meta>;
   @useResult
   $Res call(
-      {int total,
+      {@JsonKey(name: 'total') int total,
       @JsonKey(name: 'per_page') int perPage,
       @JsonKey(name: 'current_page') int currentPage,
       @JsonKey(name: 'last_page') int lastPage,
-      @JsonKey(name: 'first_page') int firstPage,
       @JsonKey(name: 'first_page_url') String? firstPageUrl,
       @JsonKey(name: 'last_page_url') String? lastPageUrl,
       @JsonKey(name: 'next_page_url') String? nextPageUrl,
@@ -83,7 +81,6 @@ class _$MetaCopyWithImpl<$Res, $Val extends Meta>
     Object? perPage = null,
     Object? currentPage = null,
     Object? lastPage = null,
-    Object? firstPage = null,
     Object? firstPageUrl = freezed,
     Object? lastPageUrl = freezed,
     Object? nextPageUrl = freezed,
@@ -105,10 +102,6 @@ class _$MetaCopyWithImpl<$Res, $Val extends Meta>
       lastPage: null == lastPage
           ? _value.lastPage
           : lastPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      firstPage: null == firstPage
-          ? _value.firstPage
-          : firstPage // ignore: cast_nullable_to_non_nullable
               as int,
       firstPageUrl: freezed == firstPageUrl
           ? _value.firstPageUrl
@@ -138,11 +131,10 @@ abstract class _$$MetaImplCopyWith<$Res> implements $MetaCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int total,
+      {@JsonKey(name: 'total') int total,
       @JsonKey(name: 'per_page') int perPage,
       @JsonKey(name: 'current_page') int currentPage,
       @JsonKey(name: 'last_page') int lastPage,
-      @JsonKey(name: 'first_page') int firstPage,
       @JsonKey(name: 'first_page_url') String? firstPageUrl,
       @JsonKey(name: 'last_page_url') String? lastPageUrl,
       @JsonKey(name: 'next_page_url') String? nextPageUrl,
@@ -165,7 +157,6 @@ class __$$MetaImplCopyWithImpl<$Res>
     Object? perPage = null,
     Object? currentPage = null,
     Object? lastPage = null,
-    Object? firstPage = null,
     Object? firstPageUrl = freezed,
     Object? lastPageUrl = freezed,
     Object? nextPageUrl = freezed,
@@ -187,10 +178,6 @@ class __$$MetaImplCopyWithImpl<$Res>
       lastPage: null == lastPage
           ? _value.lastPage
           : lastPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      firstPage: null == firstPage
-          ? _value.firstPage
-          : firstPage // ignore: cast_nullable_to_non_nullable
               as int,
       firstPageUrl: freezed == firstPageUrl
           ? _value.firstPageUrl
@@ -216,20 +203,20 @@ class __$$MetaImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MetaImpl implements _Meta {
   const _$MetaImpl(
-      {required this.total,
+      {@JsonKey(name: 'total') required this.total,
       @JsonKey(name: 'per_page') required this.perPage,
       @JsonKey(name: 'current_page') required this.currentPage,
       @JsonKey(name: 'last_page') required this.lastPage,
-      @JsonKey(name: 'first_page') required this.firstPage,
-      @JsonKey(name: 'first_page_url') required this.firstPageUrl,
-      @JsonKey(name: 'last_page_url') required this.lastPageUrl,
-      @JsonKey(name: 'next_page_url') required this.nextPageUrl,
-      @JsonKey(name: 'previous_page_url') required this.previousPageUrl});
+      @JsonKey(name: 'first_page_url') this.firstPageUrl,
+      @JsonKey(name: 'last_page_url') this.lastPageUrl,
+      @JsonKey(name: 'next_page_url') this.nextPageUrl,
+      @JsonKey(name: 'previous_page_url') this.previousPageUrl});
 
   factory _$MetaImpl.fromJson(Map<String, dynamic> json) =>
       _$$MetaImplFromJson(json);
 
   @override
+  @JsonKey(name: 'total')
   final int total;
   @override
   @JsonKey(name: 'per_page')
@@ -240,9 +227,6 @@ class _$MetaImpl implements _Meta {
   @override
   @JsonKey(name: 'last_page')
   final int lastPage;
-  @override
-  @JsonKey(name: 'first_page')
-  final int firstPage;
   @override
   @JsonKey(name: 'first_page_url')
   final String? firstPageUrl;
@@ -258,7 +242,7 @@ class _$MetaImpl implements _Meta {
 
   @override
   String toString() {
-    return 'Meta(total: $total, perPage: $perPage, currentPage: $currentPage, lastPage: $lastPage, firstPage: $firstPage, firstPageUrl: $firstPageUrl, lastPageUrl: $lastPageUrl, nextPageUrl: $nextPageUrl, previousPageUrl: $previousPageUrl)';
+    return 'Meta(total: $total, perPage: $perPage, currentPage: $currentPage, lastPage: $lastPage, firstPageUrl: $firstPageUrl, lastPageUrl: $lastPageUrl, nextPageUrl: $nextPageUrl, previousPageUrl: $previousPageUrl)';
   }
 
   @override
@@ -272,8 +256,6 @@ class _$MetaImpl implements _Meta {
                 other.currentPage == currentPage) &&
             (identical(other.lastPage, lastPage) ||
                 other.lastPage == lastPage) &&
-            (identical(other.firstPage, firstPage) ||
-                other.firstPage == firstPage) &&
             (identical(other.firstPageUrl, firstPageUrl) ||
                 other.firstPageUrl == firstPageUrl) &&
             (identical(other.lastPageUrl, lastPageUrl) ||
@@ -286,17 +268,8 @@ class _$MetaImpl implements _Meta {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      total,
-      perPage,
-      currentPage,
-      lastPage,
-      firstPage,
-      firstPageUrl,
-      lastPageUrl,
-      nextPageUrl,
-      previousPageUrl);
+  int get hashCode => Object.hash(runtimeType, total, perPage, currentPage,
+      lastPage, firstPageUrl, lastPageUrl, nextPageUrl, previousPageUrl);
 
   /// Create a copy of Meta
   /// with the given fields replaced by the non-null parameter values.
@@ -316,20 +289,20 @@ class _$MetaImpl implements _Meta {
 
 abstract class _Meta implements Meta {
   const factory _Meta(
-      {required final int total,
-      @JsonKey(name: 'per_page') required final int perPage,
-      @JsonKey(name: 'current_page') required final int currentPage,
-      @JsonKey(name: 'last_page') required final int lastPage,
-      @JsonKey(name: 'first_page') required final int firstPage,
-      @JsonKey(name: 'first_page_url') required final String? firstPageUrl,
-      @JsonKey(name: 'last_page_url') required final String? lastPageUrl,
-      @JsonKey(name: 'next_page_url') required final String? nextPageUrl,
-      @JsonKey(name: 'previous_page_url')
-      required final String? previousPageUrl}) = _$MetaImpl;
+          {@JsonKey(name: 'total') required final int total,
+          @JsonKey(name: 'per_page') required final int perPage,
+          @JsonKey(name: 'current_page') required final int currentPage,
+          @JsonKey(name: 'last_page') required final int lastPage,
+          @JsonKey(name: 'first_page_url') final String? firstPageUrl,
+          @JsonKey(name: 'last_page_url') final String? lastPageUrl,
+          @JsonKey(name: 'next_page_url') final String? nextPageUrl,
+          @JsonKey(name: 'previous_page_url') final String? previousPageUrl}) =
+      _$MetaImpl;
 
   factory _Meta.fromJson(Map<String, dynamic> json) = _$MetaImpl.fromJson;
 
   @override
+  @JsonKey(name: 'total')
   int get total;
   @override
   @JsonKey(name: 'per_page')
@@ -340,9 +313,6 @@ abstract class _Meta implements Meta {
   @override
   @JsonKey(name: 'last_page')
   int get lastPage;
-  @override
-  @JsonKey(name: 'first_page')
-  int get firstPage;
   @override
   @JsonKey(name: 'first_page_url')
   String? get firstPageUrl;

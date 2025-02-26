@@ -35,8 +35,12 @@ mixin _$MotorDisponibility {
   @JsonKey(name: 'type_moteur')
   MotorType get typeMoteur => throw _privateConstructorUsedError;
 
+  /// Serializes this MotorDisponibility to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MotorDisponibility
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MotorDisponibilityCopyWith<MotorDisponibility> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -69,6 +73,8 @@ class _$MotorDisponibilityCopyWithImpl<$Res, $Val extends MotorDisponibility>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MotorDisponibility
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -112,6 +118,8 @@ class _$MotorDisponibilityCopyWithImpl<$Res, $Val extends MotorDisponibility>
     ) as $Val);
   }
 
+  /// Create a copy of MotorDisponibility
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $MotorTypeCopyWith<$Res> get typeMoteur {
@@ -150,6 +158,8 @@ class __$$MotorDisponibilityImplCopyWithImpl<$Res>
       $Res Function(_$MotorDisponibilityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MotorDisponibility
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -258,7 +268,7 @@ class _$MotorDisponibilityImpl implements _MotorDisponibility {
                 other.typeMoteur == typeMoteur));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -270,7 +280,9 @@ class _$MotorDisponibilityImpl implements _MotorDisponibility {
       updatedAt,
       typeMoteur);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MotorDisponibility
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MotorDisponibilityImplCopyWith<_$MotorDisponibilityImpl> get copyWith =>
@@ -321,8 +333,11 @@ abstract class _MotorDisponibility implements MotorDisponibility {
   @override
   @JsonKey(name: 'type_moteur')
   MotorType get typeMoteur;
+
+  /// Create a copy of MotorDisponibility
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MotorDisponibilityImplCopyWith<_$MotorDisponibilityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

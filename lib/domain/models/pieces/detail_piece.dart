@@ -1,7 +1,11 @@
 import 'package:autocyr/domain/models/commons/engin_type.dart';
 import 'package:autocyr/domain/models/core/article.dart';
+import 'package:autocyr/domain/models/pieces/disponibilities/auto_disponibility.dart';
+import 'package:autocyr/domain/models/pieces/disponibilities/category_disponibility.dart';
+import 'package:autocyr/domain/models/pieces/disponibilities/motor_disponibility.dart';
 import 'package:autocyr/domain/models/pieces/make.dart';
 import 'package:autocyr/domain/models/pieces/piece.dart';
+import 'package:autocyr/domain/models/profile/partenaire.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'detail_piece.freezed.dart';
@@ -24,7 +28,11 @@ class DetailPiece with _$DetailPiece {
     @JsonKey(name: 'updated_at') required DateTime updatedAt,
     @JsonKey(name: 'piece') Piece? piece,
     @JsonKey(name: 'article') Article? article,
-    @JsonKey(name: 'type_engin') required EnginType typeEngin
+    @JsonKey(name: 'type_engin') required EnginType typeEngin,
+    @JsonKey(name: 'partenaire') required Partenaire partenaire,
+    @JsonKey(name: 'autos') List<AutoDisponibility>? autos,
+    @JsonKey(name: 'moteurs') List<MotorDisponibility>? moteurs,
+    @JsonKey(name: 'categories') List<CategoryDisponibility>? categories,
   }) = _DetailPiece;
 
   factory DetailPiece.fromJson(Map<String, dynamic> json) => _$DetailPieceFromJson(json);

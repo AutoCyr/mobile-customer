@@ -50,9 +50,22 @@ mixin _$DetailPiece {
   Article? get article => throw _privateConstructorUsedError;
   @JsonKey(name: 'type_engin')
   EnginType get typeEngin => throw _privateConstructorUsedError;
+  @JsonKey(name: 'partenaire')
+  Partenaire get partenaire => throw _privateConstructorUsedError;
+  @JsonKey(name: 'autos')
+  List<AutoDisponibility>? get autos => throw _privateConstructorUsedError;
+  @JsonKey(name: 'moteurs')
+  List<MotorDisponibility>? get moteurs => throw _privateConstructorUsedError;
+  @JsonKey(name: 'categories')
+  List<CategoryDisponibility>? get categories =>
+      throw _privateConstructorUsedError;
 
+  /// Serializes this DetailPiece to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DetailPiece
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DetailPieceCopyWith<DetailPiece> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -78,11 +91,16 @@ abstract class $DetailPieceCopyWith<$Res> {
       @JsonKey(name: 'updated_at') DateTime updatedAt,
       @JsonKey(name: 'piece') Piece? piece,
       @JsonKey(name: 'article') Article? article,
-      @JsonKey(name: 'type_engin') EnginType typeEngin});
+      @JsonKey(name: 'type_engin') EnginType typeEngin,
+      @JsonKey(name: 'partenaire') Partenaire partenaire,
+      @JsonKey(name: 'autos') List<AutoDisponibility>? autos,
+      @JsonKey(name: 'moteurs') List<MotorDisponibility>? moteurs,
+      @JsonKey(name: 'categories') List<CategoryDisponibility>? categories});
 
   $PieceCopyWith<$Res>? get piece;
   $ArticleCopyWith<$Res>? get article;
   $EnginTypeCopyWith<$Res> get typeEngin;
+  $PartenaireCopyWith<$Res> get partenaire;
 }
 
 /// @nodoc
@@ -95,6 +113,8 @@ class _$DetailPieceCopyWithImpl<$Res, $Val extends DetailPiece>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DetailPiece
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -113,6 +133,10 @@ class _$DetailPieceCopyWithImpl<$Res, $Val extends DetailPiece>
     Object? piece = freezed,
     Object? article = freezed,
     Object? typeEngin = null,
+    Object? partenaire = null,
+    Object? autos = freezed,
+    Object? moteurs = freezed,
+    Object? categories = freezed,
   }) {
     return _then(_value.copyWith(
       detailPieceId: null == detailPieceId
@@ -175,9 +199,27 @@ class _$DetailPieceCopyWithImpl<$Res, $Val extends DetailPiece>
           ? _value.typeEngin
           : typeEngin // ignore: cast_nullable_to_non_nullable
               as EnginType,
+      partenaire: null == partenaire
+          ? _value.partenaire
+          : partenaire // ignore: cast_nullable_to_non_nullable
+              as Partenaire,
+      autos: freezed == autos
+          ? _value.autos
+          : autos // ignore: cast_nullable_to_non_nullable
+              as List<AutoDisponibility>?,
+      moteurs: freezed == moteurs
+          ? _value.moteurs
+          : moteurs // ignore: cast_nullable_to_non_nullable
+              as List<MotorDisponibility>?,
+      categories: freezed == categories
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<CategoryDisponibility>?,
     ) as $Val);
   }
 
+  /// Create a copy of DetailPiece
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PieceCopyWith<$Res>? get piece {
@@ -190,6 +232,8 @@ class _$DetailPieceCopyWithImpl<$Res, $Val extends DetailPiece>
     });
   }
 
+  /// Create a copy of DetailPiece
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ArticleCopyWith<$Res>? get article {
@@ -202,11 +246,23 @@ class _$DetailPieceCopyWithImpl<$Res, $Val extends DetailPiece>
     });
   }
 
+  /// Create a copy of DetailPiece
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $EnginTypeCopyWith<$Res> get typeEngin {
     return $EnginTypeCopyWith<$Res>(_value.typeEngin, (value) {
       return _then(_value.copyWith(typeEngin: value) as $Val);
+    });
+  }
+
+  /// Create a copy of DetailPiece
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PartenaireCopyWith<$Res> get partenaire {
+    return $PartenaireCopyWith<$Res>(_value.partenaire, (value) {
+      return _then(_value.copyWith(partenaire: value) as $Val);
     });
   }
 }
@@ -234,7 +290,11 @@ abstract class _$$DetailPieceImplCopyWith<$Res>
       @JsonKey(name: 'updated_at') DateTime updatedAt,
       @JsonKey(name: 'piece') Piece? piece,
       @JsonKey(name: 'article') Article? article,
-      @JsonKey(name: 'type_engin') EnginType typeEngin});
+      @JsonKey(name: 'type_engin') EnginType typeEngin,
+      @JsonKey(name: 'partenaire') Partenaire partenaire,
+      @JsonKey(name: 'autos') List<AutoDisponibility>? autos,
+      @JsonKey(name: 'moteurs') List<MotorDisponibility>? moteurs,
+      @JsonKey(name: 'categories') List<CategoryDisponibility>? categories});
 
   @override
   $PieceCopyWith<$Res>? get piece;
@@ -242,6 +302,8 @@ abstract class _$$DetailPieceImplCopyWith<$Res>
   $ArticleCopyWith<$Res>? get article;
   @override
   $EnginTypeCopyWith<$Res> get typeEngin;
+  @override
+  $PartenaireCopyWith<$Res> get partenaire;
 }
 
 /// @nodoc
@@ -252,6 +314,8 @@ class __$$DetailPieceImplCopyWithImpl<$Res>
       _$DetailPieceImpl _value, $Res Function(_$DetailPieceImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DetailPiece
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -270,6 +334,10 @@ class __$$DetailPieceImplCopyWithImpl<$Res>
     Object? piece = freezed,
     Object? article = freezed,
     Object? typeEngin = null,
+    Object? partenaire = null,
+    Object? autos = freezed,
+    Object? moteurs = freezed,
+    Object? categories = freezed,
   }) {
     return _then(_$DetailPieceImpl(
       detailPieceId: null == detailPieceId
@@ -332,6 +400,22 @@ class __$$DetailPieceImplCopyWithImpl<$Res>
           ? _value.typeEngin
           : typeEngin // ignore: cast_nullable_to_non_nullable
               as EnginType,
+      partenaire: null == partenaire
+          ? _value.partenaire
+          : partenaire // ignore: cast_nullable_to_non_nullable
+              as Partenaire,
+      autos: freezed == autos
+          ? _value._autos
+          : autos // ignore: cast_nullable_to_non_nullable
+              as List<AutoDisponibility>?,
+      moteurs: freezed == moteurs
+          ? _value._moteurs
+          : moteurs // ignore: cast_nullable_to_non_nullable
+              as List<MotorDisponibility>?,
+      categories: freezed == categories
+          ? _value._categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<CategoryDisponibility>?,
     ));
   }
 }
@@ -354,7 +438,15 @@ class _$DetailPieceImpl implements _DetailPiece {
       @JsonKey(name: 'updated_at') required this.updatedAt,
       @JsonKey(name: 'piece') this.piece,
       @JsonKey(name: 'article') this.article,
-      @JsonKey(name: 'type_engin') required this.typeEngin});
+      @JsonKey(name: 'type_engin') required this.typeEngin,
+      @JsonKey(name: 'partenaire') required this.partenaire,
+      @JsonKey(name: 'autos') final List<AutoDisponibility>? autos,
+      @JsonKey(name: 'moteurs') final List<MotorDisponibility>? moteurs,
+      @JsonKey(name: 'categories')
+      final List<CategoryDisponibility>? categories})
+      : _autos = autos,
+        _moteurs = moteurs,
+        _categories = categories;
 
   factory _$DetailPieceImpl.fromJson(Map<String, dynamic> json) =>
       _$$DetailPieceImplFromJson(json);
@@ -404,10 +496,45 @@ class _$DetailPieceImpl implements _DetailPiece {
   @override
   @JsonKey(name: 'type_engin')
   final EnginType typeEngin;
+  @override
+  @JsonKey(name: 'partenaire')
+  final Partenaire partenaire;
+  final List<AutoDisponibility>? _autos;
+  @override
+  @JsonKey(name: 'autos')
+  List<AutoDisponibility>? get autos {
+    final value = _autos;
+    if (value == null) return null;
+    if (_autos is EqualUnmodifiableListView) return _autos;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<MotorDisponibility>? _moteurs;
+  @override
+  @JsonKey(name: 'moteurs')
+  List<MotorDisponibility>? get moteurs {
+    final value = _moteurs;
+    if (value == null) return null;
+    if (_moteurs is EqualUnmodifiableListView) return _moteurs;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<CategoryDisponibility>? _categories;
+  @override
+  @JsonKey(name: 'categories')
+  List<CategoryDisponibility>? get categories {
+    final value = _categories;
+    if (value == null) return null;
+    if (_categories is EqualUnmodifiableListView) return _categories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'DetailPiece(detailPieceId: $detailPieceId, partenaireId: $partenaireId, pieceId: $pieceId, articleId: $articleId, typeEnginId: $typeEnginId, prixPiece: $prixPiece, garantie: $garantie, autres: $autres, imagePiece: $imagePiece, statut: $statut, createdAt: $createdAt, updatedAt: $updatedAt, piece: $piece, article: $article, typeEngin: $typeEngin)';
+    return 'DetailPiece(detailPieceId: $detailPieceId, partenaireId: $partenaireId, pieceId: $pieceId, articleId: $articleId, typeEnginId: $typeEnginId, prixPiece: $prixPiece, garantie: $garantie, autres: $autres, imagePiece: $imagePiece, statut: $statut, createdAt: $createdAt, updatedAt: $updatedAt, piece: $piece, article: $article, typeEngin: $typeEngin, partenaire: $partenaire, autos: $autos, moteurs: $moteurs, categories: $categories)';
   }
 
   @override
@@ -439,30 +566,43 @@ class _$DetailPieceImpl implements _DetailPiece {
             (identical(other.piece, piece) || other.piece == piece) &&
             (identical(other.article, article) || other.article == article) &&
             (identical(other.typeEngin, typeEngin) ||
-                other.typeEngin == typeEngin));
+                other.typeEngin == typeEngin) &&
+            (identical(other.partenaire, partenaire) ||
+                other.partenaire == partenaire) &&
+            const DeepCollectionEquality().equals(other._autos, _autos) &&
+            const DeepCollectionEquality().equals(other._moteurs, _moteurs) &&
+            const DeepCollectionEquality()
+                .equals(other._categories, _categories));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      detailPieceId,
-      partenaireId,
-      pieceId,
-      articleId,
-      typeEnginId,
-      prixPiece,
-      garantie,
-      autres,
-      imagePiece,
-      statut,
-      createdAt,
-      updatedAt,
-      piece,
-      article,
-      typeEngin);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        detailPieceId,
+        partenaireId,
+        pieceId,
+        articleId,
+        typeEnginId,
+        prixPiece,
+        garantie,
+        autres,
+        imagePiece,
+        statut,
+        createdAt,
+        updatedAt,
+        piece,
+        article,
+        typeEngin,
+        partenaire,
+        const DeepCollectionEquality().hash(_autos),
+        const DeepCollectionEquality().hash(_moteurs),
+        const DeepCollectionEquality().hash(_categories)
+      ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DetailPiece
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DetailPieceImplCopyWith<_$DetailPieceImpl> get copyWith =>
@@ -478,22 +618,26 @@ class _$DetailPieceImpl implements _DetailPiece {
 
 abstract class _DetailPiece implements DetailPiece {
   const factory _DetailPiece(
-          {@JsonKey(name: 'detail_piece_id') required final int detailPieceId,
-          @JsonKey(name: 'partenaire_id') required final int partenaireId,
-          @JsonKey(name: 'piece_id') final int? pieceId,
-          @JsonKey(name: 'article_id') final int? articleId,
-          @JsonKey(name: 'type_engin_id') required final int typeEnginId,
-          @JsonKey(name: 'prix_piece') required final int prixPiece,
-          @JsonKey(name: 'garantie') required final int garantie,
-          @JsonKey(name: 'autres') final String? autres,
-          @JsonKey(name: 'image_piece') required final String imagePiece,
-          @JsonKey(name: 'statut') required final int statut,
-          @JsonKey(name: 'created_at') required final DateTime createdAt,
-          @JsonKey(name: 'updated_at') required final DateTime updatedAt,
-          @JsonKey(name: 'piece') final Piece? piece,
-          @JsonKey(name: 'article') final Article? article,
-          @JsonKey(name: 'type_engin') required final EnginType typeEngin}) =
-      _$DetailPieceImpl;
+      {@JsonKey(name: 'detail_piece_id') required final int detailPieceId,
+      @JsonKey(name: 'partenaire_id') required final int partenaireId,
+      @JsonKey(name: 'piece_id') final int? pieceId,
+      @JsonKey(name: 'article_id') final int? articleId,
+      @JsonKey(name: 'type_engin_id') required final int typeEnginId,
+      @JsonKey(name: 'prix_piece') required final int prixPiece,
+      @JsonKey(name: 'garantie') required final int garantie,
+      @JsonKey(name: 'autres') final String? autres,
+      @JsonKey(name: 'image_piece') required final String imagePiece,
+      @JsonKey(name: 'statut') required final int statut,
+      @JsonKey(name: 'created_at') required final DateTime createdAt,
+      @JsonKey(name: 'updated_at') required final DateTime updatedAt,
+      @JsonKey(name: 'piece') final Piece? piece,
+      @JsonKey(name: 'article') final Article? article,
+      @JsonKey(name: 'type_engin') required final EnginType typeEngin,
+      @JsonKey(name: 'partenaire') required final Partenaire partenaire,
+      @JsonKey(name: 'autos') final List<AutoDisponibility>? autos,
+      @JsonKey(name: 'moteurs') final List<MotorDisponibility>? moteurs,
+      @JsonKey(name: 'categories')
+      final List<CategoryDisponibility>? categories}) = _$DetailPieceImpl;
 
   factory _DetailPiece.fromJson(Map<String, dynamic> json) =
       _$DetailPieceImpl.fromJson;
@@ -544,7 +688,22 @@ abstract class _DetailPiece implements DetailPiece {
   @JsonKey(name: 'type_engin')
   EnginType get typeEngin;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: 'partenaire')
+  Partenaire get partenaire;
+  @override
+  @JsonKey(name: 'autos')
+  List<AutoDisponibility>? get autos;
+  @override
+  @JsonKey(name: 'moteurs')
+  List<MotorDisponibility>? get moteurs;
+  @override
+  @JsonKey(name: 'categories')
+  List<CategoryDisponibility>? get categories;
+
+  /// Create a copy of DetailPiece
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DetailPieceImplCopyWith<_$DetailPieceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

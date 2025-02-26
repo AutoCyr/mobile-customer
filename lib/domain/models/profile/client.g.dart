@@ -16,6 +16,9 @@ _$ClientImpl _$$ClientImplFromJson(Map<String, dynamic> json) => _$ClientImpl(
       adressesClient: (json['adresses_client'] as List<dynamic>?)
           ?.map((e) => Address.fromJson(e as Map<String, dynamic>))
           .toList(),
+      pays: json['pays'] == null
+          ? null
+          : Country.fromJson(json['pays'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ClientImplToJson(_$ClientImpl instance) =>
@@ -27,4 +30,5 @@ Map<String, dynamic> _$$ClientImplToJson(_$ClientImpl instance) =>
       'telephone_1': instance.telephone1,
       'telephone_2': instance.telephone2,
       'adresses_client': instance.adressesClient,
+      'pays': instance.pays,
     };

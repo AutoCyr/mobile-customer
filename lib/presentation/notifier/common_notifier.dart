@@ -6,7 +6,10 @@ import 'package:autocyr/domain/models/commons/engin_category.dart';
 import 'package:autocyr/domain/models/commons/engin_type.dart';
 import 'package:autocyr/domain/models/commons/motor_type.dart';
 import 'package:autocyr/domain/models/commons/partner_type.dart';
+import 'package:autocyr/domain/models/core/article.dart';
+import 'package:autocyr/domain/models/core/category.dart';
 import 'package:autocyr/domain/models/core/plan.dart';
+import 'package:autocyr/domain/models/core/subcategory.dart';
 import 'package:autocyr/domain/models/response/failure.dart';
 import 'package:autocyr/domain/models/response/success.dart';
 import 'package:autocyr/domain/usecases/common_usecase.dart';
@@ -38,6 +41,12 @@ class CommonNotifier extends ChangeNotifier {
   List<EnginType> _enginTypes = [];
   MotorType? motorType;
   List<MotorType> _motorTypes = [];
+  Category? category;
+  List<Category> _categories = [];
+  Subcategory? subcategory;
+  List<Subcategory> _subcategories = [];
+  Article? article;
+  List<Article> _articles = [];
 
   bool get filling => _filling;
   bool get loading => _loading;
@@ -59,6 +68,12 @@ class CommonNotifier extends ChangeNotifier {
   List<EnginType> get enginTypes => _enginTypes;
   MotorType? get getMotorType => motorType;
   List<MotorType> get motorTypes => _motorTypes;
+  Category? get getCategory => category;
+  List<Category> get categories => _categories;
+  Subcategory? get getSubcategory => subcategory;
+  List<Subcategory> get subcategories => _subcategories;
+  Article? get getArticle => article;
+  List<Article> get articles => _articles;
 
   setFilling(bool value) {
     _filling = value;
@@ -157,6 +172,36 @@ class CommonNotifier extends ChangeNotifier {
 
   setMotorTypes(List<MotorType> value) {
     _motorTypes = value;
+    notifyListeners();
+  }
+
+  setCategory(Category value) {
+    category = value;
+    notifyListeners();
+  }
+
+  setCategories(List<Category> value) {
+    _categories = value;
+    notifyListeners();
+  }
+
+  setSubcategory(Subcategory value) {
+    subcategory = value;
+    notifyListeners();
+  }
+
+  setSubcategories(List<Subcategory> value) {
+    _subcategories = value;
+    notifyListeners();
+  }
+
+  setArticle(Article value) {
+    article = value;
+    notifyListeners();
+  }
+
+  setArticles(List<Article> value) {
+    _articles = value;
     notifyListeners();
   }
 
@@ -374,6 +419,93 @@ class CommonNotifier extends ChangeNotifier {
         Failure failure = Failure.fromJson(data);
 
         if (context.mounted) {
+          Snacks.failureBar(failure.message, context);
+        }
+        setFilling(false);
+      }
+    } catch (e) {
+      setFilling(false);
+      debugPrint(e.toString());
+    }
+  }
+
+  Future retrieveCategories({required BuildContext context}) async {
+    setFilling(true);
+
+    try {
+      var data = await commonUseCase.getCategories();
+
+      if(data['error'] == false) {
+        Success success = Success.fromJson(data);
+
+        List<Category> categories = [];
+        for(var category in success.data){
+          categories.add(Category.fromJson(category));
+        }
+        setCategories(categories);
+        setFilling(false);
+      } else {
+        Failure failure = Failure.fromJson(data);
+
+        if(context.mounted) {
+          Snacks.failureBar(failure.message, context);
+        }
+        setFilling(false);
+      }
+    } catch (e) {
+      setFilling(false);
+      debugPrint(e.toString());
+    }
+  }
+
+  Future retrieveSubcategories({required BuildContext context}) async {
+    setFilling(true);
+
+    try {
+      var data = await commonUseCase.getSubCategories();
+
+      if(data['error'] == false) {
+        Success success = Success.fromJson(data);
+
+        List<Subcategory> subcategories = [];
+        for(var subcategory in success.data){
+          subcategories.add(Subcategory.fromJson(subcategory));
+        }
+        setSubcategories(subcategories);
+        setFilling(false);
+      } else {
+        Failure failure = Failure.fromJson(data);
+
+        if(context.mounted) {
+          Snacks.failureBar(failure.message, context);
+        }
+        setFilling(false);
+      }
+    } catch (e) {
+      setFilling(false);
+      debugPrint(e.toString());
+    }
+  }
+
+  Future retrieveArticles({required BuildContext context}) async {
+    setFilling(true);
+
+    try {
+      var data = await commonUseCase.getArticles();
+
+      if(data['error'] == false) {
+        Success success = Success.fromJson(data);
+
+        List<Article> articles = [];
+        for(var article in success.data){
+          articles.add(Article.fromJson(article));
+        }
+        setArticles(articles);
+        setFilling(false);
+      } else {
+        Failure failure = Failure.fromJson(data);
+
+        if(context.mounted) {
           Snacks.failureBar(failure.message, context);
         }
         setFilling(false);

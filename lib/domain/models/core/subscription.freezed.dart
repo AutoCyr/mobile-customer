@@ -39,8 +39,12 @@ mixin _$Subscription {
   @JsonKey(name: 'created_at')
   String? get createdAt => throw _privateConstructorUsedError;
 
+  /// Serializes this Subscription to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Subscription
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SubscriptionCopyWith<Subscription> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -73,6 +77,8 @@ class _$SubscriptionCopyWithImpl<$Res, $Val extends Subscription>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Subscription
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -155,6 +161,8 @@ class __$$SubscriptionImplCopyWithImpl<$Res>
       _$SubscriptionImpl _value, $Res Function(_$SubscriptionImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Subscription
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -282,7 +290,7 @@ class _$SubscriptionImpl implements _Subscription {
                 other.createdAt == createdAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -296,7 +304,9 @@ class _$SubscriptionImpl implements _Subscription {
       updatedAt,
       createdAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Subscription
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SubscriptionImplCopyWith<_$SubscriptionImpl> get copyWith =>
@@ -354,8 +364,11 @@ abstract class _Subscription implements Subscription {
   @override
   @JsonKey(name: 'created_at')
   String? get createdAt;
+
+  /// Create a copy of Subscription
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SubscriptionImplCopyWith<_$SubscriptionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

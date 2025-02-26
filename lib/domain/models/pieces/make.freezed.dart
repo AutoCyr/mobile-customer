@@ -33,8 +33,12 @@ mixin _$Make {
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt => throw _privateConstructorUsedError;
 
+  /// Serializes this Make to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Make
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MakeCopyWith<Make> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -62,6 +66,8 @@ class _$MakeCopyWithImpl<$Res, $Val extends Make>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Make
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -124,6 +130,8 @@ class __$$MakeImplCopyWithImpl<$Res>
   __$$MakeImplCopyWithImpl(_$MakeImpl _value, $Res Function(_$MakeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Make
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -217,12 +225,14 @@ class _$MakeImpl implements _Make {
                 other.updatedAt == updatedAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, name, typeMarque, statut, createdAt, updatedAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Make
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MakeImplCopyWith<_$MakeImpl> get copyWith =>
@@ -266,8 +276,11 @@ abstract class _Make implements Make {
   @override
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
+
+  /// Create a copy of Make
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MakeImplCopyWith<_$MakeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

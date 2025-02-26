@@ -35,8 +35,12 @@ mixin _$MakeCompatibility {
   @JsonKey(name: 'marque')
   Make get marque => throw _privateConstructorUsedError;
 
+  /// Serializes this MakeCompatibility to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MakeCompatibility
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MakeCompatibilityCopyWith<MakeCompatibility> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -69,6 +73,8 @@ class _$MakeCompatibilityCopyWithImpl<$Res, $Val extends MakeCompatibility>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MakeCompatibility
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -112,6 +118,8 @@ class _$MakeCompatibilityCopyWithImpl<$Res, $Val extends MakeCompatibility>
     ) as $Val);
   }
 
+  /// Create a copy of MakeCompatibility
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $MakeCopyWith<$Res> get marque {
@@ -150,6 +158,8 @@ class __$$MakeCompatibilityImplCopyWithImpl<$Res>
       $Res Function(_$MakeCompatibilityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MakeCompatibility
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -257,12 +267,14 @@ class _$MakeCompatibilityImpl implements _MakeCompatibility {
             (identical(other.marque, marque) || other.marque == marque));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, compatibiliteMarqueId,
       detailPieceId, marqueId, partenaireId, createdAt, updatedAt, marque);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MakeCompatibility
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MakeCompatibilityImplCopyWith<_$MakeCompatibilityImpl> get copyWith =>
@@ -313,8 +325,11 @@ abstract class _MakeCompatibility implements MakeCompatibility {
   @override
   @JsonKey(name: 'marque')
   Make get marque;
+
+  /// Create a copy of MakeCompatibility
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MakeCompatibilityImplCopyWith<_$MakeCompatibilityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

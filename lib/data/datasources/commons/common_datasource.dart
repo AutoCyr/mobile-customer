@@ -14,4 +14,10 @@ abstract class CommonDataSource {
   Future getEnginTypes();
 
   Future getMoteurTypes();
+
+  Future getCategories();
+
+  Future getSubCategories();
+
+  Future getArticles();
 }

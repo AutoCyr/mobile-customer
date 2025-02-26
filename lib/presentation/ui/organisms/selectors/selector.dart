@@ -3,6 +3,7 @@ import 'package:autocyr/presentation/ui/atoms/labels/label10.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label13.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label17.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
+import 'package:autocyr/presentation/ui/helpers/box.dart';
 import 'package:autocyr/presentation/ui/helpers/ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +108,7 @@ class BottomSelector {
                         builder: (context, auth, child) {
                           return GestureDetector(
                             onTap: () {
-                              UiTools().confirmLogoutBox(
+                              Box().confirmLogoutBox(
                                   context: context,
                                   function: () => auth.logout(context: context)
                               );

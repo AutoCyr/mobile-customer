@@ -33,9 +33,6 @@ void main() async {
   );
   await Notifications().initNotifications();
 
-  String token = await Preferences().getString("token");
-  print(token);
-
   ApiClient apiClient = ApiClient();
 
   AuthDataSourceImpl authDataSourceImpl = AuthDataSourceImpl(apiClient);

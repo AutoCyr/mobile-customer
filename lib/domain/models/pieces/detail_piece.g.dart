@@ -27,6 +27,18 @@ _$DetailPieceImpl _$$DetailPieceImplFromJson(Map<String, dynamic> json) =>
           ? null
           : Article.fromJson(json['article'] as Map<String, dynamic>),
       typeEngin: EnginType.fromJson(json['type_engin'] as Map<String, dynamic>),
+      partenaire:
+          Partenaire.fromJson(json['partenaire'] as Map<String, dynamic>),
+      autos: (json['autos'] as List<dynamic>?)
+          ?.map((e) => AutoDisponibility.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      moteurs: (json['moteurs'] as List<dynamic>?)
+          ?.map((e) => MotorDisponibility.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      categories: (json['categories'] as List<dynamic>?)
+          ?.map(
+              (e) => CategoryDisponibility.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$DetailPieceImplToJson(_$DetailPieceImpl instance) =>
@@ -46,4 +58,8 @@ Map<String, dynamic> _$$DetailPieceImplToJson(_$DetailPieceImpl instance) =>
       'piece': instance.piece,
       'article': instance.article,
       'type_engin': instance.typeEngin,
+      'partenaire': instance.partenaire,
+      'autos': instance.autos,
+      'moteurs': instance.moteurs,
+      'categories': instance.categories,
     };

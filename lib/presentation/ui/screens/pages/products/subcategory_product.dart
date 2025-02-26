@@ -1,5 +1,6 @@
-import 'dart:math';
-
+import 'package:autocyr/data/helpers/preferences.dart';
+import 'package:autocyr/domain/models/commons/engin_type.dart';
+import 'package:autocyr/domain/models/core/subcategory.dart';
 import 'package:autocyr/domain/models/pieces/detail_piece.dart';
 import 'package:autocyr/presentation/notifier/auth_notifier.dart';
 import 'package:autocyr/presentation/notifier/customer_notifier.dart';
@@ -16,14 +17,15 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:refresh_loadmore/refresh_loadmore.dart';
 
-class StoreScreen extends StatefulWidget {
-  const StoreScreen({super.key});
+class SubcategoryProductScreen extends StatefulWidget {
+  final Subcategory subcategory;
+  const SubcategoryProductScreen({super.key, required this.subcategory});
 
   @override
-  State<StoreScreen> createState() => _StoreScreenState();
+  State<SubcategoryProductScreen> createState() => _SubcategoryProductScreenState();
 }
 
-class _StoreScreenState extends State<StoreScreen> {
+class _SubcategoryProductScreenState extends State<SubcategoryProductScreen> {
 
   int view = 0;
   bool _search = false;
@@ -37,6 +39,7 @@ class _StoreScreenState extends State<StoreScreen> {
     Map<String, dynamic> params = {
       "page": view,
       "limit": 50,
+      "subcategory_id": widget.subcategory.id,
       "country_id": auth.getCountry.id
     };
     return params;
@@ -46,8 +49,8 @@ class _StoreScreenState extends State<StoreScreen> {
     final customer = Provider.of<CustomerNotifier>(context, listen: false);
 
     Map<String, dynamic> params = getParams(view);
-    await customer.retrievePieces(context: context, params: params, more: more);
-    filteredPieces = pieces = customer.pieces;
+    await customer.retrieveSubcategoryPieces(context: context, params: params, more: more);
+    filteredPieces = pieces = customer.subcategoryPieces;
   }
 
   void filterList(String searchQuery) {
@@ -127,7 +130,7 @@ class _StoreScreenState extends State<StoreScreen> {
       appBar: AppBar(
         backgroundColor: GlobalThemeData.lightColorScheme.onTertiary,
         title: _search == false ?
-          Label14(text: "Articles", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+          Label14(text: "Articles de ${widget.subcategory.name.toLowerCase()}", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
             :
           SizedBox(
             height: 45,
@@ -138,15 +141,15 @@ class _StoreScreenState extends State<StoreScreen> {
                   fillColor: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
                   focusColor: GlobalThemeData.lightColorScheme.tertiary,
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: GlobalThemeData.lightColorScheme.tertiary,
-                      width: 2
-                    )
+                      borderSide: BorderSide(
+                          color: GlobalThemeData.lightColorScheme.tertiary,
+                          width: 2
+                      )
                   ),
                   labelText: "Rechercher",
                   labelStyle: TextStyle(
-                    color: GlobalThemeData.lightColorScheme.tertiary,
-                    fontSize: 13
+                      color: GlobalThemeData.lightColorScheme.tertiary,
+                      fontSize: 13
                   )
               ),
               style: const TextStyle(
@@ -230,7 +233,7 @@ class _StoreScreenState extends State<StoreScreen> {
                   bgColor: GlobalThemeData.lightColorScheme.onTertiary,
                   shimmerColor: GlobalThemeData.lightColorScheme.tertiary
               ).animate().fadeIn(),
-              isLastPage: customer.pieceMeta.currentPage < customer.pieceMeta.lastPage ? false : true,
+              isLastPage: customer.subcategoryPieceMeta.currentPage < customer.subcategoryPieceMeta.lastPage ? false : true,
               child: GridView.count(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                 shrinkWrap: true,

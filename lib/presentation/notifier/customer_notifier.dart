@@ -1,6 +1,10 @@
 import 'package:autocyr/domain/models/pieces/detail_piece.dart';
+import 'package:autocyr/domain/models/pieces/disponibilities/auto_disponibility.dart';
+import 'package:autocyr/domain/models/pieces/disponibilities/category_disponibility.dart';
+import 'package:autocyr/domain/models/pieces/disponibilities/motor_disponibility.dart';
 import 'package:autocyr/domain/models/pieces/piece_info.dart';
 import 'package:autocyr/domain/models/response/failure.dart';
+import 'package:autocyr/domain/models/response/meta.dart';
 import 'package:autocyr/domain/models/response/success.dart';
 import 'package:autocyr/domain/usecases/customer_usecase.dart';
 import 'package:autocyr/presentation/notifier/auth_notifier.dart';
@@ -14,17 +18,37 @@ class CustomerNotifier extends ChangeNotifier {
 
   bool _filling = false;
   bool _loading = false;
+  bool _action = false;
   String _errorPieces = "";
   String _errorPiece = "";
+  Meta? _pieceMeta;
+  Meta? _typePieceMeta;
+  Meta? _subcategoryPieceMeta;
+  Meta? _commandeMeta;
   PieceInfo? _piece;
   List<DetailPiece> _pieces = [];
+  List<DetailPiece> _typePieces = [];
+  List<DetailPiece> _subcategoryPieces = [];
+  List<int> _autoFilters = [];
+  List<int> _motorFilters = [];
+  List<int> _categoryFilters = [];
 
   bool get filling => _filling;
   bool get loading => _loading;
+  bool get action => _action;
   String get errorPieces => _errorPieces;
   String get errorPiece => _errorPiece;
+  Meta get pieceMeta => _pieceMeta!;
+  Meta get typePieceMeta => _typePieceMeta!;
+  Meta get subcategoryPieceMeta => _subcategoryPieceMeta!;
+  Meta get commandeMeta => _commandeMeta!;
   PieceInfo? get piece => _piece;
   List<DetailPiece> get pieces => _pieces;
+  List<DetailPiece> get typePieces => _typePieces;
+  List<DetailPiece> get subcategoryPieces => _subcategoryPieces;
+  List<int> get autoFilters => _autoFilters;
+  List<int> get motorFilters => _motorFilters;
+  List<int> get categoryFilters => _categoryFilters;
 
   setFilling(bool value) {
     _filling = value;
@@ -33,6 +57,11 @@ class CustomerNotifier extends ChangeNotifier {
 
   setLoading(bool value) {
     _loading = value;
+    notifyListeners();
+  }
+
+  setAction(bool value) {
+    _action = value;
     notifyListeners();
   }
 
@@ -46,6 +75,26 @@ class CustomerNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  setPieceMeta(Meta value) {
+    _pieceMeta = value;
+    notifyListeners();
+  }
+
+  setTypePieceMeta(Meta value) {
+    _typePieceMeta = value;
+    notifyListeners();
+  }
+
+  setSubcategoryPieceMeta(Meta value) {
+    _subcategoryPieceMeta = value;
+    notifyListeners();
+  }
+
+  setCommandeMeta(Meta value) {
+    _commandeMeta = value;
+    notifyListeners();
+  }
+
   setPiece(PieceInfo value) {
     _piece = value;
     notifyListeners();
@@ -56,36 +105,146 @@ class CustomerNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future retrievePieces({required BuildContext context}) async {
-    setFilling(true);
+  setTypePieces(List<DetailPiece> value) {
+    _typePieces = value;
+    notifyListeners();
+  }
+
+  setSubcategoryPieces(List<DetailPiece> value) {
+    _subcategoryPieces = value;
+    notifyListeners();
+  }
+
+  setAutoFilters(List<int> value) {
+    _autoFilters = value;
+    notifyListeners();
+  }
+
+  setMotorFilters(List<int> value) {
+    _motorFilters = value;
+    notifyListeners();
+  }
+
+  setCategoryFilters(List<int> value) {
+    _categoryFilters = value;
+    notifyListeners();
+  }
+
+  Future retrievePieces({required BuildContext context, required Map<String, dynamic> params, required bool more}) async {
+    more ? setFilling(true) : setLoading(true);
     setErrorPieces("");
 
     try {
-      var data = await customerUseCase.getPieces();
+      var data = await customerUseCase.getPieces(params);
 
       if(data['error'] == false) {
         Success success = Success.fromJson(data);
 
-        List<DetailPiece> pieces = [];
-        for(var piece in success.data) {
-          DetailPiece detailPiece = DetailPiece.fromJson(piece);
-          pieces.add(detailPiece);
+        // fetch pagination datas
+        Meta meta = Meta.fromJson(success.data['meta']);
+        if(meta.currentPage >= meta.lastPage){
+          more ? setFilling(false) : setLoading(false);
         }
-        setPieces(pieces);
-        setFilling(false);
+
+        // add & complete datas
+        List<DetailPiece> localPieces = more ? List.from(pieces) : [];
+        for(var piece in success.data['data']){
+          localPieces.add(DetailPiece.fromJson(piece));
+        }
+
+        setPieces(localPieces);
+        setPieceMeta(meta);
+        more ? setFilling(false) : setLoading(false);
       }else{
         Failure failure = Failure.fromJson(data);
-        setFilling(false);
+
+        more ? setFilling(false) : setLoading(false);
         setErrorPieces(failure.message);
       }
     } catch (e) {
       print(e);
-      setFilling(false);
+      more ? setFilling(false) : setLoading(false);
       setErrorPieces("Une erreur serveur est survenue");
     }
   }
 
-  getPiece({required String id, required BuildContext context}) async {
+  Future retrieveTypePieces({required BuildContext context, required Map<String, dynamic> params, required bool more}) async {
+    more ? setFilling(true) : setLoading(true);
+    setErrorPieces("");
+
+    try {
+      var data = await customerUseCase.getTypePieces(params);
+
+      if(data['error'] == false) {
+        Success success = Success.fromJson(data);
+
+        // fetch pagination datas
+        Meta meta = Meta.fromJson(success.data['meta']);
+        if(meta.currentPage >= meta.lastPage){
+          more ? setFilling(false) : setLoading(false);
+        }
+
+        // add & complete datas
+        List<DetailPiece> localPieces = more ? List.from(typePieces) : [];
+        for(var piece in success.data['data']){
+          localPieces.add(DetailPiece.fromJson(piece));
+        }
+
+        setTypePieces(localPieces);
+        setTypePieceMeta(meta);
+        more ? setFilling(false) : setLoading(false);
+      } else {
+        Failure failure = Failure.fromJson(data);
+
+        more ? setFilling(false) : setLoading(false);
+        setErrorPieces(failure.message);
+      }
+    } catch (e) {
+      print(e);
+      more ? setFilling(false) : setLoading(false);
+      setErrorPieces("Une erreur serveur est survenue");
+    }
+  }
+
+  Future retrieveSubcategoryPieces({required BuildContext context, required Map<String, dynamic> params, required bool more}) async {
+    more ? setFilling(true) : setLoading(true);
+    setErrorPieces("");
+
+    try {
+      var data = await customerUseCase.getSubcategoryPieces(params);
+
+      if(data['error'] == false) {
+        Success success = Success.fromJson(data);
+
+        // fetch pagination datas
+        Meta meta = Meta.fromJson(success.data['meta']);
+        if(meta.currentPage >= meta.lastPage){
+          more ? setFilling(false) : setLoading(false);
+        }
+
+        // add & complete datas
+        List<DetailPiece> localPieces = more ? List.from(subcategoryPieces) : [];
+        for(var piece in success.data['data']){
+          localPieces.add(DetailPiece.fromJson(piece));
+        }
+
+        setSubcategoryPieces(localPieces);
+        setSubcategoryPieceMeta(meta);
+        more ? setFilling(false) : setLoading(false);
+      }else{
+        Failure failure = Failure.fromJson(data);
+
+        more ? setFilling(false) : setLoading(false);
+        setErrorPieces(failure.message);
+      }
+    } catch (e) {
+      print(e);
+      more ? setFilling(false) : setLoading(false);
+      setErrorPieces("Une erreur serveur est survenue");
+    }
+  }
+
+  Future getPiece({required String id, required BuildContext context}) async {
     setLoading(true);
     setErrorPiece("");
 
@@ -111,7 +270,7 @@ class CustomerNotifier extends ChangeNotifier {
     }
   }
 
-  updateAddresses({required Map<String, dynamic> body, required AuthNotifier auth, required BuildContext context}) async {
+  Future updateAddresses({required Map<String, dynamic> body, required AuthNotifier auth, required BuildContext context}) async {
     setLoading(true);
     try {
       var data = await customerUseCase.updateAdresses(body);
@@ -137,6 +296,69 @@ class CustomerNotifier extends ChangeNotifier {
       print(e);
       setLoading(false);
       Snacks.failureBar("Une erreur serveur est survenue", context);
+    }
+  }
+
+  Future createCommande({required Map<String, dynamic> body, required BuildContext context}) async {
+    setAction(true);
+    try {
+      var data = await customerUseCase.createCommande(body);
+
+      if(data['error'] == false) {
+        Success success = Success.fromJson(data);
+
+        setAction(false);
+        if (context.mounted) {
+          Snacks.successBar(success.message, context);
+        }
+      }else{
+        Failure failure = Failure.fromJson(data);
+        if(context.mounted) {
+          Snacks.failureBar(failure.message, context);
+        }
+        setAction(false);
+      }
+    } catch (e) {
+      setAction(false);
+      Snacks.failureBar("Une erreur est survenue", context);
+    }
+  }
+
+  Future retrieveCommandes({required BuildContext context, required Map<String, dynamic> params, required bool more}) async {
+    more ? setFilling(true) : setLoading(true);
+    setErrorPieces("");
+
+    try {
+      var data = await customerUseCase.getCommandes(params);
+
+      if(data['error'] == false) {
+        Success success = Success.fromJson(data);
+
+        // fetch pagination datas
+        Meta meta = Meta.fromJson(success.data['meta']);
+        if(meta.currentPage >= meta.lastPage){
+          more ? setFilling(false) : setLoading(false);
+        }
+
+        /*// add & complete datas
+        List<DetailPiece> localPieces = more ? List.from(subcategoryPieces) : [];
+        for(var piece in success.data['data']){
+          localPieces.add(DetailPiece.fromJson(piece));
+        }
+
+        setSubcategoryPieces(localPieces);*/
+        setCommandeMeta(meta);
+        more ? setFilling(false) : setLoading(false);
+      }else{
+        Failure failure = Failure.fromJson(data);
+
+        more ? setFilling(false) : setLoading(false);
+        setErrorPieces(failure.message);
+      }
+    } catch (e) {
+      print(e);
+      more ? setFilling(false) : setLoading(false);
+      setErrorPieces("Une erreur serveur est survenue");
     }
   }
 

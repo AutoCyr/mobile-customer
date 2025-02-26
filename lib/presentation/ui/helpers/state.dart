@@ -30,21 +30,18 @@ class _StateScreenState extends State<StateScreen> {
           const Gap(20),
           Label12(text: widget.message, color: Colors.black, weight: FontWeight.bold, maxLines: 2,).animate().fadeIn(),const Gap(20),
           if(widget.isError)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: CustomButton(
-                  text: "Actualiser",
-                  size: size,
-                  globalWidth: size.width * 0.9,
-                  widthSize: size.width * 0.87,
-                  backSize: size.width * 0.87,
-                  context: context,
-                  function: () => widget.function!(),
-                  textColor: GlobalThemeData.lightColorScheme.primary,
-                  buttonColor: GlobalThemeData.lightColorScheme.onPrimary,
-                  backColor: GlobalThemeData.lightColorScheme.primary
-              ).animate().fadeIn(),
-            ),
+            CustomButton(
+              text: "Actualiser",
+              size: size,
+              globalWidth: size.width * 0.9,
+              widthSize: size.width * 0.87,
+              backSize: size.width * 0.87,
+              context: context,
+              function: () => widget.function!(),
+              textColor: GlobalThemeData.lightColorScheme.tertiary,
+              buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
+              backColor: GlobalThemeData.lightColorScheme.tertiary
+            ).animate().fadeIn(),
         ],
       ),
     );

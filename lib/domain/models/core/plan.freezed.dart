@@ -39,8 +39,12 @@ mixin _$Plan {
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt => throw _privateConstructorUsedError;
 
+  /// Serializes this Plan to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Plan
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PlanCopyWith<Plan> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -71,6 +75,8 @@ class _$PlanCopyWithImpl<$Res, $Val extends Plan>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Plan
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -151,6 +157,8 @@ class __$$PlanImplCopyWithImpl<$Res>
   __$$PlanImplCopyWithImpl(_$PlanImpl _value, $Res Function(_$PlanImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Plan
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -274,12 +282,14 @@ class _$PlanImpl implements _Plan {
                 other.updatedAt == updatedAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, libelle, montant, duree,
       isPromo, montantPromotion, statut, createdAt, updatedAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Plan
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PlanImplCopyWith<_$PlanImpl> get copyWith =>
@@ -335,8 +345,11 @@ abstract class _Plan implements Plan {
   @override
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
+
+  /// Create a copy of Plan
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PlanImplCopyWith<_$PlanImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

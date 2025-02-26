@@ -35,8 +35,12 @@ mixin _$AutoDisponibility {
   @JsonKey(name: 'type_auto')
   AutoType get typeAuto => throw _privateConstructorUsedError;
 
+  /// Serializes this AutoDisponibility to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AutoDisponibility
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AutoDisponibilityCopyWith<AutoDisponibility> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -69,6 +73,8 @@ class _$AutoDisponibilityCopyWithImpl<$Res, $Val extends AutoDisponibility>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AutoDisponibility
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -112,6 +118,8 @@ class _$AutoDisponibilityCopyWithImpl<$Res, $Val extends AutoDisponibility>
     ) as $Val);
   }
 
+  /// Create a copy of AutoDisponibility
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AutoTypeCopyWith<$Res> get typeAuto {
@@ -150,6 +158,8 @@ class __$$AutoDisponibilityImplCopyWithImpl<$Res>
       $Res Function(_$AutoDisponibilityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AutoDisponibility
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -258,12 +268,14 @@ class _$AutoDisponibilityImpl implements _AutoDisponibility {
                 other.typeAuto == typeAuto));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, disponibiliteAutoId,
       partenaireId, detailPieceId, typeAutoId, createdAt, updatedAt, typeAuto);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AutoDisponibility
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AutoDisponibilityImplCopyWith<_$AutoDisponibilityImpl> get copyWith =>
@@ -314,8 +326,11 @@ abstract class _AutoDisponibility implements AutoDisponibility {
   @override
   @JsonKey(name: 'type_auto')
   AutoType get typeAuto;
+
+  /// Create a copy of AutoDisponibility
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AutoDisponibilityImplCopyWith<_$AutoDisponibilityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

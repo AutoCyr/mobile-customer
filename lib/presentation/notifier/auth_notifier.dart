@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:autocyr/data/helpers/notifications.dart';
 import 'package:autocyr/data/helpers/preferences.dart';
+import 'package:autocyr/domain/models/commons/country.dart';
 import 'package:autocyr/domain/models/profile/client.dart';
 import 'package:autocyr/domain/models/profile/partenaire.dart';
 import 'package:autocyr/domain/models/profile/user.dart';
@@ -25,10 +26,12 @@ class AuthNotifier extends ChangeNotifier {
   bool _loading = false;
   User? user;
   Client? client;
+  Country? country;
 
   bool get loading => _loading;
   User get getUser => user!;
   Client get getClient => client!;
+  Country get getCountry => country!;
 
   setLoading(bool value) {
     _loading = value;
@@ -45,6 +48,11 @@ class AuthNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  setCountry(Country value) {
+    country = value;
+    notifyListeners();
+  }
+
   Future verifyConnection() async {
     setLoading(true);
     final userJson = await Preferences().getString('user') ?? '';
@@ -56,6 +64,7 @@ class AuthNotifier extends ChangeNotifier {
 
       setUser(user);
       setClient(client);
+      setCountry(client.pays!);
 
       setLoading(false);
       return true;
@@ -82,6 +91,9 @@ class AuthNotifier extends ChangeNotifier {
 
           await setUser(User.fromJson(success.data["user"]));
           await setClient(Client.fromJson(success.data["client"]));
+          if(client != null) {
+            await setCountry(client!.pays!);
+          }
 
           setLoading(false);
           if(context.mounted) {
@@ -169,6 +181,7 @@ class AuthNotifier extends ChangeNotifier {
       Success success = Success.fromJson(data);
       saveToPreferences("client", success.data);
       await setClient(Client.fromJson(success.data));
+      await setCountry(client!.pays!);
     }
 
     return data["error"];

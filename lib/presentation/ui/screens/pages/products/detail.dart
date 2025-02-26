@@ -1,5 +1,6 @@
 import 'package:autocyr/data/network/urls.dart';
 import 'package:autocyr/domain/models/pieces/detail_piece.dart';
+import 'package:autocyr/presentation/notifier/auth_notifier.dart';
 import 'package:autocyr/presentation/notifier/customer_notifier.dart';
 import 'package:autocyr/presentation/ui/atoms/buttons/progress_button.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label10.dart';
@@ -8,6 +9,7 @@ import 'package:autocyr/presentation/ui/atoms/labels/label13.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label17.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
+import 'package:autocyr/presentation/ui/helpers/box.dart';
 import 'package:autocyr/presentation/ui/helpers/state.dart';
 import 'package:autocyr/presentation/ui/molecules/custom_buttons/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,18 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
   retrievePieceDetails() async {
     final customer = Provider.of<CustomerNotifier>(context, listen: false);
     await customer.getPiece(id: widget.detail.detailPieceId.toString(), context: context);
+  }
+
+  save() async {
+    final auth = Provider.of<AuthNotifier>(context, listen: false);
+    final customer = Provider.of<CustomerNotifier>(context, listen: false);
+
+    Map<String, dynamic> body = {
+      "partenaire_id": widget.detail.partenaireId,
+      "detail_piece_id": widget.detail.detailPieceId,
+      "client_id": auth.getClient.clientId
+    };
+    await customer.createCommande(body: body, context: context);
   }
 
   @override
@@ -138,6 +152,8 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Label14(text: customer.piece!.piece != null ? customer.piece!.piece!.nomPiece : customer.piece!.article!.name, color: Colors.black87, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
+                        const Gap(10),
                         Label13(text: "Prix - ${customer.piece!.prixPiece} FCFA", color: GlobalThemeData.lightColorScheme.outline, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
                         const Gap(10),
                         Label13(text: customer.piece!.garantie == 1 ? "Pièce garantie" : "Pièce non garantie", color: GlobalThemeData.lightColorScheme.outline, weight: FontWeight.normal, maxLines: 2).animate().fadeIn(),
@@ -162,10 +178,10 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
                                 width: size.width,
                                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                 decoration: BoxDecoration(
-                                    color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.7),
+                                    color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.7),
                                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                                 ),
-                                child: Label12(text: "Marques compatibles", color: GlobalThemeData.lightColorScheme.onPrimary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
+                                child: Label12(text: "Marques compatibles", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
                               ),
                               const Gap(10),
                               if(customer.piece!.marques!.isNotEmpty && customer.piece!.marques != null)
@@ -287,18 +303,33 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
                     ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                    child: CustomButton(
-                        text: "Contacter le vendeur",
-                        size: size,
-                        globalWidth: size.width * 0.95,
-                        widthSize: size.width * 0.89,
-                        backSize: size.width * 0.89,
+                    child: customer.action ?
+                      ProgressButton(
+                        widthSize: size.width * 0.95,
                         context: context,
-                        function: () {},
-                        textColor: GlobalThemeData.lightColorScheme.tertiary,
-                        buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
-                        backColor: GlobalThemeData.lightColorScheme.tertiary
-                    ).animate().fadeIn(),
+                        bgColor: GlobalThemeData.lightColorScheme.onTertiary,
+                        shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                      ).animate().fadeIn()
+                        :
+                      SizedBox(
+                        child: CustomButton(
+                          text: "Contacter le vendeur",
+                          size: size,
+                          globalWidth: size.width * 0.95,
+                          widthSize: size.width * 0.89,
+                          backSize: size.width * 0.89,
+                          context: context,
+                          function: () {
+                            Box().confirmOperationBox(
+                              context: context,
+                              function: () => save()
+                            );
+                          },
+                          textColor: GlobalThemeData.lightColorScheme.tertiary,
+                          buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
+                          backColor: GlobalThemeData.lightColorScheme.tertiary
+                        ).animate().fadeIn(),
+                      ),
                   ),
                 ],
               );

@@ -35,8 +35,12 @@ mixin _$Article {
   @JsonKey(name: 'subcategory')
   Subcategory? get subcategory => throw _privateConstructorUsedError;
 
+  /// Serializes this Article to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Article
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ArticleCopyWith<Article> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -67,6 +71,8 @@ class _$ArticleCopyWithImpl<$Res, $Val extends Article>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Article
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -110,6 +116,8 @@ class _$ArticleCopyWithImpl<$Res, $Val extends Article>
     ) as $Val);
   }
 
+  /// Create a copy of Article
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SubcategoryCopyWith<$Res>? get subcategory {
@@ -151,6 +159,8 @@ class __$$ArticleImplCopyWithImpl<$Res>
       _$ArticleImpl _value, $Res Function(_$ArticleImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Article
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -255,12 +265,14 @@ class _$ArticleImpl implements _Article {
                 other.subcategory == subcategory));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, subcategoryId, name, statut,
       createdAt, updatedAt, subcategory);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Article
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ArticleImplCopyWith<_$ArticleImpl> get copyWith =>
@@ -308,8 +320,11 @@ abstract class _Article implements Article {
   @override
   @JsonKey(name: 'subcategory')
   Subcategory? get subcategory;
+
+  /// Create a copy of Article
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ArticleImplCopyWith<_$ArticleImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

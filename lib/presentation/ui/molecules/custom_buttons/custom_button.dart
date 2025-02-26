@@ -8,7 +8,7 @@ Widget CustomButton({
   required double widthSize,
   required double backSize,
   required BuildContext context,
-  required VoidCallback function,
+  required function,
   required Color textColor,
   required Color buttonColor,
   required Color backColor

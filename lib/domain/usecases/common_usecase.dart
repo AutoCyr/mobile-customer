@@ -37,4 +37,16 @@ class CommonUseCase {
   Future getMoteurTypes() async {
     return await _commonRepositoryImpl.getMoteurTypes();
   }
+
+  Future getCategories() async {
+    return await _commonRepositoryImpl.getCategories();
+  }
+
+  Future getSubCategories() async {
+    return await _commonRepositoryImpl.getSubCategories();
+  }
+
+  Future getArticles() async {
+    return await _commonRepositoryImpl.getArticles();
+  }
 }

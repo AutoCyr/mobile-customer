@@ -31,8 +31,12 @@ mixin _$Piece {
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt => throw _privateConstructorUsedError;
 
+  /// Serializes this Piece to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Piece
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PieceCopyWith<Piece> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -59,6 +63,8 @@ class _$PieceCopyWithImpl<$Res, $Val extends Piece>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Piece
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -116,6 +122,8 @@ class __$$PieceImplCopyWithImpl<$Res>
       _$PieceImpl _value, $Res Function(_$PieceImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Piece
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -199,12 +207,14 @@ class _$PieceImpl implements _Piece {
                 other.updatedAt == updatedAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, pieceId, nomPiece, statut, createdAt, updatedAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Piece
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PieceImplCopyWith<_$PieceImpl> get copyWith =>
@@ -244,8 +254,11 @@ abstract class _Piece implements Piece {
   @override
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
+
+  /// Create a copy of Piece
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PieceImplCopyWith<_$PieceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

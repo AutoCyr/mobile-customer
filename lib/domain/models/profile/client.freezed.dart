@@ -34,6 +34,8 @@ mixin _$Client {
   String? get telephone2 => throw _privateConstructorUsedError;
   @JsonKey(name: 'adresses_client')
   List<Address>? get adressesClient => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pays')
+  Country? get pays => throw _privateConstructorUsedError;
 
   /// Serializes this Client to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -56,7 +58,10 @@ abstract class $ClientCopyWith<$Res> {
       @JsonKey(name: 'pseudo_client') String pseudoClient,
       @JsonKey(name: 'telephone_1') String telephone1,
       @JsonKey(name: 'telephone_2') String? telephone2,
-      @JsonKey(name: 'adresses_client') List<Address>? adressesClient});
+      @JsonKey(name: 'adresses_client') List<Address>? adressesClient,
+      @JsonKey(name: 'pays') Country? pays});
+
+  $CountryCopyWith<$Res>? get pays;
 }
 
 /// @nodoc
@@ -81,6 +86,7 @@ class _$ClientCopyWithImpl<$Res, $Val extends Client>
     Object? telephone1 = null,
     Object? telephone2 = freezed,
     Object? adressesClient = freezed,
+    Object? pays = freezed,
   }) {
     return _then(_value.copyWith(
       clientId: null == clientId
@@ -111,7 +117,25 @@ class _$ClientCopyWithImpl<$Res, $Val extends Client>
           ? _value.adressesClient
           : adressesClient // ignore: cast_nullable_to_non_nullable
               as List<Address>?,
+      pays: freezed == pays
+          ? _value.pays
+          : pays // ignore: cast_nullable_to_non_nullable
+              as Country?,
     ) as $Val);
+  }
+
+  /// Create a copy of Client
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CountryCopyWith<$Res>? get pays {
+    if (_value.pays == null) {
+      return null;
+    }
+
+    return $CountryCopyWith<$Res>(_value.pays!, (value) {
+      return _then(_value.copyWith(pays: value) as $Val);
+    });
   }
 }
 
@@ -129,7 +153,11 @@ abstract class _$$ClientImplCopyWith<$Res> implements $ClientCopyWith<$Res> {
       @JsonKey(name: 'pseudo_client') String pseudoClient,
       @JsonKey(name: 'telephone_1') String telephone1,
       @JsonKey(name: 'telephone_2') String? telephone2,
-      @JsonKey(name: 'adresses_client') List<Address>? adressesClient});
+      @JsonKey(name: 'adresses_client') List<Address>? adressesClient,
+      @JsonKey(name: 'pays') Country? pays});
+
+  @override
+  $CountryCopyWith<$Res>? get pays;
 }
 
 /// @nodoc
@@ -152,6 +180,7 @@ class __$$ClientImplCopyWithImpl<$Res>
     Object? telephone1 = null,
     Object? telephone2 = freezed,
     Object? adressesClient = freezed,
+    Object? pays = freezed,
   }) {
     return _then(_$ClientImpl(
       clientId: null == clientId
@@ -182,6 +211,10 @@ class __$$ClientImplCopyWithImpl<$Res>
           ? _value._adressesClient
           : adressesClient // ignore: cast_nullable_to_non_nullable
               as List<Address>?,
+      pays: freezed == pays
+          ? _value.pays
+          : pays // ignore: cast_nullable_to_non_nullable
+              as Country?,
     ));
   }
 }
@@ -196,7 +229,8 @@ class _$ClientImpl implements _Client {
       @JsonKey(name: 'pseudo_client') required this.pseudoClient,
       @JsonKey(name: 'telephone_1') required this.telephone1,
       @JsonKey(name: 'telephone_2') this.telephone2,
-      @JsonKey(name: 'adresses_client') final List<Address>? adressesClient})
+      @JsonKey(name: 'adresses_client') final List<Address>? adressesClient,
+      @JsonKey(name: 'pays') this.pays})
       : _adressesClient = adressesClient;
 
   factory _$ClientImpl.fromJson(Map<String, dynamic> json) =>
@@ -232,8 +266,12 @@ class _$ClientImpl implements _Client {
   }
 
   @override
+  @JsonKey(name: 'pays')
+  final Country? pays;
+
+  @override
   String toString() {
-    return 'Client(clientId: $clientId, userId: $userId, paysId: $paysId, pseudoClient: $pseudoClient, telephone1: $telephone1, telephone2: $telephone2, adressesClient: $adressesClient)';
+    return 'Client(clientId: $clientId, userId: $userId, paysId: $paysId, pseudoClient: $pseudoClient, telephone1: $telephone1, telephone2: $telephone2, adressesClient: $adressesClient, pays: $pays)';
   }
 
   @override
@@ -252,7 +290,8 @@ class _$ClientImpl implements _Client {
             (identical(other.telephone2, telephone2) ||
                 other.telephone2 == telephone2) &&
             const DeepCollectionEquality()
-                .equals(other._adressesClient, _adressesClient));
+                .equals(other._adressesClient, _adressesClient) &&
+            (identical(other.pays, pays) || other.pays == pays));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -265,7 +304,8 @@ class _$ClientImpl implements _Client {
       pseudoClient,
       telephone1,
       telephone2,
-      const DeepCollectionEquality().hash(_adressesClient));
+      const DeepCollectionEquality().hash(_adressesClient),
+      pays);
 
   /// Create a copy of Client
   /// with the given fields replaced by the non-null parameter values.
@@ -291,8 +331,8 @@ abstract class _Client implements Client {
       @JsonKey(name: 'pseudo_client') required final String pseudoClient,
       @JsonKey(name: 'telephone_1') required final String telephone1,
       @JsonKey(name: 'telephone_2') final String? telephone2,
-      @JsonKey(name: 'adresses_client')
-      final List<Address>? adressesClient}) = _$ClientImpl;
+      @JsonKey(name: 'adresses_client') final List<Address>? adressesClient,
+      @JsonKey(name: 'pays') final Country? pays}) = _$ClientImpl;
 
   factory _Client.fromJson(Map<String, dynamic> json) = _$ClientImpl.fromJson;
 
@@ -317,6 +357,9 @@ abstract class _Client implements Client {
   @override
   @JsonKey(name: 'adresses_client')
   List<Address>? get adressesClient;
+  @override
+  @JsonKey(name: 'pays')
+  Country? get pays;
 
   /// Create a copy of Client
   /// with the given fields replaced by the non-null parameter values.

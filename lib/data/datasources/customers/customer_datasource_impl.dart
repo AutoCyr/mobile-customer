@@ -40,7 +40,7 @@ class CustomerDataSourceImpl implements CustomerDataSource {
   }
 
   @override
-  Future getPieces() async {
+  Future getPieces(Map<String, dynamic> params) async {
     String token = await Preferences().getString("token");
     Map<String, String> headers = {
       'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ class CustomerDataSourceImpl implements CustomerDataSource {
     };
 
     try {
-      final response = await _apiClient.get(path: "customer/get-pieces", headers: headers);
+      final response = await _apiClient.getWithParams(path: "customer/get-pieces", params: params, headers: headers);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = json.decode(response.body);
@@ -106,6 +106,90 @@ class CustomerDataSourceImpl implements CustomerDataSource {
 
     try {
       final response = await _apiClient.getWithParams(path: "customer/get-type-pieces", params: params, headers: headers);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = json.decode(response.body);
+        return data;
+      } else {
+        return Handling().handleErrorResponse(response);
+      }
+    } catch(e) {
+      var error = {
+        "error": true,
+        "message": "Une erreur serveur est survenue",
+        "except": e.toString()
+      };
+      return error;
+    }
+  }
+
+  @override
+  Future getSubcategoryPieces(Map<String, dynamic> params) async {
+    String token = await Preferences().getString("token");
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
+    try {
+      final response = await _apiClient.getWithParams(path: "customer/get-subcategory-pieces", params: params, headers: headers);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = json.decode(response.body);
+        return data;
+      } else {
+        return Handling().handleErrorResponse(response);
+      }
+    } catch(e) {
+      var error = {
+        "error": true,
+        "message": "Une erreur serveur est survenue",
+        "except": e.toString()
+      };
+      return error;
+    }
+  }
+
+  @override
+  Future createCommande(Map<String, dynamic> body) async {
+    String token = await Preferences().getString("token");
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
+    try {
+      final response = await _apiClient.post(path: "customer/create-commande", headers: headers, body: body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = json.decode(response.body);
+        return data;
+      } else {
+        return Handling().handleErrorResponse(response);
+      }
+    } catch(e) {
+      var error = {
+        "error": true,
+        "message": "Une erreur serveur est survenue",
+        "except": e.toString()
+      };
+      return error;
+    }
+  }
+
+  @override
+  Future getCommandes(Map<String, dynamic> params) async {
+    String token = await Preferences().getString("token");
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
+    try {
+      final response = await _apiClient.getWithParams(path: "customer/get-commandes", params: params, headers: headers);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = json.decode(response.body);

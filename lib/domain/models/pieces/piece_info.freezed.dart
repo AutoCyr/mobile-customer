@@ -60,8 +60,12 @@ mixin _$PieceInfo {
   List<CategoryDisponibility>? get categories =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this PieceInfo to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PieceInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PieceInfoCopyWith<PieceInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -107,6 +111,8 @@ class _$PieceInfoCopyWithImpl<$Res, $Val extends PieceInfo>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PieceInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -210,6 +216,8 @@ class _$PieceInfoCopyWithImpl<$Res, $Val extends PieceInfo>
     ) as $Val);
   }
 
+  /// Create a copy of PieceInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PieceCopyWith<$Res>? get piece {
@@ -222,6 +230,8 @@ class _$PieceInfoCopyWithImpl<$Res, $Val extends PieceInfo>
     });
   }
 
+  /// Create a copy of PieceInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ArticleCopyWith<$Res>? get article {
@@ -234,6 +244,8 @@ class _$PieceInfoCopyWithImpl<$Res, $Val extends PieceInfo>
     });
   }
 
+  /// Create a copy of PieceInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $EnginTypeCopyWith<$Res> get typeEngin {
@@ -288,6 +300,8 @@ class __$$PieceInfoImplCopyWithImpl<$Res>
       _$PieceInfoImpl _value, $Res Function(_$PieceInfoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PieceInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -555,7 +569,7 @@ class _$PieceInfoImpl implements _PieceInfo {
                 .equals(other._categories, _categories));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -580,7 +594,9 @@ class _$PieceInfoImpl implements _PieceInfo {
         const DeepCollectionEquality().hash(_categories)
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PieceInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PieceInfoImplCopyWith<_$PieceInfoImpl> get copyWith =>
@@ -677,8 +693,11 @@ abstract class _PieceInfo implements PieceInfo {
   @override
   @JsonKey(name: 'categories')
   List<CategoryDisponibility>? get categories;
+
+  /// Create a copy of PieceInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PieceInfoImplCopyWith<_$PieceInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -217,4 +217,82 @@ class CommonDataSourceImpl implements CommonDataSource {
     }
   }
 
+  @override
+  Future getArticles() async {
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    };
+
+    try {
+      final response = await _apiClient.get(path: "commons/articles", headers: headers);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = json.decode(response.body);
+        return data;
+      } else {
+        return Handling().handleErrorResponse(response);
+      }
+    } catch(e) {
+      var error = {
+        "error": true,
+        "message": "Une erreur serveur est survenue",
+        "except": e.toString()
+      };
+      return error;
+    }
+  }
+
+  @override
+  Future getCategories() async {
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    };
+
+    try {
+      final response = await _apiClient.get(path: "commons/categories", headers: headers);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = json.decode(response.body);
+        return data;
+      } else {
+        return Handling().handleErrorResponse(response);
+      }
+    } catch(e) {
+      var error = {
+        "error": true,
+        "message": "Une erreur serveur est survenue",
+        "except": e.toString()
+      };
+      return error;
+    }
+  }
+
+  @override
+  Future getSubCategories() async {
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    };
+
+    try {
+      final response = await _apiClient.get(path: "commons/subcategories", headers: headers);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = json.decode(response.body);
+        return data;
+      } else {
+        return Handling().handleErrorResponse(response);
+      }
+    } catch(e) {
+      var error = {
+        "error": true,
+        "message": "Une erreur serveur est survenue",
+        "except": e.toString()
+      };
+      return error;
+    }
+  }
+
 }

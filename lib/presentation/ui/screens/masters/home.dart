@@ -1,5 +1,6 @@
 import 'package:autocyr/data/network/urls.dart';
 import 'package:autocyr/domain/models/pieces/detail_piece.dart';
+import 'package:autocyr/presentation/notifier/auth_notifier.dart';
 import 'package:autocyr/presentation/notifier/common_notifier.dart';
 import 'package:autocyr/presentation/notifier/customer_notifier.dart';
 import 'package:autocyr/presentation/ui/atoms/buttons/progress_button.dart';
@@ -11,10 +12,14 @@ import 'package:autocyr/presentation/ui/atoms/labels/label17.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
 import 'package:autocyr/presentation/ui/helpers/image_category.dart';
 import 'package:autocyr/presentation/ui/molecules/custom_buttons/custom_icon_button.dart';
+import 'package:autocyr/presentation/ui/organisms/searchables/selectable.dart';
 import 'package:autocyr/presentation/ui/organisms/selectors/selector.dart';
+import 'package:autocyr/presentation/ui/screens/helpers/category_widget.dart';
 import 'package:autocyr/presentation/ui/screens/helpers/piece_widget.dart';
 import 'package:autocyr/presentation/ui/screens/pages/addresses/list.dart';
+import 'package:autocyr/presentation/ui/screens/pages/products/category.dart';
 import 'package:autocyr/presentation/ui/screens/pages/products/detail.dart';
+import 'package:autocyr/presentation/ui/screens/pages/products/type_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -29,20 +34,25 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+  List<Map> options = [
+    {
+      "label": "Adresses",
+      "iconData": Icons.location_history_outlined,
+      "widget": const AddressListScreen()
+    }
+  ];
+
   retrieveCommons() async {
     final common = Provider.of<CommonNotifier>(context, listen: false);
     if(!common.filling) {
+      if(common.countries.isEmpty) {
+        await common.retrieveCountries(context: context);
+      }
       if(common.enginTypes.isEmpty) {
         await common.retrieveEnginTypes(context: context);
       }
-    }
-  }
-
-  retrievePieces() async {
-    final customer = Provider.of<CustomerNotifier>(context, listen: false);
-    if(!customer.filling) {
-      if(customer.pieces.isEmpty) {
-        await customer.retrievePieces(context: context);
+      if(common.categories.isEmpty) {
+        await common.retrieveCategories(context: context);
       }
     }
   }
@@ -52,7 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       retrieveCommons();
-      retrievePieces();
     });
   }
 
@@ -79,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
           GestureDetector(
             onTap: () => BottomSelector().showIconMenu(
                 context: context,
-                options: [],
+                options: options,
                 title: "Actions rapides"
             ),
             child: Stack(
@@ -119,43 +128,56 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: Consumer2<CommonNotifier, CustomerNotifier>(
-        builder: (context, common, customer, child) {
+      body: Consumer3<CommonNotifier, AuthNotifier, CustomerNotifier>(
+        builder: (context, common, auth, customer, child) {
 
           return ListView(
             children: [
               Container(
-                height: size.width * 0.5,
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                height: size.height * 0.35,
                 width: size.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: const AssetImage("assets/images/ads.webp"),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7), BlendMode.srcATop),
+                    colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.srcATop),
                   )
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AddressListScreen())),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        width: size.width,
-                        decoration: BoxDecoration(
-                          color: GlobalThemeData.lightColorScheme.tertiary,
+                    Label17(text: "🌍 Vos pièces, où que vous soyez...", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
+                    const Gap(10),
+                    Label12(text: "Nous adaptons notre catalogue à votre pays pour une recherche encore plus précise. Choisissez le vôtre dès maintenant.", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.normal, maxLines: 4).animate().fadeIn(),
+                    const Gap(20),
+                    Row(
+                      children: [
+                        Label12(text: "Pays actuel ", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                        const Gap(10),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => CustomSelectable(list: common.countries, typeSelection: "country", multiple: false, onSave: (){}, notifier: auth)));
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+                              color: GlobalThemeData.lightColorScheme.onTertiary
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Label12(text: auth.country!.name, color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                                const Gap(5),
+                                Icon(Icons.arrow_drop_down_outlined, color: GlobalThemeData.lightColorScheme.tertiary, size: 15,),
+                              ],
+                            ),
+                          ),
                         ),
-                        child: Center(
-                          child: Label12(
-                              text: "Ajouter vos adresses",
-                              color:GlobalThemeData.lightColorScheme.onTertiary,
-                              weight: FontWeight.bold,
-                              maxLines: 1
-                          ).animate().fadeIn(),
-                        ),
-                      ),
+                      ],
                     )
                   ],
                 ),
@@ -166,12 +188,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Label17(text: "Pièces par catégorie", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                    Label14(text: "Pièces par engins", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
                     const Gap(20),
                     common.filling && common.enginTypes.isEmpty ?
                       Column(
                         children: [
-                          Label10(text: "Chargement des catégories...", color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
+                          Label10(text: "Chargement des types d'engin...", color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
                           const Gap(10),
                           ProgressButton(
                             widthSize: size.width,
@@ -191,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               margin: const EdgeInsets.only(right: 30),
                               child: GestureDetector(
                                 onTap: () {
-
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => TypeProductScreen(type: e)));
                                 },
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -203,6 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           height: 60,
                                           width: 60,
                                           decoration: BoxDecoration(
+                                              border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1), width: 1),
                                               borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
                                               color: GlobalThemeData.lightColorScheme.tertiaryContainer.withOpacity(0.1)
                                           )
@@ -228,12 +251,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Label17(text: "Dernières pièces", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Label14(text: "Catégories de pièces", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                        TextButton(
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoryScreen())),
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStateProperty.all(Colors.transparent),
+                            shape: WidgetStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)))),
+                          ),
+                          child: Label12(text: "Voir tout", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.normal, maxLines: 1)
+                        ).animate().fadeIn()
+                      ],
+                    ),
                     const Gap(20),
-                    customer.filling && customer.pieces.isEmpty ?
+                    common.filling && common.categories.isEmpty ?
                       Column(
                         children: [
-                          Label10(text: "Chargement des pièces...", color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
+                          Label10(text: "Chargement des catégories...", color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
                           const Gap(10),
                           ProgressButton(
                               widthSize: size.width,
@@ -246,18 +282,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         :
                       GridView.count(
                         shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        mainAxisSpacing: 32,
-                        crossAxisCount: 2,
+                        physics: const BouncingScrollPhysics(),
+                        mainAxisSpacing: 8,
+                        crossAxisCount: 3,
                         crossAxisSpacing: 8,
-                        childAspectRatio: 0.75,
+                        childAspectRatio: 0.65,
                         children: [
-                          ...customer.pieces.map((piece) => PieceWidget(piece: piece)),
+                          ...common.categories.take(6).map((category) => CategoryWidget(category: category)),
                         ],
                       )
                   ],
                 ),
-              )
+              ),
+              const Gap(20),
             ],
           );
         }
