@@ -27,8 +27,9 @@ _$DetailPieceImpl _$$DetailPieceImplFromJson(Map<String, dynamic> json) =>
           ? null
           : Article.fromJson(json['article'] as Map<String, dynamic>),
       typeEngin: EnginType.fromJson(json['type_engin'] as Map<String, dynamic>),
-      partenaire:
-          Partenaire.fromJson(json['partenaire'] as Map<String, dynamic>),
+      partenaire: json['partenaire'] == null
+          ? null
+          : Partenaire.fromJson(json['partenaire'] as Map<String, dynamic>),
       autos: (json['autos'] as List<dynamic>?)
           ?.map((e) => AutoDisponibility.fromJson(e as Map<String, dynamic>))
           .toList(),

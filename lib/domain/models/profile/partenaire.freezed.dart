@@ -245,7 +245,7 @@ class _$PartenaireImpl implements _Partenaire {
       @JsonKey(name: 'ville_partenaire') required this.villePartenaire,
       @JsonKey(name: 'quartier_partenaire') required this.quartierPartenaire,
       @JsonKey(name: 'adresses_partenaire')
-      required final List<Address>? adressesPartenaire})
+      final List<Address>? adressesPartenaire})
       : _adressesPartenaire = adressesPartenaire;
 
   factory _$PartenaireImpl.fromJson(Map<String, dynamic> json) =>
@@ -364,7 +364,7 @@ abstract class _Partenaire implements Partenaire {
       @JsonKey(name: 'quartier_partenaire')
       required final String quartierPartenaire,
       @JsonKey(name: 'adresses_partenaire')
-      required final List<Address>? adressesPartenaire}) = _$PartenaireImpl;
+      final List<Address>? adressesPartenaire}) = _$PartenaireImpl;
 
   factory _Partenaire.fromJson(Map<String, dynamic> json) =
       _$PartenaireImpl.fromJson;

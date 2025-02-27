@@ -1,3 +1,4 @@
+import 'package:autocyr/domain/models/features/commande.dart';
 import 'package:autocyr/domain/models/pieces/detail_piece.dart';
 import 'package:autocyr/domain/models/pieces/disponibilities/auto_disponibility.dart';
 import 'package:autocyr/domain/models/pieces/disponibilities/category_disponibility.dart';
@@ -9,6 +10,7 @@ import 'package:autocyr/domain/models/response/success.dart';
 import 'package:autocyr/domain/usecases/customer_usecase.dart';
 import 'package:autocyr/presentation/notifier/auth_notifier.dart';
 import 'package:autocyr/presentation/ui/helpers/snacks.dart';
+import 'package:autocyr/presentation/ui/screens/pages/commandes/commandes.dart';
 import 'package:flutter/material.dart';
 
 class CustomerNotifier extends ChangeNotifier {
@@ -21,6 +23,8 @@ class CustomerNotifier extends ChangeNotifier {
   bool _action = false;
   String _errorPieces = "";
   String _errorPiece = "";
+  String _errorCommandes = "";
+  String _error = "";
   Meta? _pieceMeta;
   Meta? _typePieceMeta;
   Meta? _subcategoryPieceMeta;
@@ -32,12 +36,15 @@ class CustomerNotifier extends ChangeNotifier {
   List<int> _autoFilters = [];
   List<int> _motorFilters = [];
   List<int> _categoryFilters = [];
+  List<Commande> _commandes = [];
 
   bool get filling => _filling;
   bool get loading => _loading;
   bool get action => _action;
   String get errorPieces => _errorPieces;
   String get errorPiece => _errorPiece;
+  String get errorCommandes => _errorCommandes;
+  String get error => _error;
   Meta get pieceMeta => _pieceMeta!;
   Meta get typePieceMeta => _typePieceMeta!;
   Meta get subcategoryPieceMeta => _subcategoryPieceMeta!;
@@ -49,6 +56,7 @@ class CustomerNotifier extends ChangeNotifier {
   List<int> get autoFilters => _autoFilters;
   List<int> get motorFilters => _motorFilters;
   List<int> get categoryFilters => _categoryFilters;
+  List<Commande> get commandes => _commandes;
 
   setFilling(bool value) {
     _filling = value;
@@ -72,6 +80,16 @@ class CustomerNotifier extends ChangeNotifier {
 
   setErrorPiece(String value) {
     _errorPiece = value;
+    notifyListeners();
+  }
+
+  setErrorCommandes(String value) {
+    _errorCommandes = value;
+    notifyListeners();
+  }
+
+  setError(String value) {
+    _error = value;
     notifyListeners();
   }
 
@@ -127,6 +145,11 @@ class CustomerNotifier extends ChangeNotifier {
 
   setCategoryFilters(List<int> value) {
     _categoryFilters = value;
+    notifyListeners();
+  }
+
+  setCommandes(List<Commande> value) {
+    _commandes = value;
     notifyListeners();
   }
 
@@ -326,7 +349,7 @@ class CustomerNotifier extends ChangeNotifier {
 
   Future retrieveCommandes({required BuildContext context, required Map<String, dynamic> params, required bool more}) async {
     more ? setFilling(true) : setLoading(true);
-    setErrorPieces("");
+    setErrorCommandes("");
 
     try {
       var data = await customerUseCase.getCommandes(params);
@@ -340,25 +363,25 @@ class CustomerNotifier extends ChangeNotifier {
           more ? setFilling(false) : setLoading(false);
         }
 
-        /*// add & complete datas
-        List<DetailPiece> localPieces = more ? List.from(subcategoryPieces) : [];
-        for(var piece in success.data['data']){
-          localPieces.add(DetailPiece.fromJson(piece));
+        // add & complete datas
+        List<Commande> localCommandes = more ? List.from(commandes) : [];
+        for(var commande in success.data['data']){
+          localCommandes.add(Commande.fromJson(commande));
         }
 
-        setSubcategoryPieces(localPieces);*/
+        setCommandes(localCommandes);
         setCommandeMeta(meta);
         more ? setFilling(false) : setLoading(false);
       }else{
         Failure failure = Failure.fromJson(data);
 
         more ? setFilling(false) : setLoading(false);
-        setErrorPieces(failure.message);
+        setErrorCommandes(failure.message);
       }
     } catch (e) {
       print(e);
       more ? setFilling(false) : setLoading(false);
-      setErrorPieces("Une erreur serveur est survenue");
+      setErrorCommandes("Une erreur serveur est survenue");
     }
   }
 

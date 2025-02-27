@@ -16,7 +16,7 @@ class Partenaire with _$Partenaire {
     @JsonKey(name: 'email_partenaire') required String emailPartenaire,
     @JsonKey(name: 'ville_partenaire') required String villePartenaire,
     @JsonKey(name: 'quartier_partenaire') required String quartierPartenaire,
-    @JsonKey(name: 'adresses_partenaire') required List<Address>? adressesPartenaire,
+    @JsonKey(name: 'adresses_partenaire') List<Address>? adressesPartenaire,
   }) = _Partenaire;
 
   factory Partenaire.fromJson(Map<String, dynamic> json) => _$PartenaireFromJson(json);

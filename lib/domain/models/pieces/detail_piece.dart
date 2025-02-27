@@ -29,7 +29,7 @@ class DetailPiece with _$DetailPiece {
     @JsonKey(name: 'piece') Piece? piece,
     @JsonKey(name: 'article') Article? article,
     @JsonKey(name: 'type_engin') required EnginType typeEngin,
-    @JsonKey(name: 'partenaire') required Partenaire partenaire,
+    @JsonKey(name: 'partenaire') Partenaire? partenaire,
     @JsonKey(name: 'autos') List<AutoDisponibility>? autos,
     @JsonKey(name: 'moteurs') List<MotorDisponibility>? moteurs,
     @JsonKey(name: 'categories') List<CategoryDisponibility>? categories,

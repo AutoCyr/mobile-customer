@@ -1,3 +1,4 @@
+import 'package:autocyr/presentation/notifier/auth_notifier.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label10.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label12.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
@@ -8,6 +9,7 @@ import 'package:autocyr/presentation/ui/screens/masters/store.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:provider/provider.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
 class GlobalScreen extends StatefulWidget {
@@ -23,10 +25,18 @@ class _GlobalScreenState extends State<GlobalScreen> {
   int selectedIndex = 0;
   late List fullable = [const HomeScreen(), const StoreScreen(), const BrowseScreen(), const ProfileScreen()];
 
+  updateFCM() async {
+    final auth = Provider.of<AuthNotifier>(context, listen: false);
+    await auth.updateFCM(context: context);
+  }
+
   @override
   void initState() {
     super.initState();
     selectedIndex = widget.index;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      updateFCM();
+    });
   }
 
   @override

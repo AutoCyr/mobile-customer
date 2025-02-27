@@ -50,10 +50,16 @@ class PieceWidget extends StatelessWidget {
           ).animate().fadeIn(),
           const Gap(5),
           Label14(text: piece.piece != null ? piece.piece!.nomPiece : piece.article!.name, color: Colors.black87, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
-          const Gap(5),
-          Label12(text: piece.partenaire.villePartenaire, color: Colors.black54, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
-          const Gap(5),
-          Label12(text: piece.partenaire.quartierPartenaire, color: Colors.black54, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
+          if(piece.partenaire != null)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Gap(5),
+                Label12(text: piece.partenaire!.villePartenaire, color: Colors.black54, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                const Gap(5),
+                Label12(text: piece.partenaire!.quartierPartenaire, color: Colors.black54, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
+              ],
+            )
         ],
       ).animate().fadeIn(),
     );

@@ -51,7 +51,7 @@ mixin _$DetailPiece {
   @JsonKey(name: 'type_engin')
   EnginType get typeEngin => throw _privateConstructorUsedError;
   @JsonKey(name: 'partenaire')
-  Partenaire get partenaire => throw _privateConstructorUsedError;
+  Partenaire? get partenaire => throw _privateConstructorUsedError;
   @JsonKey(name: 'autos')
   List<AutoDisponibility>? get autos => throw _privateConstructorUsedError;
   @JsonKey(name: 'moteurs')
@@ -92,7 +92,7 @@ abstract class $DetailPieceCopyWith<$Res> {
       @JsonKey(name: 'piece') Piece? piece,
       @JsonKey(name: 'article') Article? article,
       @JsonKey(name: 'type_engin') EnginType typeEngin,
-      @JsonKey(name: 'partenaire') Partenaire partenaire,
+      @JsonKey(name: 'partenaire') Partenaire? partenaire,
       @JsonKey(name: 'autos') List<AutoDisponibility>? autos,
       @JsonKey(name: 'moteurs') List<MotorDisponibility>? moteurs,
       @JsonKey(name: 'categories') List<CategoryDisponibility>? categories});
@@ -100,7 +100,7 @@ abstract class $DetailPieceCopyWith<$Res> {
   $PieceCopyWith<$Res>? get piece;
   $ArticleCopyWith<$Res>? get article;
   $EnginTypeCopyWith<$Res> get typeEngin;
-  $PartenaireCopyWith<$Res> get partenaire;
+  $PartenaireCopyWith<$Res>? get partenaire;
 }
 
 /// @nodoc
@@ -133,7 +133,7 @@ class _$DetailPieceCopyWithImpl<$Res, $Val extends DetailPiece>
     Object? piece = freezed,
     Object? article = freezed,
     Object? typeEngin = null,
-    Object? partenaire = null,
+    Object? partenaire = freezed,
     Object? autos = freezed,
     Object? moteurs = freezed,
     Object? categories = freezed,
@@ -199,10 +199,10 @@ class _$DetailPieceCopyWithImpl<$Res, $Val extends DetailPiece>
           ? _value.typeEngin
           : typeEngin // ignore: cast_nullable_to_non_nullable
               as EnginType,
-      partenaire: null == partenaire
+      partenaire: freezed == partenaire
           ? _value.partenaire
           : partenaire // ignore: cast_nullable_to_non_nullable
-              as Partenaire,
+              as Partenaire?,
       autos: freezed == autos
           ? _value.autos
           : autos // ignore: cast_nullable_to_non_nullable
@@ -260,8 +260,12 @@ class _$DetailPieceCopyWithImpl<$Res, $Val extends DetailPiece>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $PartenaireCopyWith<$Res> get partenaire {
-    return $PartenaireCopyWith<$Res>(_value.partenaire, (value) {
+  $PartenaireCopyWith<$Res>? get partenaire {
+    if (_value.partenaire == null) {
+      return null;
+    }
+
+    return $PartenaireCopyWith<$Res>(_value.partenaire!, (value) {
       return _then(_value.copyWith(partenaire: value) as $Val);
     });
   }
@@ -291,7 +295,7 @@ abstract class _$$DetailPieceImplCopyWith<$Res>
       @JsonKey(name: 'piece') Piece? piece,
       @JsonKey(name: 'article') Article? article,
       @JsonKey(name: 'type_engin') EnginType typeEngin,
-      @JsonKey(name: 'partenaire') Partenaire partenaire,
+      @JsonKey(name: 'partenaire') Partenaire? partenaire,
       @JsonKey(name: 'autos') List<AutoDisponibility>? autos,
       @JsonKey(name: 'moteurs') List<MotorDisponibility>? moteurs,
       @JsonKey(name: 'categories') List<CategoryDisponibility>? categories});
@@ -303,7 +307,7 @@ abstract class _$$DetailPieceImplCopyWith<$Res>
   @override
   $EnginTypeCopyWith<$Res> get typeEngin;
   @override
-  $PartenaireCopyWith<$Res> get partenaire;
+  $PartenaireCopyWith<$Res>? get partenaire;
 }
 
 /// @nodoc
@@ -334,7 +338,7 @@ class __$$DetailPieceImplCopyWithImpl<$Res>
     Object? piece = freezed,
     Object? article = freezed,
     Object? typeEngin = null,
-    Object? partenaire = null,
+    Object? partenaire = freezed,
     Object? autos = freezed,
     Object? moteurs = freezed,
     Object? categories = freezed,
@@ -400,10 +404,10 @@ class __$$DetailPieceImplCopyWithImpl<$Res>
           ? _value.typeEngin
           : typeEngin // ignore: cast_nullable_to_non_nullable
               as EnginType,
-      partenaire: null == partenaire
+      partenaire: freezed == partenaire
           ? _value.partenaire
           : partenaire // ignore: cast_nullable_to_non_nullable
-              as Partenaire,
+              as Partenaire?,
       autos: freezed == autos
           ? _value._autos
           : autos // ignore: cast_nullable_to_non_nullable
@@ -439,7 +443,7 @@ class _$DetailPieceImpl implements _DetailPiece {
       @JsonKey(name: 'piece') this.piece,
       @JsonKey(name: 'article') this.article,
       @JsonKey(name: 'type_engin') required this.typeEngin,
-      @JsonKey(name: 'partenaire') required this.partenaire,
+      @JsonKey(name: 'partenaire') this.partenaire,
       @JsonKey(name: 'autos') final List<AutoDisponibility>? autos,
       @JsonKey(name: 'moteurs') final List<MotorDisponibility>? moteurs,
       @JsonKey(name: 'categories')
@@ -498,7 +502,7 @@ class _$DetailPieceImpl implements _DetailPiece {
   final EnginType typeEngin;
   @override
   @JsonKey(name: 'partenaire')
-  final Partenaire partenaire;
+  final Partenaire? partenaire;
   final List<AutoDisponibility>? _autos;
   @override
   @JsonKey(name: 'autos')
@@ -633,7 +637,7 @@ abstract class _DetailPiece implements DetailPiece {
       @JsonKey(name: 'piece') final Piece? piece,
       @JsonKey(name: 'article') final Article? article,
       @JsonKey(name: 'type_engin') required final EnginType typeEngin,
-      @JsonKey(name: 'partenaire') required final Partenaire partenaire,
+      @JsonKey(name: 'partenaire') final Partenaire? partenaire,
       @JsonKey(name: 'autos') final List<AutoDisponibility>? autos,
       @JsonKey(name: 'moteurs') final List<MotorDisponibility>? moteurs,
       @JsonKey(name: 'categories')
@@ -689,7 +693,7 @@ abstract class _DetailPiece implements DetailPiece {
   EnginType get typeEngin;
   @override
   @JsonKey(name: 'partenaire')
-  Partenaire get partenaire;
+  Partenaire? get partenaire;
   @override
   @JsonKey(name: 'autos')
   List<AutoDisponibility>? get autos;

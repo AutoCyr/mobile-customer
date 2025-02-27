@@ -3,6 +3,7 @@ import 'package:autocyr/presentation/ui/atoms/labels/label13.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label17.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
+import 'package:autocyr/presentation/ui/screens/pages/commandes/commandes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -22,6 +23,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       "label": "Mon compte",
       "iconData": Icons.account_circle,
       "widget": null
+    },
+    {
+      "label": "Mes commandes",
+      "iconData": Icons.shopping_cart_checkout_rounded,
+      "widget": const CommandeListScreen()
     },
     {
       "label": "Mes demandes",
