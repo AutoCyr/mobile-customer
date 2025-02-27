@@ -90,7 +90,6 @@ class Box {
                         splashColor: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
                         onTap: () async {
                           await function();
-                          Navigator.pop(context);
                         },
                         child: Label12(text: "Confirmer", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1)
                     ).animate().fadeIn(),

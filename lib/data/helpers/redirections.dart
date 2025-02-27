@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:autocyr/domain/models/pieces/detail_piece.dart';
+import 'package:autocyr/domain/models/profile/partenaire.dart';
 import 'package:autocyr/presentation/ui/helpers/snacks.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -40,6 +44,23 @@ class Redirections {
       await launchUrl(Uri.parse(googleMapUrl));
     } else {
       Snacks.failureBar("Les coordonnées géographiques ne sont pas valides", context);
+    }
+  }
+
+  shareWhatsapp({required BuildContext context, required DetailPiece piece, required Partenaire partenaire}) async {
+    var message = "Bonjour ${partenaire.raisonSociale}. \n\n"
+        "Nous vous contactons depuis AUTOCYR par rapport à la pièce ${piece.piece != null ? piece.piece!.nomPiece : piece.article!.name}...";
+
+    var AndroidUrl = "whatsapp://send?phone=${partenaire.telephonePartenaire}&text=$message";
+    var iOSUrl ="https://wa.me/${partenaire.telephonePartenaire}?text=$message";
+
+    String url = Platform.isAndroid ? AndroidUrl : iOSUrl;
+    Uri uri = Uri.parse(url);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      Snacks.failureBar("Le lien n'est pas valide", context);
     }
   }
 

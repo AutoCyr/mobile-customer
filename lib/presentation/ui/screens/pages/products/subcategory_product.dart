@@ -111,7 +111,7 @@ class _SubcategoryProductScreenState extends State<SubcategoryProductScreen> {
     }
 
     setState(() {
-      filteredPieces = filtered;
+      searchedPieces = filteredPieces = filtered;
     });
   }
 

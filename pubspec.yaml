@@ -48,6 +48,7 @@ dependencies:
   double_back_to_close_app: ^2.1.0
   refresh_loadmore: ^2.0.7
   url_launcher: ^6.2.4
+  icons_plus: ^5.0.0
   #Datas & States management
   freezed_annotation: ^2.4.4
   json_annotation: ^4.9.0

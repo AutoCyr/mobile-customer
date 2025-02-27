@@ -110,7 +110,7 @@ class _TypeProductScreenState extends State<TypeProductScreen> {
     }
 
     setState(() {
-      filteredPieces = filtered;
+      searchedPieces = filteredPieces = filtered;
     });
   }
 

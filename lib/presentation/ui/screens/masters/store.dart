@@ -108,7 +108,7 @@ class _StoreScreenState extends State<StoreScreen> {
     }
 
     setState(() {
-      filteredPieces = filtered;
+      searchedPieces = filteredPieces = filtered;
     });
   }
 

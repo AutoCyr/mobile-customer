@@ -333,6 +333,8 @@ class CustomerNotifier extends ChangeNotifier {
         setAction(false);
         if (context.mounted) {
           Snacks.successBar(success.message, context);
+          Navigator.pop(context);
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const CommandeListScreen()));
         }
       }else{
         Failure failure = Failure.fromJson(data);

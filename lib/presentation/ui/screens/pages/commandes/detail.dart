@@ -9,6 +9,7 @@ import 'package:autocyr/presentation/ui/core/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 
 class CommandeDetailScreen extends StatefulWidget {
@@ -55,7 +56,7 @@ class _CommandeDetailScreenState extends State<CommandeDetailScreen> {
                     border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1), width: 1),
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                 ),
-                child: Label13(text: "${DateFormat.yMMMMEEEEd("fr").format(detail!.dateCommande)} à ${DateFormat.Hm("fr").format(detail!.dateCommande)}", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 2),
+                child: Label13(text: "${DateFormat.yMMMMEEEEd("fr").format(detail!.dateCommande)} à ${DateFormat.Hm("fr").format(detail!.dateCommande)}", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.normal, maxLines: 2),
               ).animate().fadeIn()
             ],
           ),
@@ -149,6 +150,19 @@ class _CommandeDetailScreenState extends State<CommandeDetailScreen> {
                       icon: Icon(Icons.settings_phone_sharp, color: GlobalThemeData.lightColorScheme.tertiary, size: 20,)
                   ),
                   IconButton(
+                      onPressed: () => Redirections().shareWhatsapp(context: context, piece: detail!.pieceDetail, partenaire: detail!.partenaire),
+                      style: ButtonStyle(
+                        shape: WidgetStateProperty.all(
+                            RoundedRectangleBorder(
+                                side: BorderSide(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1)),
+                                borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
+                            )
+                        ),
+                        backgroundColor: WidgetStateProperty.all(GlobalThemeData.lightColorScheme.onTertiary),
+                      ),
+                      icon: Icon(Bootstrap.whatsapp, color: GlobalThemeData.lightColorScheme.tertiary, size: 20,)
+                  ),
+                  IconButton(
                       onPressed: () => Redirections().launchMail(context: context, email: detail!.partenaire.emailPartenaire),
                       style: ButtonStyle(
                         shape: WidgetStateProperty.all(
@@ -165,7 +179,6 @@ class _CommandeDetailScreenState extends State<CommandeDetailScreen> {
               )
             ],
           ),
-
         ],
       )
     );

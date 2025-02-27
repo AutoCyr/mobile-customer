@@ -303,33 +303,51 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
                     ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                    child: customer.action ?
-                      ProgressButton(
-                        widthSize: size.width * 0.95,
-                        context: context,
-                        bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                        shimmerColor: GlobalThemeData.lightColorScheme.tertiary
-                      ).animate().fadeIn()
-                        :
-                      SizedBox(
-                        child: CustomButton(
-                          text: "Contacter le vendeur",
-                          size: size,
-                          globalWidth: size.width * 0.95,
-                          widthSize: size.width * 0.89,
-                          backSize: size.width * 0.89,
-                          context: context,
-                          function: () {
-                            Box().confirmOperationBox(
-                              context: context,
-                              function: () => save()
-                            );
-                          },
-                          textColor: GlobalThemeData.lightColorScheme.tertiary,
-                          buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
-                          backColor: GlobalThemeData.lightColorScheme.tertiary
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Divider(
+                          color: GlobalThemeData.lightColorScheme.outline,
+                          thickness: 1,
+                          height: 1,
                         ).animate().fadeIn(),
-                      ),
+                        const Gap(10),
+                        Label12(
+                            text: "AUTOCYR sert principalement à vous mettre en relation avec les vendeurs. Toute autre gestion se fait en dehors de la plateforme. Nous ne sommes pas impliqués dans ces échanges.",
+                            color: Colors.red.shade300,
+                            weight: FontWeight.normal,
+                            maxLines: 10
+                        ).animate().fadeIn(),
+                        const Gap(10),
+                        customer.action ?
+                          ProgressButton(
+                            widthSize: size.width * 0.95,
+                            context: context,
+                            bgColor: GlobalThemeData.lightColorScheme.onTertiary,
+                            shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                          ).animate().fadeIn()
+                            :
+                          SizedBox(
+                            child: CustomButton(
+                              text: "Contacter le vendeur",
+                              size: size,
+                              globalWidth: size.width * 0.95,
+                              widthSize: size.width * 0.89,
+                              backSize: size.width * 0.89,
+                              context: context,
+                              function: () {
+                                Box().confirmOperationBox(
+                                  context: context,
+                                  function: () => save()
+                                );
+                              },
+                              textColor: GlobalThemeData.lightColorScheme.tertiary,
+                              buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
+                              backColor: GlobalThemeData.lightColorScheme.tertiary
+                            ).animate().fadeIn(),
+                          ),
+                      ],
+                    ),
                   ),
                 ],
               );
