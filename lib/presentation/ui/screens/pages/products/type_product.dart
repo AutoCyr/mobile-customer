@@ -31,6 +31,7 @@ class _TypeProductScreenState extends State<TypeProductScreen> {
 
   List<DetailPiece> pieces = [];
   List<DetailPiece> filteredPieces = [];
+  List<DetailPiece> searchedPieces = [];
 
   Map<String, dynamic> getParams(int view) {
     final auth = Provider.of<AuthNotifier>(context, listen: false);
@@ -49,18 +50,18 @@ class _TypeProductScreenState extends State<TypeProductScreen> {
 
     Map<String, dynamic> params = getParams(view);
     await customer.retrieveTypePieces(context: context, params: params, more: more);
-    filteredPieces = pieces = customer.typePieces;
+    searchedPieces = filteredPieces = pieces = customer.typePieces;
   }
 
   void filterList(String searchQuery) {
     List<DetailPiece> filtered = [];
-    for (var value in pieces) {
+    for (var value in filteredPieces) {
       if(value.piece != null ? value.piece!.nomPiece.toLowerCase().contains(searchQuery.toLowerCase()) : value.article!.name.toLowerCase().contains(searchQuery.toLowerCase())) {
         filtered.add(value);
       }
     }
     setState(() {
-      filteredPieces = filtered;
+      searchedPieces = filtered;
     });
   }
 
@@ -203,7 +204,7 @@ class _TypeProductScreenState extends State<TypeProductScreen> {
             return StateScreen(icon: Icons.not_interested_sharp, message: customer.errorPieces, isError: true, function: () => retrievePieces(view, false));
           }
 
-          if(customer.errorPieces.isEmpty && filteredPieces.isEmpty && !customer.loading) {
+          if(customer.errorPieces.isEmpty && searchedPieces.isEmpty && !customer.loading) {
             return const StateScreen(icon: Icons.more_horiz_outlined, message: "Aucune pièce trouvée.", isError: false,);
           }
 
@@ -242,7 +243,7 @@ class _TypeProductScreenState extends State<TypeProductScreen> {
                 crossAxisSpacing: 8,
                 childAspectRatio: 0.7,
                 children: [
-                  ...filteredPieces.map((piece) => PieceWidget(piece: piece)),
+                  ...searchedPieces.map((piece) => PieceWidget(piece: piece)),
                 ],
               )
           );
