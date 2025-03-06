@@ -39,7 +39,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
             List<Address> addresses = auth.client?.adressesClient ?? [];
 
             if(addresses.isEmpty) {
-              return const StateScreen(icon: Icons.location_off_sharp, message: "Aucune adresse trouvée.", isError: false,);
+              return const StateScreen(icon: Icons.inbox_sharp, message: "Aucune adresse trouvée.", isError: false,);
             }
 
             return ListView(

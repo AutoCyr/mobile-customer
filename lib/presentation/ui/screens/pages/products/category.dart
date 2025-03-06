@@ -5,6 +5,7 @@ import 'package:autocyr/presentation/ui/atoms/labels/label10.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
 import 'package:autocyr/presentation/ui/helpers/state.dart';
+import 'package:autocyr/presentation/ui/organisms/loaders/loader.dart';
 import 'package:autocyr/presentation/ui/screens/helpers/category_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -108,28 +109,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
         builder: (context, common, child) {
 
           if(common.filling) {
-            return SizedBox(
-              width: size.width,
-              height: size.height - kToolbarHeight,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ProgressButton(
-                        widthSize: size.width * 0.9,
-                        context: context,
-                        bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                        shimmerColor: GlobalThemeData.lightColorScheme.tertiary
-                    ),
-                    const Gap(20),
-                    Label10(text: "Chargement des catégories...", color: Colors.black, weight: FontWeight.bold, maxLines: 1),
-                  ]
-              ).animate().fadeIn(),
-            );
+            return Loader(context: context, size: size, message: "Chargement des catégories...").animate().fadeIn();
           }
 
           if(filteredCategories.isEmpty && !common.filling) {
-            return const StateScreen(icon: Icons.more_horiz_outlined, message: "Aucune catégorie trouvée.", isError: false,);
+            return const StateScreen(icon: Icons.inbox_sharp, message: "Aucune catégorie trouvée.", isError: false,);
           }
 
           return GridView.count(

@@ -33,4 +33,8 @@ class CustomerUseCase {
   Future createCommande(Map<String, dynamic> body) async {
     return await _customerRepositoryImpl.createCommande(body);
   }
+
+  Future searchShop(Map<String, dynamic> params) async {
+    return await _customerRepositoryImpl.searchShop(params);
+  }
 }

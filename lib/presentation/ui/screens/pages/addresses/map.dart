@@ -9,6 +9,7 @@ import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
 import 'package:autocyr/presentation/ui/helpers/snacks.dart';
 import 'package:autocyr/presentation/ui/molecules/custom_buttons/custom_button.dart';
+import 'package:autocyr/presentation/ui/organisms/loaders/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -103,24 +104,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> {
               List<Address> addresses = auth.client?.adressesClient ?? [];
 
               if(map.loading){
-                return SizedBox(
-                  width: size.width,
-                  height: size.height - kToolbarHeight,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ProgressButton(
-                          widthSize: size.width * 0.9,
-                          context: context,
-                          bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                          shimmerColor: GlobalThemeData.lightColorScheme.tertiary
-                        ),
-                        const Gap(20),
-                        Label10(text: "Chargement de la carte...", color: GlobalThemeData.lightColorScheme.secondary, weight: FontWeight.bold, maxLines: 1),
-                      ]
-                  ).animate().fadeIn(),
-                );
+                return Loader(context: context, size: size, message: "Chargement de la carte...").animate().fadeIn();
               }
 
               return Stack(
@@ -157,8 +141,8 @@ class _AddressMapScreenState extends State<AddressMapScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.7),
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: GlobalThemeData.lightColorScheme.primaryContainer),
+                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+                        border: Border.all(color: GlobalThemeData.lightColorScheme.tertiaryContainer),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -206,8 +190,8 @@ class _AddressMapScreenState extends State<AddressMapScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.9),
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: GlobalThemeData.lightColorScheme.primaryContainer),
+                            borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+                            border: Border.all(color: GlobalThemeData.lightColorScheme.tertiaryContainer),
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,

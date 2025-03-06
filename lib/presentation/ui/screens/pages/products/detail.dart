@@ -12,6 +12,7 @@ import 'package:autocyr/presentation/ui/core/theme.dart';
 import 'package:autocyr/presentation/ui/helpers/box.dart';
 import 'package:autocyr/presentation/ui/helpers/state.dart';
 import 'package:autocyr/presentation/ui/molecules/custom_buttons/custom_button.dart';
+import 'package:autocyr/presentation/ui/organisms/loaders/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -64,32 +65,15 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
         body: Consumer<CustomerNotifier>(
             builder: (context, customer, child) {
               if(customer.loading) {
-                return SizedBox(
-                  width: size.width,
-                  height: size.height - kToolbarHeight,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ProgressButton(
-                            widthSize: size.width * 0.9,
-                            context: context,
-                            bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                            shimmerColor: GlobalThemeData.lightColorScheme.tertiary
-                        ),
-                        const Gap(20),
-                        Label10(text: "Chargement des informations de la pièce...", color: GlobalThemeData.lightColorScheme.secondary, weight: FontWeight.bold, maxLines: 2),
-                      ]
-                  ).animate().fadeIn(),
-                );
+                return Loader(context: context, size: size, message: "Chargement des informations de la pièce...").animate().fadeIn();
               }
 
-              if(customer.piece == null && !customer.loading) {
-                return const StateScreen(icon: Icons.more_horiz, message: "Détails de la pièce non trouvée.", isError: false,);
+              if(customer.errorPiece.isNotEmpty && !customer.loading) {
+                return StateScreen(icon: Icons.running_with_errors_sharp, message: customer.errorPiece, isError: true, function: () => retrievePieceDetails());
               }
 
-              if(customer.piece == null && customer.errorPiece.isNotEmpty && !customer.loading) {
-                return StateScreen(icon: Icons.more_horiz, message: customer.errorPiece, isError: true, function: retrievePieceDetails());
+              if(customer.errorPiece.isEmpty && customer.piece == null && !customer.loading) {
+                return const StateScreen(icon: Icons.inbox_sharp, message: "Détails de la pièce non trouvée.", isError: false,);
               }
 
               return ListView(

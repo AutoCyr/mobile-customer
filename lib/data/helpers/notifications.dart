@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
@@ -8,10 +7,6 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
   print("Handling a background message: ${message.notification!.body}");
   print("Handling a background message: ${message.notification!.title}");
   print("Message: ${message.data}");
-  RemoteMessage? bgMessage = await FirebaseMessaging.instance.getInitialMessage();
-  if (bgMessage != null) {
-
-  }
 }
 
 class Notifications {
@@ -80,7 +75,6 @@ class Notifications {
   Future<void> initNotifications() async {
     await _firebaseMessaging.requestPermission();
     await _firebaseMessaging.getToken();
-    await _firebaseMessaging.getInitialMessage();
     initPushNotifications();
     initLocalNotifications();
   }

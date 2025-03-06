@@ -1,13 +1,18 @@
 import 'package:autocyr/domain/models/commons/partner_type.dart';
 import 'package:autocyr/domain/models/profile/address.dart';
+import 'package:autocyr/domain/models/profile/partenaire.dart';
 import 'package:autocyr/presentation/notifier/auth_notifier.dart';
 import 'package:autocyr/presentation/notifier/common_notifier.dart';
+import 'package:autocyr/presentation/notifier/customer_notifier.dart';
 import 'package:autocyr/presentation/notifier/map_notifier.dart';
 import 'package:autocyr/presentation/ui/atoms/buttons/progress_button.dart';
 import 'package:autocyr/presentation/ui/atoms/fields/custom_selectable_field.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label10.dart';
+import 'package:autocyr/presentation/ui/atoms/labels/label12.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
+import 'package:autocyr/presentation/ui/helpers/snacks.dart';
+import 'package:autocyr/presentation/ui/molecules/custom_buttons/custom_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -23,6 +28,8 @@ class SearchShopScreen extends StatefulWidget {
 class _SearchShopScreenState extends State<SearchShopScreen> {
 
   bool isActive = true;
+  bool searched = false;
+  bool _search = false;
 
   String zone = "";
   String type = "";
@@ -30,8 +37,10 @@ class _SearchShopScreenState extends State<SearchShopScreen> {
   Address? currentAddress;
   Address? selectedAddress;
 
+  List<Partenaire> partners = [];
+  List<Partenaire> filteredPartners = [];
+
   final TextEditingController _zoneController = TextEditingController();
-  final TextEditingController _typeController = TextEditingController();
 
   retrieveCommons() async {
     final common = Provider.of<CommonNotifier>(context, listen: false);
@@ -55,6 +64,39 @@ class _SearchShopScreenState extends State<SearchShopScreen> {
     });
   }
 
+  void filterList(String searchQuery) {
+    List<Partenaire> filtered = [];
+    for (var value in partners) {
+      if(value.raisonSociale.toLowerCase().contains(searchQuery.toLowerCase())) {
+        filtered.add(value);
+      }
+    }
+    setState(() {
+      filteredPartners = filtered;
+    });
+  }
+
+  searchShop() async {
+    final customer = Provider.of<CustomerNotifier>(context, listen: false);
+    final auth = Provider.of<AuthNotifier>(context, listen: false);
+
+    if(selectedAddress != null && _zoneController.text.isNotEmpty) {
+      Map<String, dynamic> params = {
+        "latitude": selectedAddress?.latitude,
+        "longitude": selectedAddress?.longitude,
+        "country_id": auth.getCountry.id
+      };
+
+      await customer.searchShop(context: context, params: params);
+      filteredPartners = partners = customer.partners;
+      setState(() {
+        searched = true;
+      });
+    } else {
+      Snacks.failureBar("Veuillez sélectionner une zone avant de continuer", context);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -71,10 +113,51 @@ class _SearchShopScreenState extends State<SearchShopScreen> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.onTertiary),
         backgroundColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
-        title: Label14(text: "Rechercher une boutique", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+        title: _search == false ?
+          Label14(text: "Rechercher une boutique", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+            :
+          SizedBox(
+            height: 45,
+            child: TextFormField(
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                  filled: true,
+                  fillColor: GlobalThemeData.lightColorScheme.onTertiary.withOpacity(0.5),
+                  focusColor: GlobalThemeData.lightColorScheme.tertiary,
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: GlobalThemeData.lightColorScheme.tertiary,
+                          width: 2
+                      )
+                  ),
+                  labelText: "Rechercher",
+                  labelStyle: TextStyle(
+                      color: GlobalThemeData.lightColorScheme.tertiary,
+                      fontSize: 13
+                  )
+              ),
+              style: const TextStyle(
+                  fontSize: 13
+              ),
+              autofocus: true,
+              onChanged: (value) => filterList(value),
+              cursorColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
+            ),
+          ).animate().fadeIn(),
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _search = !_search;
+                filterList("");
+              });
+            },
+            icon: _search ? const Icon(Icons.clear) : const Icon(Icons.search_sharp),
+          ).animate().fadeIn()
+        ],
       ),
-      body: Consumer2<AuthNotifier, CommonNotifier>(
-        builder: (context, auth, common, child) {
+      body: Consumer2<AuthNotifier, CustomerNotifier>(
+        builder: (context, auth, customer, child) {
           List<Address> addresses = auth.client?.adressesClient ?? [];
 
           return ListView(
@@ -113,7 +196,7 @@ class _SearchShopScreenState extends State<SearchShopScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
-                                width: size.width * 0.43,
+                                width: size.width * 0.7,
                                 child: CustomSelectableField(
                                     controller: _zoneController,
                                     key: zone,
@@ -137,78 +220,75 @@ class _SearchShopScreenState extends State<SearchShopScreen> {
                                     }
                                 ).animate().fadeIn(),
                               ),
-                              SizedBox(
-                                width: size.width * 0.43,
-                                child: common.filling ?
-                                Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Label10(text: "Chargement des types de partenaire...", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
-                                      const Gap(10),
-                                      ProgressButton(
-                                          widthSize: size.width * 0.45,
-                                          context: context,
-                                          bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                                          shimmerColor: GlobalThemeData.lightColorScheme.tertiary
-                                      )
-                                    ]
+                              customer.loading ?
+                                ProgressButton(
+                                  widthSize: 50,
+                                  context: context,
+                                  bgColor: GlobalThemeData.lightColorScheme.onTertiary,
+                                  shimmerColor: GlobalThemeData.lightColorScheme.tertiary
                                 ).animate().fadeIn()
-                                    :
-                                CustomSelectableField(
-                                    controller: _typeController,
-                                    key: type,
-                                    keyboardType: TextInputType.none,
-                                    label: "Type de partenaire",
-                                    fontSize: 12,
-                                    icon: Icons.person_pin_outlined,
-                                    context: context,
-                                    options: common.partnerTypes,
-                                    displayField: (value) => (value as PartnerType).libelle,
-                                    onSelected: (value) {
-                                      common.setPartnerType(value as PartnerType);
-                                      setState(() {
-                                        _typeController.text = value.libelle;
-                                        type = value.id.toString();
-                                      });
-                                    }
+                                  :
+                                CustomIconButton(
+                                  icon: Icons.manage_search_rounded,
+                                  size: size,
+                                  context: context,
+                                  function: () => searchShop(),
+                                  iconColor: GlobalThemeData.lightColorScheme.tertiary,
+                                  buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
+                                  backColor: GlobalThemeData.lightColorScheme.tertiary
                                 ).animate().fadeIn(),
-                              ),
                             ],
                           ),
-                          const Gap(10),
-                          TextFormField(
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                                filled: true,
-                                fillColor: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
-                                focusColor: GlobalThemeData.lightColorScheme.tertiary,
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: GlobalThemeData.lightColorScheme.tertiary,
-                                        width: 2
-                                    )
-                                ),
-                                labelText: "Rechercher",
-                                labelStyle: TextStyle(
-                                    color: GlobalThemeData.lightColorScheme.tertiary,
-                                    fontSize: 13
-                                )
-                            ),
-                            style: const TextStyle(
-                                fontSize: 13
-                            ),
-                            autofocus: false,
-                            onChanged: (value) {
-
-                            },
-                            cursorColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
-                          ).animate().fadeIn(),
+                          if(searched)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Gap(10),
+                                Label10(text: "${filteredPartners.length} partenaire(s) trouvé(s).", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
+                              ],
+                            )
                         ],
                       )
                   ],
                 ),
               ),
               const Gap(20),
+              if(searched && filteredPartners.isNotEmpty)
+                ...filteredPartners.map((partner) => Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: GlobalThemeData.lightColorScheme.onTertiary,
+                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+                    border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1), width: 1)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: size.width * 0.7,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Label14(text: partner.raisonSociale, color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
+                            const Gap(5),
+                            Label12(text: partner.villePartenaire, color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: size.width * 0.1,
+                        height: size.width * 0.1,
+                        decoration: BoxDecoration(
+                            color: GlobalThemeData.lightColorScheme.tertiary,
+                            borderRadius: const BorderRadius.only(topRight: Radius.circular(5))
+                        ),
+                        child: Center(
+                          child: Icon(Icons.chevron_right, size: 20, color: GlobalThemeData.lightColorScheme.onTertiary),
+                        ).animate().fadeIn(),
+                      )
+                    ],
+                  ),
+                ))
             ],
           );
         }

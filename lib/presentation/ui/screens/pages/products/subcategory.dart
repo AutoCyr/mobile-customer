@@ -6,6 +6,7 @@ import 'package:autocyr/presentation/ui/atoms/labels/label10.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
 import 'package:autocyr/presentation/ui/helpers/state.dart';
+import 'package:autocyr/presentation/ui/organisms/loaders/loader.dart';
 import 'package:autocyr/presentation/ui/screens/helpers/subcategory_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -110,28 +111,11 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
         builder: (context, common, child) {
 
           if(common.filling) {
-            return SizedBox(
-              width: size.width,
-              height: size.height - kToolbarHeight,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ProgressButton(
-                        widthSize: size.width * 0.9,
-                        context: context,
-                        bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                        shimmerColor: GlobalThemeData.lightColorScheme.tertiary
-                    ),
-                    const Gap(20),
-                    Label10(text: "Chargement des sous-catégories...", color: Colors.black, weight: FontWeight.bold, maxLines: 1),
-                  ]
-              ).animate().fadeIn(),
-            );
+            return Loader(context: context, size: size, message: "Chargement des sous-catégories...").animate().fadeIn();
           }
 
           if(filteredSubcategories.isEmpty && !common.filling) {
-            return const StateScreen(icon: Icons.more_horiz_outlined, message: "Aucune sous-catégorie trouvée.", isError: false,);
+            return const StateScreen(icon: Icons.inbox_sharp, message: "Aucune sous-catégorie trouvée.", isError: false,);
           }
 
           return GridView.count(

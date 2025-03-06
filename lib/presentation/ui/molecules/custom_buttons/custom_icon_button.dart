@@ -53,7 +53,7 @@ Widget CustomIconButton({
                 child: Icon(
                   icon,
                   color: iconColor,
-                  size: 14,
+                  size: 20,
                 ),
               ),
             ),

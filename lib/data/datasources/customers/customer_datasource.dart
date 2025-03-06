@@ -12,4 +12,6 @@ abstract class CustomerDataSource {
   Future getCommandes(Map<String, dynamic> params);
 
   Future createCommande(Map<String, dynamic> body);
+
+  Future searchShop(Map<String, dynamic> params);
 }

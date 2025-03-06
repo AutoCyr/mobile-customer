@@ -4,6 +4,7 @@ import 'package:autocyr/domain/models/pieces/disponibilities/auto_disponibility.
 import 'package:autocyr/domain/models/pieces/disponibilities/category_disponibility.dart';
 import 'package:autocyr/domain/models/pieces/disponibilities/motor_disponibility.dart';
 import 'package:autocyr/domain/models/pieces/piece_info.dart';
+import 'package:autocyr/domain/models/profile/partenaire.dart';
 import 'package:autocyr/domain/models/response/failure.dart';
 import 'package:autocyr/domain/models/response/meta.dart';
 import 'package:autocyr/domain/models/response/success.dart';
@@ -21,42 +22,54 @@ class CustomerNotifier extends ChangeNotifier {
   bool _filling = false;
   bool _loading = false;
   bool _action = false;
+
   String _errorPieces = "";
   String _errorPiece = "";
   String _errorCommandes = "";
   String _error = "";
+
   Meta? _pieceMeta;
   Meta? _typePieceMeta;
   Meta? _subcategoryPieceMeta;
   Meta? _commandeMeta;
+
   PieceInfo? _piece;
+
   List<DetailPiece> _pieces = [];
   List<DetailPiece> _typePieces = [];
   List<DetailPiece> _subcategoryPieces = [];
+  List<Commande> _commandes = [];
+  List<Partenaire> _partners = [];
+
   List<int> _autoFilters = [];
   List<int> _motorFilters = [];
   List<int> _categoryFilters = [];
-  List<Commande> _commandes = [];
 
   bool get filling => _filling;
   bool get loading => _loading;
   bool get action => _action;
+
   String get errorPieces => _errorPieces;
   String get errorPiece => _errorPiece;
   String get errorCommandes => _errorCommandes;
   String get error => _error;
+
   Meta get pieceMeta => _pieceMeta!;
   Meta get typePieceMeta => _typePieceMeta!;
   Meta get subcategoryPieceMeta => _subcategoryPieceMeta!;
   Meta get commandeMeta => _commandeMeta!;
+
   PieceInfo? get piece => _piece;
+
   List<DetailPiece> get pieces => _pieces;
   List<DetailPiece> get typePieces => _typePieces;
   List<DetailPiece> get subcategoryPieces => _subcategoryPieces;
+  List<Commande> get commandes => _commandes;
+  List<Partenaire> get partners => _partners;
+
   List<int> get autoFilters => _autoFilters;
   List<int> get motorFilters => _motorFilters;
   List<int> get categoryFilters => _categoryFilters;
-  List<Commande> get commandes => _commandes;
 
   setFilling(bool value) {
     _filling = value;
@@ -133,6 +146,16 @@ class CustomerNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  setCommandes(List<Commande> value) {
+    _commandes = value;
+    notifyListeners();
+  }
+
+  setPartners(List<Partenaire> value) {
+    _partners = value;
+    notifyListeners();
+  }
+
   setAutoFilters(List<int> value) {
     _autoFilters = value;
     notifyListeners();
@@ -145,11 +168,6 @@ class CustomerNotifier extends ChangeNotifier {
 
   setCategoryFilters(List<int> value) {
     _categoryFilters = value;
-    notifyListeners();
-  }
-
-  setCommandes(List<Commande> value) {
-    _commandes = value;
     notifyListeners();
   }
 
@@ -384,6 +402,35 @@ class CustomerNotifier extends ChangeNotifier {
       print(e);
       more ? setFilling(false) : setLoading(false);
       setErrorCommandes("Une erreur serveur est survenue");
+    }
+  }
+
+  Future searchShop({required BuildContext context, required Map<String, dynamic> params}) async {
+    setLoading(true);
+    setError("");
+
+    try {
+      var data = await customerUseCase.searchShop(params);
+
+      if(data['error'] == false) {
+        Success success = Success.fromJson(data);
+
+        List<Partenaire> partenaires = [];
+        for(var partner in success.data) {
+          partenaires.add(Partenaire.fromJson(partner));
+        }
+        setPartners(partenaires);
+        setLoading(false);
+      }else{
+        Failure failure = Failure.fromJson(data);
+
+        setLoading(false);
+        setError(failure.message);
+      }
+    } catch (e) {
+      print(e);
+      setLoading(false);
+      setError("Une erreur serveur est survenue");
     }
   }
 

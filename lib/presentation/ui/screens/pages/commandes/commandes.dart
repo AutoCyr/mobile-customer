@@ -5,6 +5,7 @@ import 'package:autocyr/presentation/ui/atoms/labels/label10.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
 import 'package:autocyr/presentation/ui/helpers/state.dart';
+import 'package:autocyr/presentation/ui/organisms/loaders/loader.dart';
 import 'package:autocyr/presentation/ui/screens/helpers/commande_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -118,32 +119,15 @@ class _CommandeListScreenState extends State<CommandeListScreen> {
           builder: (context, customer, child) {
 
             if(customer.loading) {
-              return SizedBox(
-                width: size.width,
-                height: size.height - kToolbarHeight,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ProgressButton(
-                          widthSize: size.width * 0.9,
-                          context: context,
-                          bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                          shimmerColor: GlobalThemeData.lightColorScheme.tertiary
-                      ),
-                      const Gap(20),
-                      Label10(text: "Chargement des commandes...", color: Colors.black, weight: FontWeight.bold, maxLines: 1),
-                    ]
-                ).animate().fadeIn(),
-              );
+              return Loader(context: context, size: size, message: "Chargement des commandes...").animate().fadeIn();
             }
 
             if(customer.errorCommandes.isNotEmpty && !customer.loading) {
-              return StateScreen(icon: Icons.not_interested_sharp, message: customer.errorCommandes, isError: true, function: () => retrieveCommandes(view, false));
+              return StateScreen(icon: Icons.running_with_errors_sharp, message: customer.errorCommandes, isError: true, function: () => retrieveCommandes(view, false));
             }
 
             if(customer.errorCommandes.isEmpty && filteredCommandes.isEmpty && !customer.loading) {
-              return const StateScreen(icon: Icons.shopping_cart_checkout_rounded, message: "Aucune commande trouvée.", isError: false,);
+              return const StateScreen(icon: Icons.inbox_sharp, message: "Aucune commande trouvée.", isError: false,);
             }
 
             return RefreshLoadmore(

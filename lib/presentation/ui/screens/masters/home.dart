@@ -9,6 +9,7 @@ import 'package:autocyr/presentation/ui/atoms/labels/label12.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label13.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label17.dart';
+import 'package:autocyr/presentation/ui/atoms/loaders/loading.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
 import 'package:autocyr/presentation/ui/helpers/image_category.dart';
 import 'package:autocyr/presentation/ui/molecules/custom_buttons/custom_icon_button.dart';
@@ -195,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Label10(text: "Chargement des types d'engin...", color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
                           const Gap(10),
-                          ProgressButton(
+                          Loading(
                             widthSize: size.width,
                             context: context,
                             bgColor: GlobalThemeData.lightColorScheme.onTertiary,
@@ -271,7 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Label10(text: "Chargement des catégories...", color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
                           const Gap(10),
-                          ProgressButton(
+                          Loading(
                               widthSize: size.width,
                               context: context,
                               bgColor: GlobalThemeData.lightColorScheme.onTertiary,
