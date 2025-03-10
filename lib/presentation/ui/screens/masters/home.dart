@@ -217,6 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => TypeProductScreen(type: e)));
                                 },
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     /*Stack(
@@ -234,7 +235,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ],
                                     ),*/
                                     ImageCategory().loadImage(e.libelle),
-                                    const Gap(10),
                                     Label12(text: e.libelle, color: Colors.black, weight: FontWeight.normal, maxLines: 2)
                                   ],
                                 ),

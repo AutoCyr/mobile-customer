@@ -2,6 +2,7 @@ import 'package:autocyr/domain/models/abstractables/selectable.dart';
 import 'package:autocyr/domain/models/commons/bike_make.dart';
 import 'package:autocyr/domain/models/commons/car_make.dart';
 import 'package:autocyr/domain/models/commons/country.dart';
+import 'package:autocyr/domain/models/core/article.dart';
 import 'package:autocyr/presentation/notifier/common_notifier.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label10.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label12.dart';
@@ -95,6 +96,9 @@ class _CustomSearchableState extends State<CustomSearchable> {
                         break;
                       case "car":
                         common.setCarMake(localSelectedObject! as CarMake);
+                        break;
+                      case "article":
+                        common.setArticle(localSelectedObject! as Article);
                         break;
                     }
                     Navigator.pop(context);

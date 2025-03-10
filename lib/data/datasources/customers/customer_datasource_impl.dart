@@ -262,4 +262,88 @@ class CustomerDataSourceImpl implements CustomerDataSource {
       return error;
     }
   }
+
+  @override
+  Future createRequest(Map<String, dynamic> body) async {
+    String token = await Preferences().getString("token");
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
+    try {
+      final response = await _apiClient.post(path: "customer/create-request", headers: headers, body: body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = json.decode(response.body);
+        return data;
+      } else {
+        return Handling().handleErrorResponse(response);
+      }
+    } catch(e) {
+      var error = {
+        "error": true,
+        "message": "Une erreur serveur est survenue",
+        "except": e.toString()
+      };
+      return error;
+    }
+  }
+
+  @override
+  Future requestResults(Map<String, dynamic> params) async {
+    String token = await Preferences().getString("token");
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
+    try {
+      final response = await _apiClient.getWithParams(path: "customer/request-results", params: params, headers: headers);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = json.decode(response.body);
+        return data;
+      } else {
+        return Handling().handleErrorResponse(response);
+      }
+    } catch(e) {
+      var error = {
+        "error": true,
+        "message": "Une erreur serveur est survenue",
+        "except": e.toString()
+      };
+      return error;
+    }
+  }
+
+  @override
+  Future getRequests(Map<String, dynamic> params) async {
+    String token = await Preferences().getString("token");
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
+    try {
+      final response = await _apiClient.getWithParams(path: "customer/get-demandes", params: params, headers: headers);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = json.decode(response.body);
+        return data;
+      } else {
+        return Handling().handleErrorResponse(response);
+      }
+    } catch(e) {
+      var error = {
+        "error": true,
+        "message": "Une erreur serveur est survenue",
+        "except": e.toString()
+      };
+      return error;
+    }
+  }
 }

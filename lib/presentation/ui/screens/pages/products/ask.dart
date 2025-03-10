@@ -1,4 +1,5 @@
 import 'package:autocyr/domain/models/commons/engin_type.dart';
+import 'package:autocyr/presentation/notifier/auth_notifier.dart';
 import 'package:autocyr/presentation/notifier/common_notifier.dart';
 import 'package:autocyr/presentation/notifier/customer_notifier.dart';
 import 'package:autocyr/presentation/ui/atoms/buttons/progress_button.dart';
@@ -10,6 +11,7 @@ import 'package:autocyr/presentation/ui/atoms/labels/label10.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
 import 'package:autocyr/presentation/ui/helpers/snacks.dart';
+import 'package:autocyr/presentation/ui/helpers/ui.dart';
 import 'package:autocyr/presentation/ui/molecules/custom_buttons/custom_button.dart';
 import 'package:autocyr/presentation/ui/organisms/searchables/searchable.dart';
 import 'package:flutter/material.dart';
@@ -29,14 +31,39 @@ class _AskScreenState extends State<AskScreen> {
   late bool _isGarantie = false;
   late String typeKey = "";
 
-  final TextEditingController _nomPieceController = TextEditingController();
+
+  final TextEditingController _articleController = TextEditingController();
   final TextEditingController _marqueController = TextEditingController();
   final TextEditingController _typeController = TextEditingController();
   final TextEditingController _modeleController = TextEditingController();
   final TextEditingController _numeroController = TextEditingController();
   final TextEditingController _anneeController = TextEditingController();
-  final TextEditingController _prixController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _autreController = TextEditingController();
+
+  _save() async {
+    final customer = Provider.of<CustomerNotifier>(context, listen: false);
+    final auth = Provider.of<AuthNotifier>(context, listen: false);
+    final common = Provider.of<CommonNotifier>(context, listen: false);
+
+    if(UiTools().checkFields([_articleController, _typeController, _descriptionController])) {
+      Map<String, dynamic> body = {
+        "client_id" : auth.getClient.clientId,
+        "article_id" : common.article!.id,
+        "type_engin_id" : typeKey,
+        "marque_id": _typeController.text.toLowerCase() != "quatre roues" ? common.bikeMake!.id : common.carMake!.id,
+        "description": _descriptionController.text,
+        "modele": _modeleController.text,
+        "numero": _numeroController.text,
+        "annee": _anneeController.text,
+        "garantie" : _isGarantie ? "1" : "0",
+        "autres" : _autreController.text
+      };
+      await customer.createRequest(body: body, context: context);
+    } else {
+      Snacks.failureBar("Veuillez remplir tous les champs avant de continuer", context);
+    }
+  }
 
   retrieveCommons() async {
     final common = Provider.of<CommonNotifier>(context, listen: false);
@@ -49,6 +76,9 @@ class _AskScreenState extends State<AskScreen> {
       }
       if(common.enginTypes.isEmpty) {
         await common.retrieveEnginTypes(context: context);
+      }
+      if(common.articles.isEmpty) {
+        await common.retrieveArticles(context: context);
       }
     }
   }
@@ -79,99 +109,38 @@ class _AskScreenState extends State<AskScreen> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /*if(media == null)
-                          GestureDetector(
-                            onTap: () => getImageFromGallery(),
-                            child: Container(
-                              width: size.width,
-                              height: size.width * 0.3,
-                              decoration: BoxDecoration(
-                                  color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(5)
-                              ),
-                              child: Center(
-                                child: Label12(text: "Sélectionner une image", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
-                              ),
-                            ).animate().fadeIn(),
-                          )
-                        else if(media != null)
-                          Container(
-                              width: size.width,
-                              height: size.width * 0.3,
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                              decoration: BoxDecoration(
-                                color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
-                                borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                          width: size.width * 0.27,
-                                          height: size.width * 0.27,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary, width: 1),
-                                            borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-                                            image: DecorationImage(
-                                                image: FileImage(media!),
-                                                fit: BoxFit.cover
-                                            ),
-                                          )
-                                      ),
-                                      const Gap(10),
-                                      SizedBox(
-                                        width: size.width * 0.55,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      media = null;
-                                                    });
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.close,
-                                                    color: Colors.black,
-                                                    size: 20,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Label12(text: "Média sélectionné", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
-                                                const Gap(5),
-                                                Label12(text: _image!.name, color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      )
-
-                                    ],
-                                  )
-                                ],
+                        common.filling ?
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Label10(text: "Chargement des pièces...", color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
+                              const Gap(10),
+                              ProgressButton(
+                                  widthSize: size.width * 0.95,
+                                  context: context,
+                                  bgColor: GlobalThemeData.lightColorScheme.onTertiary,
+                                  shimmerColor: GlobalThemeData.lightColorScheme.tertiary
                               )
+                            ]
+                          ).animate().fadeIn()
+                            :
+                          ObjectSelectableField(
+                            controller: _articleController,
+                            keyboardType: TextInputType.none,
+                            label: "Pièce",
+                            fontSize: 12,
+                            icon: Icons.settings_outlined,
+                            context: context,
+                            onSelected: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                return CustomSearchable(
+                                    controller: _articleController,
+                                    list: common.articles,
+                                    typeSelection: "article"
+                                );
+                              }));
+                            }
                           ).animate().fadeIn(),
-                        const Gap(10),*/
-                        CustomField(
-                          controller: _nomPieceController,
-                          keyboardType: TextInputType.text,
-                          label: "Nom de la pièce",
-                          fontSize: 12,
-                          icon: Icons.text_fields_outlined,
-                        ).animate().fadeIn(),
                         const Gap(10),
                         common.filling ?
                           Column(
@@ -243,19 +212,17 @@ class _AskScreenState extends State<AskScreen> {
                             }
                           ).animate().fadeIn(),
                         const Gap(10),
+                        CustomField(
+                          controller: _modeleController,
+                          keyboardType: TextInputType.text,
+                          label: "Modèle",
+                          fontSize: 12,
+                          icon: Icons.style_outlined,
+                        ).animate().fadeIn(),
+                        const Gap(10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(
-                              width: size.width * 0.45,
-                              child: CustomField(
-                                controller: _modeleController,
-                                keyboardType: TextInputType.text,
-                                label: "Modèle",
-                                fontSize: 12,
-                                icon: Icons.style_outlined,
-                              ).animate().fadeIn(),
-                            ),
                             SizedBox(
                               width: size.width * 0.45,
                               child: CustomField(
@@ -266,12 +233,6 @@ class _AskScreenState extends State<AskScreen> {
                                 icon: Icons.onetwothree_sharp,
                               ).animate().fadeIn(),
                             ),
-                          ],
-                        ),
-                        const Gap(10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
                             SizedBox(
                               width: size.width * 0.45,
                               child: CustomField(
@@ -280,17 +241,7 @@ class _AskScreenState extends State<AskScreen> {
                                 label: "Année",
                                 fontSize: 12,
                                 icon: Icons.calendar_today_outlined,
-                              ).animate().fadeIn(),
-                            ),
-                            SizedBox(
-                              width: size.width * 0.45,
-                              child: CustomField(
-                                controller: _prixController,
-                                keyboardType: TextInputType.number,
-                                label: "Prix",
-                                fontSize: 12,
-                                icon: Icons.onetwothree_sharp,
-                              ).animate().fadeIn(),
+                              ).animate().fadeIn()
                             ),
                           ],
                         ),
@@ -312,14 +263,24 @@ class _AskScreenState extends State<AskScreen> {
                         ),
                         const Gap(10),
                         DescriptionField(
-                            controller: _autreController,
-                            keyboardType: TextInputType.text,
-                            label: "Autres informations",
-                            fontSize: 12,
-                            icon: Icons.more_horiz_outlined
+                          controller: _descriptionController,
+                          keyboardType: TextInputType.text,
+                          label: "Décrivez ce que vous recherchez...",
+                          fontSize: 12,
+                          icon: Icons.description_outlined,
+                          maxLines: 3
+                        ).animate().fadeIn(),
+                        const Gap(10),
+                        DescriptionField(
+                          controller: _autreController,
+                          keyboardType: TextInputType.text,
+                          label: "Autres informations",
+                          fontSize: 12,
+                          icon: Icons.more_horiz_outlined,
+                          maxLines: 7
                         ).animate().fadeIn(),
                         const Gap(20),
-                        customer.loading ?
+                        customer.action ?
                           ProgressButton(
                             widthSize: size.width * 0.9,
                             context: context,
@@ -336,7 +297,7 @@ class _AskScreenState extends State<AskScreen> {
                                 widthSize: size.width * 0.9,
                                 backSize: size.width * 0.9,
                                 context: context,
-                                function: () {},
+                                function: () => _save(),
                                 textColor: GlobalThemeData.lightColorScheme.tertiary,
                                 buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
                                 backColor: GlobalThemeData.lightColorScheme.tertiary

@@ -6,12 +6,13 @@ Widget DescriptionField({
   required TextInputType keyboardType,
   required String label,
   required double fontSize,
-  required IconData icon
+  required IconData icon,
+  required int maxLines
 }) {
   return TextFormField(
     controller: controller,
     keyboardType: keyboardType,
-    maxLines: 7,
+    maxLines: maxLines,
     decoration: InputDecoration(
         filled: true,
         fillColor: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
