@@ -234,4 +234,32 @@ class CustomerDataSourceImpl implements CustomerDataSource {
       return error;
     }
   }
+
+  @override
+  Future getShopPieces(Map<String, dynamic> params) async {
+    String token = await Preferences().getString("token");
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
+    try {
+      final response = await _apiClient.getWithParams(path: "customer/shop-pieces", params: params, headers: headers);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = json.decode(response.body);
+        return data;
+      } else {
+        return Handling().handleErrorResponse(response);
+      }
+    } catch(e) {
+      var error = {
+        "error": true,
+        "message": "Une erreur serveur est survenue",
+        "except": e.toString()
+      };
+      return error;
+    }
+  }
 }

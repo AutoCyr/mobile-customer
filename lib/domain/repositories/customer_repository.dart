@@ -14,4 +14,6 @@ abstract class CustomerRepository {
   Future createCommande(Map<String, dynamic> body);
 
   Future searchShop(Map<String, dynamic> params);
+
+  Future getShopPieces(Map<String, dynamic> params);
 }

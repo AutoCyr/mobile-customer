@@ -322,7 +322,10 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
                               function: () {
                                 Box().confirmOperationBox(
                                   context: context,
-                                  function: () => save()
+                                  function: () {
+                                    Navigator.pop(context);
+                                    save();
+                                  }
                                 );
                               },
                               textColor: GlobalThemeData.lightColorScheme.tertiary,

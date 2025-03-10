@@ -31,6 +31,7 @@ class CustomerNotifier extends ChangeNotifier {
   Meta? _pieceMeta;
   Meta? _typePieceMeta;
   Meta? _subcategoryPieceMeta;
+  Meta? _partnerPieceMeta;
   Meta? _commandeMeta;
 
   PieceInfo? _piece;
@@ -38,6 +39,7 @@ class CustomerNotifier extends ChangeNotifier {
   List<DetailPiece> _pieces = [];
   List<DetailPiece> _typePieces = [];
   List<DetailPiece> _subcategoryPieces = [];
+  List<DetailPiece> _partnerPieces = [];
   List<Commande> _commandes = [];
   List<Partenaire> _partners = [];
 
@@ -57,6 +59,7 @@ class CustomerNotifier extends ChangeNotifier {
   Meta get pieceMeta => _pieceMeta!;
   Meta get typePieceMeta => _typePieceMeta!;
   Meta get subcategoryPieceMeta => _subcategoryPieceMeta!;
+  Meta get partnerPieceMeta => _partnerPieceMeta!;
   Meta get commandeMeta => _commandeMeta!;
 
   PieceInfo? get piece => _piece;
@@ -64,6 +67,7 @@ class CustomerNotifier extends ChangeNotifier {
   List<DetailPiece> get pieces => _pieces;
   List<DetailPiece> get typePieces => _typePieces;
   List<DetailPiece> get subcategoryPieces => _subcategoryPieces;
+  List<DetailPiece> get partnerPieces => _partnerPieces;
   List<Commande> get commandes => _commandes;
   List<Partenaire> get partners => _partners;
 
@@ -121,6 +125,11 @@ class CustomerNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  setPartnerPieceMeta(Meta value) {
+    _partnerPieceMeta = value;
+    notifyListeners();
+  }
+
   setCommandeMeta(Meta value) {
     _commandeMeta = value;
     notifyListeners();
@@ -143,6 +152,11 @@ class CustomerNotifier extends ChangeNotifier {
 
   setSubcategoryPieces(List<DetailPiece> value) {
     _subcategoryPieces = value;
+    notifyListeners();
+  }
+
+  setPartnerPieces(List<DetailPiece> value) {
+    _partnerPieces = value;
     notifyListeners();
   }
 
@@ -351,7 +365,6 @@ class CustomerNotifier extends ChangeNotifier {
         setAction(false);
         if (context.mounted) {
           Snacks.successBar(success.message, context);
-          Navigator.pop(context);
           Navigator.push(context, MaterialPageRoute(builder: (context) => const CommandeListScreen()));
         }
       }else{
@@ -431,6 +444,44 @@ class CustomerNotifier extends ChangeNotifier {
       print(e);
       setLoading(false);
       setError("Une erreur serveur est survenue");
+    }
+  }
+
+  Future retrieveShopPieces({required BuildContext context, required Map<String, dynamic> params, required bool more}) async {
+    more ? setFilling(true) : setLoading(true);
+    setErrorPieces("");
+
+    try {
+      var data = await customerUseCase.getShopPieces(params);
+
+      if(data['error'] == false) {
+        Success success = Success.fromJson(data);
+
+        // fetch pagination datas
+        Meta meta = Meta.fromJson(success.data['meta']);
+        if(meta.currentPage >= meta.lastPage){
+          more ? setFilling(false) : setLoading(false);
+        }
+
+        // add & complete datas
+        List<DetailPiece> localPieces = more ? List.from(pieces) : [];
+        for(var piece in success.data['data']){
+          localPieces.add(DetailPiece.fromJson(piece));
+        }
+
+        setPartnerPieces(localPieces);
+        setPartnerPieceMeta(meta);
+        more ? setFilling(false) : setLoading(false);
+      }else{
+        Failure failure = Failure.fromJson(data);
+
+        more ? setFilling(false) : setLoading(false);
+        setErrorPieces(failure.message);
+      }
+    } catch (e) {
+      print(e);
+      more ? setFilling(false) : setLoading(false);
+      setErrorPieces("Une erreur serveur est survenue");
     }
   }
 

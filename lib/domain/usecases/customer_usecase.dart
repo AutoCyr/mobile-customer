@@ -37,4 +37,8 @@ class CustomerUseCase {
   Future searchShop(Map<String, dynamic> params) async {
     return await _customerRepositoryImpl.searchShop(params);
   }
+
+  Future getShopPieces(Map<String, dynamic> params) async {
+    return await _customerRepositoryImpl.getShopPieces(params);
+  }
 }

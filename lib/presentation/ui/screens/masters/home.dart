@@ -219,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Stack(
+                                    /*Stack(
                                       alignment: Alignment.center,
                                       children: [
                                         Container(
@@ -231,9 +231,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               color: GlobalThemeData.lightColorScheme.tertiaryContainer.withOpacity(0.1)
                                           )
                                         ),
-                                        ImageCategory().loadImage(e.libelle),
                                       ],
-                                    ),
+                                    ),*/
+                                    ImageCategory().loadImage(e.libelle),
                                     const Gap(10),
                                     Label12(text: e.libelle, color: Colors.black, weight: FontWeight.normal, maxLines: 2)
                                   ],
