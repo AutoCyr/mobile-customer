@@ -206,11 +206,8 @@ class _SubcategoryProductScreenState extends State<SubcategoryProductScreen> {
                 });
                 retrievePieces(view, true);
               },
-              noMoreWidget: Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                child: Center(
-                  child: Label10(text: "Plus de pièces trouvées", color: GlobalThemeData.lightColorScheme.outline, weight: FontWeight.bold, maxLines: 2),
-                ),
+              noMoreWidget: Center(
+                child: Label10(text: "Plus de pièces trouvées", color: GlobalThemeData.lightColorScheme.outline, weight: FontWeight.bold, maxLines: 2),
               ).animate().fadeIn(),
               loadingWidget: ProgressButton(
                   widthSize: size.width * 0.2,

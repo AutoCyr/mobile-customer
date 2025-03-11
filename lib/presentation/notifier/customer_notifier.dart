@@ -1,4 +1,5 @@
 import 'package:autocyr/domain/models/features/commande.dart';
+import 'package:autocyr/domain/models/features/demande.dart';
 import 'package:autocyr/domain/models/pieces/detail_piece.dart';
 import 'package:autocyr/domain/models/pieces/disponibilities/auto_disponibility.dart';
 import 'package:autocyr/domain/models/pieces/disponibilities/category_disponibility.dart';
@@ -44,6 +45,7 @@ class CustomerNotifier extends ChangeNotifier {
   List<DetailPiece> _subcategoryPieces = [];
   List<DetailPiece> _partnerPieces = [];
   List<Commande> _commandes = [];
+  List<Demande> _requests = [];
   List<Partenaire> _partners = [];
 
   List<int> _autoFilters = [];
@@ -74,6 +76,7 @@ class CustomerNotifier extends ChangeNotifier {
   List<DetailPiece> get subcategoryPieces => _subcategoryPieces;
   List<DetailPiece> get partnerPieces => _partnerPieces;
   List<Commande> get commandes => _commandes;
+  List<Demande> get requests => _requests;
   List<Partenaire> get partners => _partners;
 
   List<int> get autoFilters => _autoFilters;
@@ -177,6 +180,11 @@ class CustomerNotifier extends ChangeNotifier {
 
   setCommandes(List<Commande> value) {
     _commandes = value;
+    notifyListeners();
+  }
+
+  setRequests(List<Demande> value) {
+    _requests = value;
     notifyListeners();
   }
 
@@ -511,6 +519,7 @@ class CustomerNotifier extends ChangeNotifier {
         setAction(false);
         if (context.mounted) {
           Snacks.successBar(success.message, context);
+          Navigator.pop(context);
           Navigator.push(context, MaterialPageRoute(builder: (context) => const RequestListScreen()));
         }
       }else{
@@ -560,7 +569,7 @@ class CustomerNotifier extends ChangeNotifier {
     setErrorRequests("");
 
     try {
-      var data = await customerUseCase.getCommandes(params);
+      var data = await customerUseCase.getRequests(params);
 
       if(data['error'] == false) {
         Success success = Success.fromJson(data);
@@ -572,12 +581,12 @@ class CustomerNotifier extends ChangeNotifier {
         }
 
         // add & complete datas
-        /*List<Commande> localCommandes = more ? List.from(commandes) : [];
-        for(var commande in success.data['data']){
-          localCommandes.add(Commande.fromJson(commande));
+        List<Demande> localRequests = more ? List.from(requests) : [];
+        for(var demande in success.data['data']){
+          localRequests.add(Demande.fromJson(demande));
         }
 
-        setCommandes(localCommandes);*/
+        setRequests(localRequests);
         setRequestMeta(meta);
         more ? setFilling(false) : setLoading(false);
       }else{

@@ -31,7 +31,6 @@ class _AskScreenState extends State<AskScreen> {
   late bool _isGarantie = false;
   late String typeKey = "";
 
-
   final TextEditingController _articleController = TextEditingController();
   final TextEditingController _marqueController = TextEditingController();
   final TextEditingController _typeController = TextEditingController();
@@ -68,17 +67,17 @@ class _AskScreenState extends State<AskScreen> {
   retrieveCommons() async {
     final common = Provider.of<CommonNotifier>(context, listen: false);
     if(!common.filling) {
+      if(common.articles.isEmpty) {
+        await common.retrieveArticles(context: context);
+      }
+      if(common.enginTypes.isEmpty) {
+        await common.retrieveEnginTypes(context: context);
+      }
       if(common.carMakes.isEmpty) {
         await common.retrieveAutoMakes(context: context);
       }
       if(common.bikeMakes.isEmpty) {
         await common.retrieveBikeMakes(context: context);
-      }
-      if(common.enginTypes.isEmpty) {
-        await common.retrieveEnginTypes(context: context);
-      }
-      if(common.articles.isEmpty) {
-        await common.retrieveArticles(context: context);
       }
     }
   }
@@ -86,7 +85,7 @@ class _AskScreenState extends State<AskScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       retrieveCommons();
     });
   }
@@ -109,7 +108,7 @@ class _AskScreenState extends State<AskScreen> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        common.filling ?
+                        common.filling && common.articles.isEmpty ?
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -142,7 +141,7 @@ class _AskScreenState extends State<AskScreen> {
                             }
                           ).animate().fadeIn(),
                         const Gap(10),
-                        common.filling ?
+                        common.filling && common.enginTypes.isEmpty ?
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -175,7 +174,7 @@ class _AskScreenState extends State<AskScreen> {
                             }
                           ).animate().fadeIn(),
                         const Gap(10),
-                        common.filling ?
+                        common.filling && (common.carMakes.isEmpty || common.bikeMakes.isEmpty) ?
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -282,7 +281,7 @@ class _AskScreenState extends State<AskScreen> {
                         const Gap(20),
                         customer.action ?
                           ProgressButton(
-                            widthSize: size.width * 0.9,
+                            widthSize: size.width * 0.95,
                             context: context,
                             bgColor: GlobalThemeData.lightColorScheme.onTertiary,
                             shimmerColor: GlobalThemeData.lightColorScheme.tertiary
@@ -291,7 +290,7 @@ class _AskScreenState extends State<AskScreen> {
                           SizedBox(
                             width: size.width,
                             child: CustomButton(
-                                text: "Envoyer",
+                                text: "Enregistrer",
                                 size: size,
                                 globalWidth: size.width * 0.95,
                                 widthSize: size.width * 0.9,

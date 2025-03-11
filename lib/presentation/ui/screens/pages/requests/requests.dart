@@ -1,3 +1,4 @@
+import 'package:autocyr/domain/models/features/demande.dart';
 import 'package:autocyr/presentation/notifier/customer_notifier.dart';
 import 'package:autocyr/presentation/ui/atoms/buttons/progress_button.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label10.dart';
@@ -5,6 +6,7 @@ import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
 import 'package:autocyr/presentation/ui/helpers/state.dart';
 import 'package:autocyr/presentation/ui/organisms/loaders/loader.dart';
+import 'package:autocyr/presentation/ui/screens/helpers/request_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
@@ -22,8 +24,8 @@ class _RequestListScreenState extends State<RequestListScreen> {
   int view = 0;
   bool _search = false;
 
-  List requests = [];
-  List filteredRequests = [];
+  List<Demande> requests = [];
+  List<Demande> filteredRequests = [];
 
   Map<String, dynamic> getParams(int view) {
     Map<String, dynamic> params = {
@@ -38,13 +40,13 @@ class _RequestListScreenState extends State<RequestListScreen> {
 
     Map<String, dynamic> params = getParams(view);
     await customer.retrieveRequests(context: context, params: params, more: more);
-    // filteredRequests = requests = customer.requests;
+    filteredRequests = requests = customer.requests;
   }
 
   void filterList(String searchQuery) {
-    List filtered = [];
+    List<Demande> filtered = [];
     for (var value in requests) {
-      if(value.partenaire.raisonSociale.toLowerCase().contains(searchQuery.toLowerCase()) || (value.pieceDetail.piece != null ? value.pieceDetail.piece!.nomPiece.toLowerCase().contains(searchQuery.toLowerCase()) : value.pieceDetail.article!.name.toLowerCase().contains(searchQuery.toLowerCase()))) {
+      if(value.reference.toLowerCase().contains(searchQuery.toLowerCase()) || value.article.name.toLowerCase().contains(searchQuery.toLowerCase()) || value.typeEngin.libelle.toLowerCase().contains(searchQuery.toLowerCase())) {
         filtered.add(value);
       }
     }
@@ -140,11 +142,8 @@ class _RequestListScreenState extends State<RequestListScreen> {
                   });
                   retrieveRequests(view, true);
                 },
-                noMoreWidget: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  child: Center(
-                    child: Label10(text: "Plus de demandes trouvées", color: GlobalThemeData.lightColorScheme.outline, weight: FontWeight.bold, maxLines: 2),
-                  ),
+                noMoreWidget: Center(
+                  child: Label10(text: "Plus de demandes trouvées", color: GlobalThemeData.lightColorScheme.outline, weight: FontWeight.bold, maxLines: 2),
                 ).animate().fadeIn(),
                 loadingWidget: ProgressButton(
                     widthSize: size.width * 0.2,
@@ -158,9 +157,8 @@ class _RequestListScreenState extends State<RequestListScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      var request = filteredRequests[index];
-                      // return CommandeWidget(commande: commande).animate().fadeIn();
-                      return SizedBox();
+                      Demande request = filteredRequests[index];
+                      return RequestWidget(demande: request).animate().fadeIn();
                     },
                     itemCount: filteredRequests.length
                 )

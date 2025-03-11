@@ -29,6 +29,7 @@ class _CommandeDetailScreenState extends State<CommandeDetailScreen> {
     super.initState();
     detail = widget.commande;
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

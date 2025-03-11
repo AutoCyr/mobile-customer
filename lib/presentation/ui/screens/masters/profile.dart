@@ -4,6 +4,7 @@ import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label17.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
 import 'package:autocyr/presentation/ui/screens/pages/commandes/commandes.dart';
+import 'package:autocyr/presentation/ui/screens/pages/requests/requests.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -32,7 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     {
       "label": "Mes demandes",
       "iconData": Icons.content_paste_go_rounded,
-      "widget": null
+      "widget": const RequestListScreen()
     },
     {
       "label": "À propos",
