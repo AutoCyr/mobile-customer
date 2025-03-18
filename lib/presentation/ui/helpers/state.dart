@@ -28,7 +28,8 @@ class _StateScreenState extends State<StateScreen> {
         children: [
           Icon(widget.icon, color: Colors.grey, size: 150,).animate().fadeIn(),
           const Gap(20),
-          Label12(text: widget.message, color: Colors.black, weight: FontWeight.bold, maxLines: 2,).animate().fadeIn(),const Gap(20),
+          Label12(text: widget.message, color: Colors.black, weight: FontWeight.bold, maxLines: 2,).animate().fadeIn(),
+          const Gap(20),
           if(widget.isError)
             CustomButton(
               text: "Actualiser",

@@ -40,13 +40,14 @@ class _AskScreenState extends State<AskScreen> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _autreController = TextEditingController();
 
-  _save() async {
+  _search() async {
     final customer = Provider.of<CustomerNotifier>(context, listen: false);
     final auth = Provider.of<AuthNotifier>(context, listen: false);
     final common = Provider.of<CommonNotifier>(context, listen: false);
 
     if(UiTools().checkFields([_articleController, _typeController, _descriptionController])) {
-      Map<String, dynamic> body = {
+      Map<String, dynamic> payload = {
+        "country_id": auth.getClient.paysId,
         "client_id" : auth.getClient.clientId,
         "article_id" : common.article!.id,
         "type_engin_id" : typeKey,
@@ -58,7 +59,7 @@ class _AskScreenState extends State<AskScreen> {
         "garantie" : _isGarantie ? "1" : "0",
         "autres" : _autreController.text
       };
-      await customer.createRequest(body: body, context: context);
+      await customer.searchRequest(context: context, params: payload);
     } else {
       Snacks.failureBar("Veuillez remplir tous les champs avant de continuer", context);
     }
@@ -279,7 +280,7 @@ class _AskScreenState extends State<AskScreen> {
                           maxLines: 7
                         ).animate().fadeIn(),
                         const Gap(20),
-                        customer.action ?
+                        customer.loading ?
                           ProgressButton(
                             widthSize: size.width * 0.95,
                             context: context,
@@ -290,13 +291,13 @@ class _AskScreenState extends State<AskScreen> {
                           SizedBox(
                             width: size.width,
                             child: CustomButton(
-                                text: "Enregistrer",
+                                text: "Lancer la recherche",
                                 size: size,
                                 globalWidth: size.width * 0.95,
                                 widthSize: size.width * 0.9,
                                 backSize: size.width * 0.9,
                                 context: context,
-                                function: () => _save(),
+                                function: () => _search(),
                                 textColor: GlobalThemeData.lightColorScheme.tertiary,
                                 buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
                                 backColor: GlobalThemeData.lightColorScheme.tertiary

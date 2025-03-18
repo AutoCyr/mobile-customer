@@ -46,8 +46,8 @@ class CustomerUseCase {
     return await _customerRepositoryImpl.createRequest(body);
   }
 
-  Future requestResults(Map<String, dynamic> params) async {
-    return await _customerRepositoryImpl.requestResults(params);
+  Future searchRequest(Map<String, dynamic> params) async {
+    return await _customerRepositoryImpl.searchRequest(params);
   }
 
   Future getRequests(Map<String, dynamic> params) async {

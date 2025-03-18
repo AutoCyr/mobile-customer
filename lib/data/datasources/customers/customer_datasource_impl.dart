@@ -292,7 +292,7 @@ class CustomerDataSourceImpl implements CustomerDataSource {
   }
 
   @override
-  Future requestResults(Map<String, dynamic> params) async {
+  Future searchRequest(Map<String, dynamic> params) async {
     String token = await Preferences().getString("token");
     Map<String, String> headers = {
       'Content-Type': 'application/json',
@@ -301,7 +301,7 @@ class CustomerDataSourceImpl implements CustomerDataSource {
     };
 
     try {
-      final response = await _apiClient.getWithParams(path: "customer/request-results", params: params, headers: headers);
+      final response = await _apiClient.getWithParams(path: "customer/search-request", params: params, headers: headers);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = json.decode(response.body);

@@ -3,6 +3,7 @@ import 'package:autocyr/presentation/ui/atoms/labels/label13.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label17.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
+import 'package:autocyr/presentation/ui/screens/layouts/requests.dart';
 import 'package:autocyr/presentation/ui/screens/pages/commandes/commandes.dart';
 import 'package:autocyr/presentation/ui/screens/pages/requests/requests.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     {
       "label": "Mes demandes",
       "iconData": Icons.content_paste_go_rounded,
-      "widget": const RequestListScreen()
+      "widget": const RequestLayoutScreen()
     },
     {
       "label": "À propos",

@@ -13,7 +13,8 @@ import 'package:provider/provider.dart';
 import 'package:refresh_loadmore/refresh_loadmore.dart';
 
 class RequestListScreen extends StatefulWidget {
-  const RequestListScreen({super.key});
+  final int state;
+  const RequestListScreen({super.key, required this.state});
 
   @override
   State<RequestListScreen> createState() => _RequestListScreenState();
@@ -30,7 +31,8 @@ class _RequestListScreenState extends State<RequestListScreen> {
   Map<String, dynamic> getParams(int view) {
     Map<String, dynamic> params = {
       "page": view,
-      "limit": 50
+      "limit": 50,
+      "statut": widget.state
     };
     return params;
   }
@@ -68,7 +70,7 @@ class _RequestListScreenState extends State<RequestListScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.tertiary),
         backgroundColor: GlobalThemeData.lightColorScheme.onTertiary,
         title: _search == false ?
@@ -113,7 +115,7 @@ class _RequestListScreenState extends State<RequestListScreen> {
             icon: _search ? const Icon(Icons.clear) : const Icon(Icons.search_sharp),
           ).animate().fadeIn(),
         ],
-      ),
+      ),*/
       body: Consumer<CustomerNotifier>(
           builder: (context, customer, child) {
 

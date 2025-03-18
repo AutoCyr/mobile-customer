@@ -58,8 +58,8 @@ class CustomerRepositoryImpl extends CustomerRepository {
   }
 
   @override
-  Future requestResults(Map<String, dynamic> params) async {
-    return await _customerDataSourceImpl.requestResults(params);
+  Future searchRequest(Map<String, dynamic> params) async {
+    return await _customerDataSourceImpl.searchRequest(params);
   }
 
   @override

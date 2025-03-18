@@ -12,7 +12,9 @@ import 'package:autocyr/domain/models/response/success.dart';
 import 'package:autocyr/domain/usecases/customer_usecase.dart';
 import 'package:autocyr/presentation/notifier/auth_notifier.dart';
 import 'package:autocyr/presentation/ui/helpers/snacks.dart';
+import 'package:autocyr/presentation/ui/screens/layouts/requests.dart';
 import 'package:autocyr/presentation/ui/screens/pages/commandes/commandes.dart';
+import 'package:autocyr/presentation/ui/screens/pages/products/ask_product.dart';
 import 'package:autocyr/presentation/ui/screens/pages/requests/requests.dart';
 import 'package:flutter/material.dart';
 
@@ -44,6 +46,7 @@ class CustomerNotifier extends ChangeNotifier {
   List<DetailPiece> _typePieces = [];
   List<DetailPiece> _subcategoryPieces = [];
   List<DetailPiece> _partnerPieces = [];
+  List<DetailPiece> _resultPieces = [];
   List<Commande> _commandes = [];
   List<Demande> _requests = [];
   List<Partenaire> _partners = [];
@@ -75,6 +78,7 @@ class CustomerNotifier extends ChangeNotifier {
   List<DetailPiece> get typePieces => _typePieces;
   List<DetailPiece> get subcategoryPieces => _subcategoryPieces;
   List<DetailPiece> get partnerPieces => _partnerPieces;
+  List<DetailPiece> get resultPieces => _resultPieces;
   List<Commande> get commandes => _commandes;
   List<Demande> get requests => _requests;
   List<Partenaire> get partners => _partners;
@@ -175,6 +179,11 @@ class CustomerNotifier extends ChangeNotifier {
 
   setPartnerPieces(List<DetailPiece> value) {
     _partnerPieces = value;
+    notifyListeners();
+  }
+
+  setResultPieces(List<DetailPiece> value) {
+    _resultPieces = value;
     notifyListeners();
   }
 
@@ -519,8 +528,7 @@ class CustomerNotifier extends ChangeNotifier {
         setAction(false);
         if (context.mounted) {
           Snacks.successBar(success.message, context);
-          Navigator.pop(context);
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const RequestListScreen()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RequestLayoutScreen()));
         }
       }else{
         Failure failure = Failure.fromJson(data);
@@ -535,22 +543,26 @@ class CustomerNotifier extends ChangeNotifier {
     }
   }
 
-  Future requestResults({required BuildContext context, required Map<String, dynamic> params}) async {
+  Future searchRequest({required BuildContext context, required Map<String, dynamic> params}) async {
     setLoading(true);
     setError("");
 
     try {
-      var data = await customerUseCase.requestResults(params);
+      var data = await customerUseCase.searchRequest(params);
 
       if(data['error'] == false) {
         Success success = Success.fromJson(data);
 
-        List<Partenaire> partenaires = [];
-        for(var partner in success.data) {
-          partenaires.add(Partenaire.fromJson(partner));
+        List<DetailPiece> results = [];
+        for(var piece in success.data) {
+          results.add(DetailPiece.fromJson(piece));
         }
-        setPartners(partenaires);
+
+        setResultPieces(results);
         setLoading(false);
+        if(context.mounted) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AskProductResult(payload: params)));
+        }
       }else{
         Failure failure = Failure.fromJson(data);
 
