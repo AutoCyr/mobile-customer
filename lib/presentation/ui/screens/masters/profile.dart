@@ -35,11 +35,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       "label": "Mes demandes",
       "iconData": Icons.content_paste_go_rounded,
       "widget": const RequestLayoutScreen()
-    },
-    {
-      "label": "À propos",
-      "iconData": Icons.abc_outlined,
-      "widget": null
     }
   ];
 

@@ -22,4 +22,6 @@ abstract class CustomerDataSource {
   Future searchRequest(Map<String, dynamic> params);
 
   Future getRequests(Map<String, dynamic> params);
+
+  Future getRequest(Map<String, dynamic> params);
 }

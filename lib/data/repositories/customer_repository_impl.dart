@@ -66,4 +66,9 @@ class CustomerRepositoryImpl extends CustomerRepository {
   Future getRequests(Map<String, dynamic> params) async {
     return await _customerDataSourceImpl.getRequests(params);
   }
+
+  @override
+  Future getRequest(Map<String, dynamic> params) async {
+    return await _customerDataSourceImpl.getRequest(params);
+  }
 }

@@ -53,4 +53,8 @@ class CustomerUseCase {
   Future getRequests(Map<String, dynamic> params) async {
     return await _customerRepositoryImpl.getRequests(params);
   }
+
+  Future getRequest(Map<String, dynamic> params) async {
+    return await _customerRepositoryImpl.getRequest(params);
+  }
 }

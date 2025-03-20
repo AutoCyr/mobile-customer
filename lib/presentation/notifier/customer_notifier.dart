@@ -1,5 +1,6 @@
 import 'package:autocyr/domain/models/features/commande.dart';
 import 'package:autocyr/domain/models/features/demande.dart';
+import 'package:autocyr/domain/models/features/demande_info.dart';
 import 'package:autocyr/domain/models/pieces/detail_piece.dart';
 import 'package:autocyr/domain/models/pieces/disponibilities/auto_disponibility.dart';
 import 'package:autocyr/domain/models/pieces/disponibilities/category_disponibility.dart';
@@ -40,6 +41,7 @@ class CustomerNotifier extends ChangeNotifier {
   Meta? _commandeMeta;
   Meta? _requestMeta;
 
+  DemandeInfo? _demandeInfo;
   PieceInfo? _piece;
 
   List<DetailPiece> _pieces = [];
@@ -72,6 +74,7 @@ class CustomerNotifier extends ChangeNotifier {
   Meta get commandeMeta => _commandeMeta!;
   Meta get requestMeta => _requestMeta!;
 
+  DemandeInfo? get demandeInfo => _demandeInfo;
   PieceInfo? get piece => _piece;
 
   List<DetailPiece> get pieces => _pieces;
@@ -154,6 +157,11 @@ class CustomerNotifier extends ChangeNotifier {
 
   setRequestMeta(Meta value) {
     _requestMeta = value;
+    notifyListeners();
+  }
+
+  setDemandeInfo(DemandeInfo value) {
+    _demandeInfo = value;
     notifyListeners();
   }
 
@@ -611,6 +619,32 @@ class CustomerNotifier extends ChangeNotifier {
       print(e);
       more ? setFilling(false) : setLoading(false);
       setErrorRequests("Une erreur serveur est survenue");
+    }
+  }
+
+  Future retrieveRequest({required BuildContext context, required Map<String, dynamic> params}) async {
+    setLoading(true);
+    setError("");
+
+    try {
+      var data = await customerUseCase.getRequest(params);
+
+      if(data['error'] == false) {
+        Success success = Success.fromJson(data);
+
+        DemandeInfo demandeInfo = DemandeInfo.fromJson(success.data);
+        setDemandeInfo(demandeInfo);
+        setLoading(false);
+      }else{
+        Failure failure = Failure.fromJson(data);
+
+        setLoading(false);
+        setError(failure.message);
+      }
+    } catch (e) {
+      print(e);
+      setLoading(false);
+      setError("Une erreur serveur est survenue");
     }
   }
 
