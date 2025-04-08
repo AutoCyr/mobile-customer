@@ -44,6 +44,8 @@ mixin _$DemandeInfo {
   int get garantie => throw _privateConstructorUsedError;
   @JsonKey(name: 'autres')
   String? get autres => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_piece')
+  String? get imagePiece => throw _privateConstructorUsedError;
   @JsonKey(name: 'date_demande')
   DateTime get dateDemande => throw _privateConstructorUsedError;
   @JsonKey(name: 'etat_demande')
@@ -63,8 +65,12 @@ mixin _$DemandeInfo {
   @JsonKey(name: 'interventions')
   List<Intervention> get interventions => throw _privateConstructorUsedError;
 
+  /// Serializes this DemandeInfo to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DemandeInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DemandeInfoCopyWith<DemandeInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -88,6 +94,7 @@ abstract class $DemandeInfoCopyWith<$Res> {
       @JsonKey(name: 'annee_piece') String? anneePiece,
       @JsonKey(name: 'garantie') int garantie,
       @JsonKey(name: 'autres') String? autres,
+      @JsonKey(name: 'image_piece') String? imagePiece,
       @JsonKey(name: 'date_demande') DateTime dateDemande,
       @JsonKey(name: 'etat_demande') int etatDemande,
       @JsonKey(name: 'created_at') DateTime createdAt,
@@ -114,6 +121,8 @@ class _$DemandeInfoCopyWithImpl<$Res, $Val extends DemandeInfo>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DemandeInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -129,6 +138,7 @@ class _$DemandeInfoCopyWithImpl<$Res, $Val extends DemandeInfo>
     Object? anneePiece = freezed,
     Object? garantie = null,
     Object? autres = freezed,
+    Object? imagePiece = freezed,
     Object? dateDemande = null,
     Object? etatDemande = null,
     Object? createdAt = null,
@@ -188,6 +198,10 @@ class _$DemandeInfoCopyWithImpl<$Res, $Val extends DemandeInfo>
           ? _value.autres
           : autres // ignore: cast_nullable_to_non_nullable
               as String?,
+      imagePiece: freezed == imagePiece
+          ? _value.imagePiece
+          : imagePiece // ignore: cast_nullable_to_non_nullable
+              as String?,
       dateDemande: null == dateDemande
           ? _value.dateDemande
           : dateDemande // ignore: cast_nullable_to_non_nullable
@@ -227,6 +241,8 @@ class _$DemandeInfoCopyWithImpl<$Res, $Val extends DemandeInfo>
     ) as $Val);
   }
 
+  /// Create a copy of DemandeInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ClientCopyWith<$Res> get client {
@@ -235,6 +251,8 @@ class _$DemandeInfoCopyWithImpl<$Res, $Val extends DemandeInfo>
     });
   }
 
+  /// Create a copy of DemandeInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ArticleCopyWith<$Res> get article {
@@ -243,6 +261,8 @@ class _$DemandeInfoCopyWithImpl<$Res, $Val extends DemandeInfo>
     });
   }
 
+  /// Create a copy of DemandeInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $EnginTypeCopyWith<$Res> get typeEngin {
@@ -251,6 +271,8 @@ class _$DemandeInfoCopyWithImpl<$Res, $Val extends DemandeInfo>
     });
   }
 
+  /// Create a copy of DemandeInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $MakeCopyWith<$Res> get marque {
@@ -281,6 +303,7 @@ abstract class _$$DemandeInfoImplCopyWith<$Res>
       @JsonKey(name: 'annee_piece') String? anneePiece,
       @JsonKey(name: 'garantie') int garantie,
       @JsonKey(name: 'autres') String? autres,
+      @JsonKey(name: 'image_piece') String? imagePiece,
       @JsonKey(name: 'date_demande') DateTime dateDemande,
       @JsonKey(name: 'etat_demande') int etatDemande,
       @JsonKey(name: 'created_at') DateTime createdAt,
@@ -309,6 +332,8 @@ class __$$DemandeInfoImplCopyWithImpl<$Res>
       _$DemandeInfoImpl _value, $Res Function(_$DemandeInfoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DemandeInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -324,6 +349,7 @@ class __$$DemandeInfoImplCopyWithImpl<$Res>
     Object? anneePiece = freezed,
     Object? garantie = null,
     Object? autres = freezed,
+    Object? imagePiece = freezed,
     Object? dateDemande = null,
     Object? etatDemande = null,
     Object? createdAt = null,
@@ -383,6 +409,10 @@ class __$$DemandeInfoImplCopyWithImpl<$Res>
           ? _value.autres
           : autres // ignore: cast_nullable_to_non_nullable
               as String?,
+      imagePiece: freezed == imagePiece
+          ? _value.imagePiece
+          : imagePiece // ignore: cast_nullable_to_non_nullable
+              as String?,
       dateDemande: null == dateDemande
           ? _value.dateDemande
           : dateDemande // ignore: cast_nullable_to_non_nullable
@@ -439,6 +469,7 @@ class _$DemandeInfoImpl implements _DemandeInfo {
       @JsonKey(name: 'annee_piece') this.anneePiece,
       @JsonKey(name: 'garantie') required this.garantie,
       @JsonKey(name: 'autres') this.autres,
+      @JsonKey(name: 'image_piece') this.imagePiece,
       @JsonKey(name: 'date_demande') required this.dateDemande,
       @JsonKey(name: 'etat_demande') required this.etatDemande,
       @JsonKey(name: 'created_at') required this.createdAt,
@@ -491,6 +522,9 @@ class _$DemandeInfoImpl implements _DemandeInfo {
   @JsonKey(name: 'autres')
   final String? autres;
   @override
+  @JsonKey(name: 'image_piece')
+  final String? imagePiece;
+  @override
   @JsonKey(name: 'date_demande')
   final DateTime dateDemande;
   @override
@@ -525,7 +559,7 @@ class _$DemandeInfoImpl implements _DemandeInfo {
 
   @override
   String toString() {
-    return 'DemandeInfo(demandeId: $demandeId, clientId: $clientId, articleId: $articleId, typeEnginId: $typeEnginId, marqueId: $marqueId, reference: $reference, descriptionPiece: $descriptionPiece, modelePiece: $modelePiece, numeroPiece: $numeroPiece, anneePiece: $anneePiece, garantie: $garantie, autres: $autres, dateDemande: $dateDemande, etatDemande: $etatDemande, createdAt: $createdAt, updatedAt: $updatedAt, client: $client, article: $article, typeEngin: $typeEngin, marque: $marque, interventions: $interventions)';
+    return 'DemandeInfo(demandeId: $demandeId, clientId: $clientId, articleId: $articleId, typeEnginId: $typeEnginId, marqueId: $marqueId, reference: $reference, descriptionPiece: $descriptionPiece, modelePiece: $modelePiece, numeroPiece: $numeroPiece, anneePiece: $anneePiece, garantie: $garantie, autres: $autres, imagePiece: $imagePiece, dateDemande: $dateDemande, etatDemande: $etatDemande, createdAt: $createdAt, updatedAt: $updatedAt, client: $client, article: $article, typeEngin: $typeEngin, marque: $marque, interventions: $interventions)';
   }
 
   @override
@@ -556,6 +590,8 @@ class _$DemandeInfoImpl implements _DemandeInfo {
             (identical(other.garantie, garantie) ||
                 other.garantie == garantie) &&
             (identical(other.autres, autres) || other.autres == autres) &&
+            (identical(other.imagePiece, imagePiece) ||
+                other.imagePiece == imagePiece) &&
             (identical(other.dateDemande, dateDemande) ||
                 other.dateDemande == dateDemande) &&
             (identical(other.etatDemande, etatDemande) ||
@@ -573,7 +609,7 @@ class _$DemandeInfoImpl implements _DemandeInfo {
                 .equals(other._interventions, _interventions));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -589,6 +625,7 @@ class _$DemandeInfoImpl implements _DemandeInfo {
         anneePiece,
         garantie,
         autres,
+        imagePiece,
         dateDemande,
         etatDemande,
         createdAt,
@@ -600,7 +637,9 @@ class _$DemandeInfoImpl implements _DemandeInfo {
         const DeepCollectionEquality().hash(_interventions)
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DemandeInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DemandeInfoImplCopyWith<_$DemandeInfoImpl> get copyWith =>
@@ -629,6 +668,7 @@ abstract class _DemandeInfo implements DemandeInfo {
       @JsonKey(name: 'annee_piece') final String? anneePiece,
       @JsonKey(name: 'garantie') required final int garantie,
       @JsonKey(name: 'autres') final String? autres,
+      @JsonKey(name: 'image_piece') final String? imagePiece,
       @JsonKey(name: 'date_demande') required final DateTime dateDemande,
       @JsonKey(name: 'etat_demande') required final int etatDemande,
       @JsonKey(name: 'created_at') required final DateTime createdAt,
@@ -680,6 +720,9 @@ abstract class _DemandeInfo implements DemandeInfo {
   @JsonKey(name: 'autres')
   String? get autres;
   @override
+  @JsonKey(name: 'image_piece')
+  String? get imagePiece;
+  @override
   @JsonKey(name: 'date_demande')
   DateTime get dateDemande;
   @override
@@ -706,8 +749,11 @@ abstract class _DemandeInfo implements DemandeInfo {
   @override
   @JsonKey(name: 'interventions')
   List<Intervention> get interventions;
+
+  /// Create a copy of DemandeInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DemandeInfoImplCopyWith<_$DemandeInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

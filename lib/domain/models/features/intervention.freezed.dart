@@ -37,8 +37,12 @@ mixin _$Intervention {
   @JsonKey(name: 'partenaire')
   Partenaire get partenaire => throw _privateConstructorUsedError;
 
+  /// Serializes this Intervention to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Intervention
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $InterventionCopyWith<Intervention> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -72,6 +76,8 @@ class _$InterventionCopyWithImpl<$Res, $Val extends Intervention>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Intervention
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -120,6 +126,8 @@ class _$InterventionCopyWithImpl<$Res, $Val extends Intervention>
     ) as $Val);
   }
 
+  /// Create a copy of Intervention
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PartenaireCopyWith<$Res> get partenaire {
@@ -159,6 +167,8 @@ class __$$InterventionImplCopyWithImpl<$Res>
       _$InterventionImpl _value, $Res Function(_$InterventionImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Intervention
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -278,7 +288,7 @@ class _$InterventionImpl implements _Intervention {
                 other.partenaire == partenaire));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -291,7 +301,9 @@ class _$InterventionImpl implements _Intervention {
       updatedAt,
       partenaire);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Intervention
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InterventionImplCopyWith<_$InterventionImpl> get copyWith =>
@@ -345,8 +357,11 @@ abstract class _Intervention implements Intervention {
   @override
   @JsonKey(name: 'partenaire')
   Partenaire get partenaire;
+
+  /// Create a copy of Intervention
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InterventionImplCopyWith<_$InterventionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

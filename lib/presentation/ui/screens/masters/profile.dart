@@ -22,11 +22,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   List<Map<String, dynamic>> tiles = [
     {
-      "label": "Mon compte",
-      "iconData": Icons.account_circle,
-      "widget": null
-    },
-    {
       "label": "Mes commandes",
       "iconData": Icons.shopping_cart_checkout_rounded,
       "widget": const CommandeListScreen()
@@ -139,37 +134,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    RichText(
-                      text: TextSpan(
-                        text: "© Autocyr 2024. ",
-                        children: [
-                          const TextSpan(
-                              text: "Développé par ",
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                              )
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text: "© Autocyr 2024. ",
+                            children: [
+                              const TextSpan(
+                                  text: "Développé par ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                  )
+                              ),
+                              TextSpan(
+                                  text: "Gine inc.",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: GlobalThemeData.lightColorScheme.primary
+                                  )
+                              ),
+                            ],
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Lufga",
+                            ),
                           ),
-                          TextSpan(
-                              text: "Gine inc.",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: GlobalThemeData.lightColorScheme.primary
-                              )
-                          ),
-                        ],
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Lufga",
-                        ),
-                      ),
 
 
-                    )
+                        )
+                      ],
+                    ),
+                    const Gap(10),
+                    Image.asset(
+                      "assets/logos/auto.png",
+                      width: 35,
+                    ).animate().fadeIn(),
                   ],
                 ),
               ).animate().fadeIn(),

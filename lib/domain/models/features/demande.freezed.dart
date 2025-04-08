@@ -44,6 +44,8 @@ mixin _$Demande {
   int get garantie => throw _privateConstructorUsedError;
   @JsonKey(name: 'autres')
   String? get autres => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_piece')
+  String? get imagePiece => throw _privateConstructorUsedError;
   @JsonKey(name: 'date_demande')
   DateTime get dateDemande => throw _privateConstructorUsedError;
   @JsonKey(name: 'etat_demande')
@@ -88,6 +90,7 @@ abstract class $DemandeCopyWith<$Res> {
       @JsonKey(name: 'annee_piece') String? anneePiece,
       @JsonKey(name: 'garantie') int garantie,
       @JsonKey(name: 'autres') String? autres,
+      @JsonKey(name: 'image_piece') String? imagePiece,
       @JsonKey(name: 'date_demande') DateTime dateDemande,
       @JsonKey(name: 'etat_demande') int etatDemande,
       @JsonKey(name: 'created_at') DateTime createdAt,
@@ -130,6 +133,7 @@ class _$DemandeCopyWithImpl<$Res, $Val extends Demande>
     Object? anneePiece = freezed,
     Object? garantie = null,
     Object? autres = freezed,
+    Object? imagePiece = freezed,
     Object? dateDemande = null,
     Object? etatDemande = null,
     Object? createdAt = null,
@@ -187,6 +191,10 @@ class _$DemandeCopyWithImpl<$Res, $Val extends Demande>
       autres: freezed == autres
           ? _value.autres
           : autres // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imagePiece: freezed == imagePiece
+          ? _value.imagePiece
+          : imagePiece // ignore: cast_nullable_to_non_nullable
               as String?,
       dateDemande: null == dateDemande
           ? _value.dateDemande
@@ -284,6 +292,7 @@ abstract class _$$DemandeImplCopyWith<$Res> implements $DemandeCopyWith<$Res> {
       @JsonKey(name: 'annee_piece') String? anneePiece,
       @JsonKey(name: 'garantie') int garantie,
       @JsonKey(name: 'autres') String? autres,
+      @JsonKey(name: 'image_piece') String? imagePiece,
       @JsonKey(name: 'date_demande') DateTime dateDemande,
       @JsonKey(name: 'etat_demande') int etatDemande,
       @JsonKey(name: 'created_at') DateTime createdAt,
@@ -328,6 +337,7 @@ class __$$DemandeImplCopyWithImpl<$Res>
     Object? anneePiece = freezed,
     Object? garantie = null,
     Object? autres = freezed,
+    Object? imagePiece = freezed,
     Object? dateDemande = null,
     Object? etatDemande = null,
     Object? createdAt = null,
@@ -386,6 +396,10 @@ class __$$DemandeImplCopyWithImpl<$Res>
           ? _value.autres
           : autres // ignore: cast_nullable_to_non_nullable
               as String?,
+      imagePiece: freezed == imagePiece
+          ? _value.imagePiece
+          : imagePiece // ignore: cast_nullable_to_non_nullable
+              as String?,
       dateDemande: null == dateDemande
           ? _value.dateDemande
           : dateDemande // ignore: cast_nullable_to_non_nullable
@@ -438,6 +452,7 @@ class _$DemandeImpl implements _Demande {
       @JsonKey(name: 'annee_piece') this.anneePiece,
       @JsonKey(name: 'garantie') required this.garantie,
       @JsonKey(name: 'autres') this.autres,
+      @JsonKey(name: 'image_piece') this.imagePiece,
       @JsonKey(name: 'date_demande') required this.dateDemande,
       @JsonKey(name: 'etat_demande') required this.etatDemande,
       @JsonKey(name: 'created_at') required this.createdAt,
@@ -487,6 +502,9 @@ class _$DemandeImpl implements _Demande {
   @JsonKey(name: 'autres')
   final String? autres;
   @override
+  @JsonKey(name: 'image_piece')
+  final String? imagePiece;
+  @override
   @JsonKey(name: 'date_demande')
   final DateTime dateDemande;
   @override
@@ -513,7 +531,7 @@ class _$DemandeImpl implements _Demande {
 
   @override
   String toString() {
-    return 'Demande(demandeId: $demandeId, clientId: $clientId, articleId: $articleId, typeEnginId: $typeEnginId, marqueId: $marqueId, reference: $reference, descriptionPiece: $descriptionPiece, modelePiece: $modelePiece, numeroPiece: $numeroPiece, anneePiece: $anneePiece, garantie: $garantie, autres: $autres, dateDemande: $dateDemande, etatDemande: $etatDemande, createdAt: $createdAt, updatedAt: $updatedAt, client: $client, article: $article, typeEngin: $typeEngin, marque: $marque)';
+    return 'Demande(demandeId: $demandeId, clientId: $clientId, articleId: $articleId, typeEnginId: $typeEnginId, marqueId: $marqueId, reference: $reference, descriptionPiece: $descriptionPiece, modelePiece: $modelePiece, numeroPiece: $numeroPiece, anneePiece: $anneePiece, garantie: $garantie, autres: $autres, imagePiece: $imagePiece, dateDemande: $dateDemande, etatDemande: $etatDemande, createdAt: $createdAt, updatedAt: $updatedAt, client: $client, article: $article, typeEngin: $typeEngin, marque: $marque)';
   }
 
   @override
@@ -544,6 +562,8 @@ class _$DemandeImpl implements _Demande {
             (identical(other.garantie, garantie) ||
                 other.garantie == garantie) &&
             (identical(other.autres, autres) || other.autres == autres) &&
+            (identical(other.imagePiece, imagePiece) ||
+                other.imagePiece == imagePiece) &&
             (identical(other.dateDemande, dateDemande) ||
                 other.dateDemande == dateDemande) &&
             (identical(other.etatDemande, etatDemande) ||
@@ -575,6 +595,7 @@ class _$DemandeImpl implements _Demande {
         anneePiece,
         garantie,
         autres,
+        imagePiece,
         dateDemande,
         etatDemande,
         createdAt,
@@ -616,6 +637,7 @@ abstract class _Demande implements Demande {
       @JsonKey(name: 'annee_piece') final String? anneePiece,
       @JsonKey(name: 'garantie') required final int garantie,
       @JsonKey(name: 'autres') final String? autres,
+      @JsonKey(name: 'image_piece') final String? imagePiece,
       @JsonKey(name: 'date_demande') required final DateTime dateDemande,
       @JsonKey(name: 'etat_demande') required final int etatDemande,
       @JsonKey(name: 'created_at') required final DateTime createdAt,
@@ -663,6 +685,9 @@ abstract class _Demande implements Demande {
   @override
   @JsonKey(name: 'autres')
   String? get autres;
+  @override
+  @JsonKey(name: 'image_piece')
+  String? get imagePiece;
   @override
   @JsonKey(name: 'date_demande')
   DateTime get dateDemande;

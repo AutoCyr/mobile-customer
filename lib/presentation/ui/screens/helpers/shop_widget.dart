@@ -18,6 +18,7 @@ class ShopWidget extends StatelessWidget {
       splashColor: Colors.transparent,
       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ShopProductScreen(partenaire: partenaire))),
       child: Container(
+        margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
             color: GlobalThemeData.lightColorScheme.onTertiary,

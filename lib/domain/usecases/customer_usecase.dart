@@ -42,8 +42,8 @@ class CustomerUseCase {
     return await _customerRepositoryImpl.getShopPieces(params);
   }
 
-  Future createRequest(Map<String, dynamic> body) async {
-    return await _customerRepositoryImpl.createRequest(body);
+  Future createRequest(Map<String, String> body, String filepath, String name) async {
+    return await _customerRepositoryImpl.createRequest(body, filepath, name);
   }
 
   Future searchRequest(Map<String, dynamic> params) async {

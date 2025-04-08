@@ -53,8 +53,8 @@ class CustomerRepositoryImpl extends CustomerRepository {
   }
 
   @override
-  Future createRequest(Map<String, dynamic> body) async {
-    return await _customerDataSourceImpl.createRequest(body);
+  Future createRequest(Map<String, String> body, String filepath, String name) async {
+    return await _customerDataSourceImpl.createRequest(body, filepath, name);
   }
 
   @override

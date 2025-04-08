@@ -264,7 +264,7 @@ class CustomerDataSourceImpl implements CustomerDataSource {
   }
 
   @override
-  Future createRequest(Map<String, dynamic> body) async {
+  Future createRequest(Map<String, String> body, String filepath, String name) async {
     String token = await Preferences().getString("token");
     Map<String, String> headers = {
       'Content-Type': 'application/json',
@@ -273,7 +273,7 @@ class CustomerDataSourceImpl implements CustomerDataSource {
     };
 
     try {
-      final response = await _apiClient.post(path: "customer/create-request", headers: headers, body: body);
+      final response = await _apiClient.postMultipart(path: "customer/create-request", headers: headers, body: body, filepath: filepath, name: name);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = json.decode(response.body);

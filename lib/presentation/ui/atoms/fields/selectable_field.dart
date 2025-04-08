@@ -28,7 +28,7 @@ Widget SelectableField({
         labelText: label,
         prefixIcon: Icon(icon),
         labelStyle: TextStyle(
-            color: GlobalThemeData.lightColorScheme.primary,
+            color: GlobalThemeData.lightColorScheme.secondary,
             fontSize: fontSize
         )
     ),

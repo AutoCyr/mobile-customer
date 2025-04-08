@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:autocyr/domain/models/commons/engin_type.dart';
 import 'package:autocyr/presentation/notifier/auth_notifier.dart';
 import 'package:autocyr/presentation/notifier/common_notifier.dart';
@@ -8,6 +10,7 @@ import 'package:autocyr/presentation/ui/atoms/fields/custom_selectable_field.dar
 import 'package:autocyr/presentation/ui/atoms/fields/description_field.dart';
 import 'package:autocyr/presentation/ui/atoms/fields/object_selectable_field.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label10.dart';
+import 'package:autocyr/presentation/ui/atoms/labels/label12.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
 import 'package:autocyr/presentation/ui/helpers/snacks.dart';
@@ -17,6 +20,7 @@ import 'package:autocyr/presentation/ui/organisms/searchables/searchable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class AskScreen extends StatefulWidget {
@@ -31,6 +35,10 @@ class _AskScreenState extends State<AskScreen> {
   late bool _isGarantie = false;
   late String typeKey = "";
 
+  File? media;
+  late XFile? _image;
+  final ImagePicker _picker = ImagePicker();
+
   final TextEditingController _articleController = TextEditingController();
   final TextEditingController _marqueController = TextEditingController();
   final TextEditingController _typeController = TextEditingController();
@@ -40,28 +48,47 @@ class _AskScreenState extends State<AskScreen> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _autreController = TextEditingController();
 
+  Future getImageFromGallery() async {
+    _image = await _picker.pickImage(source: ImageSource.gallery, maxHeight: 1080, maxWidth: 1080);
+    setState(() {
+      media = File(_image!.path);
+    });
+  }
+
+  Future getImageFromCamera() async {
+    _image = await _picker.pickImage(source: ImageSource.camera, maxHeight: 1080, maxWidth: 1080);
+    setState(() {
+      media = File(_image!.path);
+    });
+  }
+
   _search() async {
     final customer = Provider.of<CustomerNotifier>(context, listen: false);
     final auth = Provider.of<AuthNotifier>(context, listen: false);
     final common = Provider.of<CommonNotifier>(context, listen: false);
 
-    if(UiTools().checkFields([_articleController, _typeController, _descriptionController])) {
-      Map<String, dynamic> payload = {
-        "country_id": auth.getClient.paysId,
-        "client_id" : auth.getClient.clientId,
-        "article_id" : common.article!.id,
-        "type_engin_id" : typeKey,
-        "marque_id": _typeController.text.toLowerCase() != "quatre roues" ? common.bikeMake!.id : common.carMake!.id,
-        "description": _descriptionController.text,
-        "modele": _modeleController.text,
-        "numero": _numeroController.text,
-        "annee": _anneeController.text,
-        "garantie" : _isGarantie ? "1" : "0",
-        "autres" : _autreController.text
-      };
-      await customer.searchRequest(context: context, params: payload);
+    if(media == null) {
+      Snacks.failureBar("Veuillez ajouter une image de votre pièce", context);
     } else {
-      Snacks.failureBar("Veuillez remplir tous les champs avant de continuer", context);
+      if(UiTools().checkFields([_articleController, _typeController, _descriptionController])) {
+        Map<String, String> payload = {
+          "country_id": auth.getClient.paysId.toString(),
+          "client_id" : auth.getClient.clientId.toString(),
+          "article_id" : common.article!.id.toString(),
+          "type_engin_id" : typeKey,
+          "marque_id": _typeController.text.toLowerCase() != "quatre roues" ? common.bikeMake!.id.toString() : common.carMake!.id.toString(),
+          "description": _descriptionController.text,
+          "modele": _modeleController.text,
+          "numero": _numeroController.text,
+          "annee": _anneeController.text,
+          "garantie" : _isGarantie ? "1" : "0",
+          "autres" : _autreController.text,
+          "image_piece" : media.toString()
+        };
+        await customer.searchRequest(context: context, params: payload, filepath: media!.path);
+      } else {
+        Snacks.failureBar("Veuillez remplir tous les champs avant de continuer", context);
+      }
     }
   }
 
@@ -109,6 +136,140 @@ class _AskScreenState extends State<AskScreen> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        if(media == null)
+                          GestureDetector(
+                            onTap: () => getImageFromGallery(),
+                            child: Container(
+                              width: size.width,
+                              height: size.width * 0.45,
+                              decoration: BoxDecoration(
+                                  color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(5)
+                              ),
+                              child: IntrinsicHeight(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () => getImageFromGallery(),
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                                        width: size.width * 0.4,
+                                        height: size.height * 0.3,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Image.asset(
+                                              "assets/pngs/picture.webp",
+                                              width: size.width * 0.25,
+                                              height: size.width * 0.25,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Label10(text: "Sélectionner une image", color: GlobalThemeData.lightColorScheme.secondary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    VerticalDivider(
+                                      color: GlobalThemeData.lightColorScheme.secondary.withOpacity(0.1),
+                                      thickness: 1,
+                                    ).animate().fadeIn(),
+                                    GestureDetector(
+                                      onTap: () => getImageFromCamera(),
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                                        width: size.width * 0.4,
+                                        height: size.height * 0.3,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Image.asset(
+                                              "assets/pngs/camera.webp",
+                                              width: size.width * 0.25,
+                                              height: size.width * 0.25,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Label10(text: "Prendre une photo", color: GlobalThemeData.lightColorScheme.secondary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ).animate().fadeIn(),
+                          )
+                        else if(media != null)
+                          Container(
+                              width: size.width,
+                              height: size.width * 0.3,
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                              decoration: BoxDecoration(
+                                color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1),
+                                borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: size.width * 0.27,
+                                          height: size.width * 0.27,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(color: GlobalThemeData.lightColorScheme.primary, width: 1),
+                                            borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+                                            image: DecorationImage(
+                                                image: FileImage(media!),
+                                                fit: BoxFit.cover
+                                            ),
+                                          )
+                                      ),
+                                      const Gap(10),
+                                      SizedBox(
+                                        width: size.width * 0.55,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      media = null;
+                                                    });
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.close,
+                                                    color: Colors.black,
+                                                    size: 20,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Label12(text: "Média sélectionné", color: GlobalThemeData.lightColorScheme.secondary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                                                const Gap(5),
+                                                Label12(text: _image!.name, color: GlobalThemeData.lightColorScheme.secondary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      )
+
+                                    ],
+                                  )
+                                ],
+                              )
+                          ).animate().fadeIn(),
+                        const Gap(10),
                         common.filling && common.articles.isEmpty ?
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

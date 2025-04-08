@@ -23,6 +23,7 @@ class DemandeInfo with _$DemandeInfo {
     @JsonKey(name: 'annee_piece') String? anneePiece,
     @JsonKey(name: 'garantie') required int garantie,
     @JsonKey(name: 'autres') String? autres,
+    @JsonKey(name: 'image_piece') String? imagePiece,
     @JsonKey(name: 'date_demande') required DateTime dateDemande,
     @JsonKey(name: 'etat_demande') required int etatDemande,
     @JsonKey(name: 'created_at') required DateTime createdAt,

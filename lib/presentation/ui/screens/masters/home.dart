@@ -67,9 +67,6 @@ class _HomeScreenState extends State<HomeScreen> {
       if(common.enginTypes.isEmpty) {
         await common.retrieveEnginTypes(context: context);
       }
-      if(common.categories.isEmpty) {
-        await common.retrieveCategories(context: context);
-      }
     }
   }
 

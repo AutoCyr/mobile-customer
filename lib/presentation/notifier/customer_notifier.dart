@@ -525,10 +525,10 @@ class CustomerNotifier extends ChangeNotifier {
     }
   }
 
-  Future createRequest({required Map<String, dynamic> body, required BuildContext context}) async {
+  Future createRequest({required Map<String, String> body, required String filepath, required String name, required BuildContext context}) async {
     setAction(true);
     try {
-      var data = await customerUseCase.createRequest(body);
+      var data = await customerUseCase.createRequest(body, filepath, name);
 
       if(data['error'] == false) {
         Success success = Success.fromJson(data);
@@ -551,7 +551,7 @@ class CustomerNotifier extends ChangeNotifier {
     }
   }
 
-  Future searchRequest({required BuildContext context, required Map<String, dynamic> params}) async {
+  Future searchRequest({required BuildContext context, required Map<String, String> params, required String filepath}) async {
     setLoading(true);
     setError("");
 
@@ -569,7 +569,7 @@ class CustomerNotifier extends ChangeNotifier {
         setResultPieces(results);
         setLoading(false);
         if(context.mounted) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AskProductResult(payload: params)));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AskProductResult(payload: params, filePath: filepath,)));
         }
       }else{
         Failure failure = Failure.fromJson(data);

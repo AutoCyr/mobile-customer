@@ -1,4 +1,5 @@
 import 'package:autocyr/data/helpers/redirections.dart';
+import 'package:autocyr/data/network/urls.dart';
 import 'package:autocyr/domain/models/features/demande.dart';
 import 'package:autocyr/domain/models/features/demande_info.dart';
 import 'package:autocyr/presentation/notifier/customer_notifier.dart';
@@ -71,6 +72,30 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
           return ListView(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             children: [
+              if(detail!.imagePiece != null)
+                Column(
+                  children: [
+                    Container(
+                      width: size.width,
+                      height: size.width,
+                      decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+                          border: Border.all(color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1), width: 1),
+                          image: DecorationImage(
+                              onError: (Object e, StackTrace? stackTrace) => Image.asset(
+                                "assets/images/back-2.webp",
+                                fit: BoxFit.cover,
+                              ),
+                              image: NetworkImage(
+                                Urls.imageUrl+detail!.imagePiece!,
+                              ),
+                              fit: BoxFit.cover
+                          )
+                      )
+                    ).animate().fadeIn(),
+                    const Gap(10),
+                  ],
+                ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 width: size.width,

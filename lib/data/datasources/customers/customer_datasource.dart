@@ -17,7 +17,7 @@ abstract class CustomerDataSource {
 
   Future getShopPieces(Map<String, dynamic> params);
 
-  Future createRequest(Map<String, dynamic> body);
+  Future createRequest(Map<String, String> body, String filepath, String name);
 
   Future searchRequest(Map<String, dynamic> params);
 

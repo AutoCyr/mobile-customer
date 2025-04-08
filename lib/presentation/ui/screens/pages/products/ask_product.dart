@@ -17,8 +17,9 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
 class AskProductResult extends StatefulWidget {
-  final Map<String, dynamic> payload;
-  const AskProductResult({super.key, required this.payload});
+  final Map<String, String> payload;
+  final String filePath;
+  const AskProductResult({super.key, required this.payload, required this.filePath});
 
   @override
   State<AskProductResult> createState() => _AskProductResultState();
@@ -102,7 +103,7 @@ class _AskProductResultState extends State<AskProductResult> {
 
   _save() async {
     final customer = Provider.of<CustomerNotifier>(context, listen: false);
-    await customer.createRequest(body: widget.payload, context: context);
+    await customer.createRequest(body: widget.payload, filepath: widget.filePath, name: "image_piece", context: context);
   }
 
   @override
