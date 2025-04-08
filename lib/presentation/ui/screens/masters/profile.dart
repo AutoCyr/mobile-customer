@@ -44,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.onTertiary),
-        backgroundColor: GlobalThemeData.lightColorScheme.tertiary,
+        backgroundColor: GlobalThemeData.lightColorScheme.primary,
         title: Label14(text: "Mon profil", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
       ),
       body: Consumer<AuthNotifier>(
@@ -57,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: size.height * 0.3,
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                 decoration: BoxDecoration(
-                  color: GlobalThemeData.lightColorScheme.tertiary,
+                  color: GlobalThemeData.lightColorScheme.primary,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
                               ),
                               child: Center(
-                                child: Label13(text: "Utilisateur", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1,).animate().fadeIn(),
+                                child: Label13(text: "Utilisateur", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1,).animate().fadeIn(),
                               ),
                             )
                           ],
@@ -125,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           },
                           leading: Icon(
                             tile["iconData"],
-                            color: GlobalThemeData.lightColorScheme.tertiary,
+                            color: GlobalThemeData.lightColorScheme.primary,
                           ),
                           title: Label13(text: tile["label"], color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
                           trailing: const Icon(
@@ -137,7 +137,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
               ),
-              const Gap(20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                 child: Row(
@@ -157,7 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               text: "Gine inc.",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: GlobalThemeData.lightColorScheme.tertiary
+                                  color: GlobalThemeData.lightColorScheme.primary
                               )
                           ),
                         ],

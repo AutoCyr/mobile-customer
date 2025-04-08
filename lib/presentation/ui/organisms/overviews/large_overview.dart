@@ -15,7 +15,7 @@ Widget LargeOverview({
     decoration: BoxDecoration(
       color: GlobalThemeData.lightColorScheme.onPrimary,
       border: Border.all(
-          color: GlobalThemeData.lightColorScheme.primaryContainer.withOpacity(0.5),
+          color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.5),
           width: 1
       ),
     ),
@@ -29,13 +29,13 @@ Widget LargeOverview({
               children: [
                 Label12(
                     text: label,
-                    color: GlobalThemeData.lightColorScheme.secondaryContainer,
+                    color: GlobalThemeData.lightColorScheme.secondary,
                     weight: FontWeight.bold,
                     maxLines: 1
                 ),
                 Label30(
                     text: value,
-                    color: GlobalThemeData.lightColorScheme.primaryContainer,
+                    color: GlobalThemeData.lightColorScheme.primary,
                     weight: FontWeight.bold,
                     maxLines: 1
                 ),

@@ -131,7 +131,7 @@ class _TypeProductScreenState extends State<TypeProductScreen> {
       appBar: AppBar(
         backgroundColor: GlobalThemeData.lightColorScheme.onTertiary,
         title: _search == false ?
-          Label14(text: "Articles pour ${widget.type.libelle.toLowerCase()}", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+          Label14(text: "Articles pour ${widget.type.libelle.toLowerCase()}", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
             :
           SizedBox(
             height: 45,
@@ -139,17 +139,17 @@ class _TypeProductScreenState extends State<TypeProductScreen> {
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                   filled: true,
-                  fillColor: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
-                  focusColor: GlobalThemeData.lightColorScheme.tertiary,
+                  fillColor: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1),
+                  focusColor: GlobalThemeData.lightColorScheme.primary,
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
-                          color: GlobalThemeData.lightColorScheme.tertiary,
+                          color: GlobalThemeData.lightColorScheme.primary,
                           width: 2
                       )
                   ),
                   labelText: "Rechercher",
                   labelStyle: TextStyle(
-                      color: GlobalThemeData.lightColorScheme.tertiary,
+                      color: GlobalThemeData.lightColorScheme.primary,
                       fontSize: 13
                   )
               ),
@@ -158,7 +158,7 @@ class _TypeProductScreenState extends State<TypeProductScreen> {
               ),
               autofocus: true,
               onChanged: (value) => filterList(value),
-              cursorColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
+              cursorColor: GlobalThemeData.lightColorScheme.primary,
             ),
           ).animate().fadeIn(),
         actions: [
@@ -212,7 +212,7 @@ class _TypeProductScreenState extends State<TypeProductScreen> {
                   widthSize: size.width * 0.2,
                   context: context,
                   bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                  shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                  shimmerColor: GlobalThemeData.lightColorScheme.primary
               ).animate().fadeIn(),
               isLastPage: customer.typePieceMeta.currentPage < customer.typePieceMeta.lastPage ? false : true,
               child: GridView.count(

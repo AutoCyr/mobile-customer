@@ -26,7 +26,7 @@ class PieceWidget extends StatelessWidget {
             height: size.width * 0.35,
             width: size.width,
             decoration: BoxDecoration(
-                border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1), width: 1),
+                border: Border.all(color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1), width: 1),
                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
                 image: DecorationImage(
                     onError: (Object e, StackTrace? stackTrace) => Image.asset(

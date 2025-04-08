@@ -70,52 +70,6 @@ class _RequestListScreenState extends State<RequestListScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      /*appBar: AppBar(
-        iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.tertiary),
-        backgroundColor: GlobalThemeData.lightColorScheme.onTertiary,
-        title: _search == false ?
-          Label14(text: "Mes demandes", color: GlobalThemeData.lightColorScheme.tertiaryContainer, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
-            :
-          SizedBox(
-            height: 45,
-            child: TextFormField(
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                  filled: true,
-                  fillColor: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
-                  focusColor: GlobalThemeData.lightColorScheme.tertiary,
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: GlobalThemeData.lightColorScheme.tertiary,
-                          width: 2
-                      )
-                  ),
-                  labelText: "Rechercher",
-                  labelStyle: TextStyle(
-                      color: GlobalThemeData.lightColorScheme.tertiary,
-                      fontSize: 13
-                  )
-              ),
-              style: const TextStyle(
-                  fontSize: 13
-              ),
-              autofocus: true,
-              onChanged: (value) => filterList(value),
-              cursorColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
-            ),
-          ).animate().fadeIn(),
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                _search = !_search;
-                filterList("");
-              });
-            },
-            icon: _search ? const Icon(Icons.clear) : const Icon(Icons.search_sharp),
-          ).animate().fadeIn(),
-        ],
-      ),*/
       body: Consumer<CustomerNotifier>(
           builder: (context, customer, child) {
 
@@ -151,7 +105,7 @@ class _RequestListScreenState extends State<RequestListScreen> {
                     widthSize: size.width * 0.2,
                     context: context,
                     bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                    shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                    shimmerColor: GlobalThemeData.lightColorScheme.primary
                 ).animate().fadeIn(),
                 isLastPage: customer.requestMeta.currentPage < customer.requestMeta.lastPage ? false : true,
                 child: ListView.builder(

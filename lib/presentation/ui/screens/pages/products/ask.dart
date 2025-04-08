@@ -97,7 +97,7 @@ class _AskScreenState extends State<AskScreen> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.onTertiary),
-        backgroundColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
+        backgroundColor: GlobalThemeData.lightColorScheme.primary,
         title: Label14(text: "Faire une demande", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
       ),
       body: Consumer2<CommonNotifier, CustomerNotifier>(
@@ -119,7 +119,7 @@ class _AskScreenState extends State<AskScreen> {
                                   widthSize: size.width * 0.95,
                                   context: context,
                                   bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                                  shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                                  shimmerColor: GlobalThemeData.lightColorScheme.primary
                               )
                             ]
                           ).animate().fadeIn()
@@ -152,7 +152,7 @@ class _AskScreenState extends State<AskScreen> {
                                   widthSize: size.width * 0.95,
                                   context: context,
                                   bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                                  shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                                  shimmerColor: GlobalThemeData.lightColorScheme.primary
                               )
                             ]
                           ).animate().fadeIn()
@@ -185,7 +185,7 @@ class _AskScreenState extends State<AskScreen> {
                                   widthSize: size.width * 0.95,
                                   context: context,
                                   bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                                  shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                                  shimmerColor: GlobalThemeData.lightColorScheme.primary
                               )
                             ]
                           ).animate().fadeIn()
@@ -255,7 +255,7 @@ class _AskScreenState extends State<AskScreen> {
                                   _isGarantie = value!;
                                 });
                               },
-                              activeColor: GlobalThemeData.lightColorScheme.tertiary,
+                              activeColor: GlobalThemeData.lightColorScheme.primary,
                             ).animate().fadeIn(),
                             const Gap(10),
                             const Text("Est garantie").animate().fadeIn(),
@@ -285,7 +285,7 @@ class _AskScreenState extends State<AskScreen> {
                             widthSize: size.width * 0.95,
                             context: context,
                             bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                            shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                            shimmerColor: GlobalThemeData.lightColorScheme.primary
                           ).animate().fadeIn()
                             :
                           SizedBox(
@@ -298,9 +298,9 @@ class _AskScreenState extends State<AskScreen> {
                                 backSize: size.width * 0.9,
                                 context: context,
                                 function: () => _search(),
-                                textColor: GlobalThemeData.lightColorScheme.tertiary,
+                                textColor: GlobalThemeData.lightColorScheme.primary,
                                 buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
-                                backColor: GlobalThemeData.lightColorScheme.tertiary
+                                backColor: GlobalThemeData.lightColorScheme.primary
                             ).animate().fadeIn(),
                           ),
                       ]

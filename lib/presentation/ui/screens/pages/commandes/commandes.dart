@@ -70,10 +70,9 @@ class _CommandeListScreenState extends State<CommandeListScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.tertiary),
         backgroundColor: GlobalThemeData.lightColorScheme.onTertiary,
         title: _search == false ?
-          Label14(text: "Mes commandes", color: GlobalThemeData.lightColorScheme.tertiaryContainer, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+          Label14(text: "Mes commandes", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
             :
           SizedBox(
               height: 45,
@@ -81,17 +80,17 @@ class _CommandeListScreenState extends State<CommandeListScreen> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                     filled: true,
-                    fillColor: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
-                    focusColor: GlobalThemeData.lightColorScheme.tertiary,
+                    fillColor: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1),
+                    focusColor: GlobalThemeData.lightColorScheme.primary,
                     focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
-                            color: GlobalThemeData.lightColorScheme.tertiary,
+                            color: GlobalThemeData.lightColorScheme.primary,
                             width: 2
                         )
                     ),
                     labelText: "Rechercher",
                     labelStyle: TextStyle(
-                        color: GlobalThemeData.lightColorScheme.tertiary,
+                        color: GlobalThemeData.lightColorScheme.primary,
                         fontSize: 13
                     )
                 ),
@@ -100,7 +99,7 @@ class _CommandeListScreenState extends State<CommandeListScreen> {
                 ),
                 autofocus: true,
                 onChanged: (value) => filterList(value),
-                cursorColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
+                cursorColor: GlobalThemeData.lightColorScheme.primary,
               ),
           ).animate().fadeIn(),
         actions: [
@@ -150,7 +149,7 @@ class _CommandeListScreenState extends State<CommandeListScreen> {
                     widthSize: size.width * 0.2,
                     context: context,
                     bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                    shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                    shimmerColor: GlobalThemeData.lightColorScheme.primary
                 ).animate().fadeIn(),
                 isLastPage: customer.commandeMeta.currentPage < customer.commandeMeta.lastPage ? false : true,
                 child: ListView.builder(

@@ -51,9 +51,8 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-          iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.tertiary),
           backgroundColor: GlobalThemeData.lightColorScheme.onTertiary,
-          title: Label14(text: "Détail de la demande", color: GlobalThemeData.lightColorScheme.tertiaryContainer, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+          title: Label14(text: "Détail de la demande", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
       ),
       body: Consumer<CustomerNotifier>(
         builder: (context, customer, child) {
@@ -76,16 +75,16 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 width: size.width,
                 decoration: BoxDecoration(
-                  color: GlobalThemeData.lightColorScheme.tertiaryContainer,
+                  color: GlobalThemeData.lightColorScheme.primary,
                   borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-                  border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary, width: 1),
+                  border: Border.all(color: GlobalThemeData.lightColorScheme.primary, width: 1),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Label17(text: "Demande #${detail!.reference}", color: GlobalThemeData.lightColorScheme.onTertiaryContainer, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                    Label17(text: "Demande #${detail!.reference}", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
                     const Gap(10),
-                    Label13(text: "Effectuée le ${DateFormat.yMMMMEEEEd("fr").format(detail!.dateDemande)} à ${DateFormat.Hm("fr").format(detail!.dateDemande)}", color: GlobalThemeData.lightColorScheme.onTertiaryContainer, weight: FontWeight.normal, maxLines: 2).animate().fadeIn(),
+                    Label13(text: "Effectuée le ${DateFormat.yMMMMEEEEd("fr").format(detail!.dateDemande)} à ${DateFormat.Hm("fr").format(detail!.dateDemande)}", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.normal, maxLines: 2).animate().fadeIn(),
                   ],
                 ),
               ),
@@ -95,7 +94,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                 width: size.width,
                 decoration: BoxDecoration(
                   color: GlobalThemeData.lightColorScheme.onTertiary,
-                  border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary, width: 1),
+                  border: Border.all(color: GlobalThemeData.lightColorScheme.primary, width: 1),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,7 +138,7 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                       width: size.width,
                       decoration: BoxDecoration(
                         color: GlobalThemeData.lightColorScheme.onTertiary,
-                        border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary, width: 1),
+                        border: Border.all(color: GlobalThemeData.lightColorScheme.primary, width: 1),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,26 +178,26 @@ class _RequestDetailScreenState extends State<RequestDetailScreen> {
                                             style: ButtonStyle(
                                               shape: WidgetStateProperty.all(
                                                   RoundedRectangleBorder(
-                                                      side: BorderSide(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1)),
+                                                      side: BorderSide(color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1)),
                                                       borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                                                   )
                                               ),
                                               backgroundColor: WidgetStateProperty.all(GlobalThemeData.lightColorScheme.onTertiary),
                                             ),
-                                            icon: Icon(Icons.settings_phone_sharp, color: GlobalThemeData.lightColorScheme.tertiary, size: 20,)
+                                            icon: Icon(Icons.settings_phone_sharp, color: GlobalThemeData.lightColorScheme.primary, size: 20,)
                                         ),
                                         IconButton(
                                             onPressed: () => Redirections().launchMail(context: context, email: e.partenaire.emailPartenaire),
                                             style: ButtonStyle(
                                               shape: WidgetStateProperty.all(
                                                   RoundedRectangleBorder(
-                                                      side: BorderSide(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1)),
+                                                      side: BorderSide(color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1)),
                                                       borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                                                   )
                                               ),
                                               backgroundColor: WidgetStateProperty.all(GlobalThemeData.lightColorScheme.onTertiary),
                                             ),
-                                            icon: Icon(Icons.alternate_email_sharp, color: GlobalThemeData.lightColorScheme.tertiary, size: 20,)
+                                            icon: Icon(Icons.alternate_email_sharp, color: GlobalThemeData.lightColorScheme.primary, size: 20,)
                                         ),
                                       ],
                                     )

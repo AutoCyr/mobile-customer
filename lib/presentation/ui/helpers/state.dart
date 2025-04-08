@@ -39,9 +39,9 @@ class _StateScreenState extends State<StateScreen> {
               backSize: size.width * 0.87,
               context: context,
               function: () => widget.function!(),
-              textColor: GlobalThemeData.lightColorScheme.tertiary,
+              textColor: GlobalThemeData.lightColorScheme.primary,
               buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
-              backColor: GlobalThemeData.lightColorScheme.tertiary
+              backColor: GlobalThemeData.lightColorScheme.primary
             ).animate().fadeIn(),
         ],
       ),

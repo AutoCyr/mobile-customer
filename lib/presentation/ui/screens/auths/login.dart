@@ -58,12 +58,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Image.asset(
                     "assets/logos/auto.png",
-                    width: 100,
-                    height: 100,
-                  ).animate().fadeIn().tint(color: GlobalThemeData.lightColorScheme.tertiary),
+                    width: 75,
+                    height: 75,
+                  ).animate().fadeIn(),
                 ],
               ),
-              Label30(text: "Connexion", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+              const Gap(20),
+              Label30(text: "Connexion", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
               const Gap(40),
               CustomField(
                 controller: _usernameController,
@@ -78,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   widthSize: size.width * 0.9,
                   context: context,
                   bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                  shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                  shimmerColor: GlobalThemeData.lightColorScheme.primary
                 ).animate().fadeIn()
                   :
                 CustomButton(
@@ -89,9 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   backSize: size.width * 0.87,
                   context: context,
                   function: () => _login(),
-                  textColor: GlobalThemeData.lightColorScheme.tertiary,
+                  textColor: GlobalThemeData.lightColorScheme.primary,
                   buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
-                  backColor: GlobalThemeData.lightColorScheme.tertiary
+                  backColor: GlobalThemeData.lightColorScheme.primary
                 ).animate().fadeIn(),
               const Gap(20),
               Row(
@@ -100,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Label12(text: "Vous n'avez pas de compte ?", color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
                     TextButton(
                         onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RegisterScreen())),
-                        child: Label12(text: "Créer un compte", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1)
+                        child: Label12(text: "Créer un compte", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1)
                     ).animate().fadeIn()
                   ]
               )

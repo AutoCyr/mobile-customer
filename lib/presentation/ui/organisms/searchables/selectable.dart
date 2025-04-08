@@ -87,7 +87,7 @@ class _CustomSelectableState extends State<CustomSelectable> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.tertiary),
+        iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.primary),
         backgroundColor: GlobalThemeData.lightColorScheme.onTertiary,
         title: SizedBox(
           height: 45,
@@ -95,7 +95,7 @@ class _CustomSelectableState extends State<CustomSelectable> {
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 filled: true,
-                fillColor: GlobalThemeData.lightColorScheme.tertiaryContainer.withOpacity(0.1),
+                fillColor: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1),
                 hintText: "Rechercher",
                 border: InputBorder.none,
                 hintStyle: const TextStyle(
@@ -114,7 +114,7 @@ class _CustomSelectableState extends State<CustomSelectable> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.clear, color: GlobalThemeData.lightColorScheme.errorContainer,),
+            icon: Icon(Icons.clear, color: GlobalThemeData.lightColorScheme.error,),
           ).animate().fadeIn(),
           if(localSelectedObject != null)
             Consumer<CommonNotifier>(
@@ -135,7 +135,7 @@ class _CustomSelectableState extends State<CustomSelectable> {
                     await widget.onSave();
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.check, color: GlobalThemeData.lightColorScheme.tertiary,),
+                  icon: Icon(Icons.check, color: GlobalThemeData.lightColorScheme.primary,),
                 ).animate().fadeIn();
               }
             ),
@@ -151,17 +151,17 @@ class _CustomSelectableState extends State<CustomSelectable> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             height: 45,
             width: size.width,
-            color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
+            color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1),
             child: Row(
               children: [
-                Label14(text: groupByValue, color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1),
+                Label14(text: groupByValue, color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1),
               ],
             ),
           ).animate().fadeIn();
         },
         itemBuilder: (context, dynamic element) {
           return InkWell(
-            splashColor: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
+            splashColor: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1),
             onTap: () {
               setState(() {
                 if(widget.multiple) {
@@ -180,13 +180,13 @@ class _CustomSelectableState extends State<CustomSelectable> {
               height: 50,
               width: size.width,
               decoration: BoxDecoration(
-                color: localSelectedObject == element || selectedList!.contains(element) ? GlobalThemeData.lightColorScheme.tertiary : Colors.transparent,
+                color: localSelectedObject == element || selectedList!.contains(element) ? GlobalThemeData.lightColorScheme.primary : Colors.transparent,
               ),
               child: Row(
                 children: [
                   Label14(
                     text: element.name,
-                    color: localSelectedObject == element || selectedList!.contains(element) ? GlobalThemeData.lightColorScheme.onTertiary : GlobalThemeData.lightColorScheme.tertiary,
+                    color: localSelectedObject == element || selectedList!.contains(element) ? GlobalThemeData.lightColorScheme.onTertiary : GlobalThemeData.lightColorScheme.primary,
                     weight: FontWeight.w400,
                     maxLines: 1
                   ),

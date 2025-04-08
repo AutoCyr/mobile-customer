@@ -84,19 +84,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Label30(text: "Inscription", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                          Label30(text: "Inscription", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
                           const Gap(30),
                           common.filling ?
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Label10(text: "Chargement des pays...", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                                Label10(text: "Chargement des pays...", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
                                 const Gap(10),
                                 ProgressButton(
                                   widthSize: size.width * 0.9,
                                   context: context,
                                   bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                                  shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                                  shimmerColor: GlobalThemeData.lightColorScheme.primary
                                 )
                               ]
                             ).animate().fadeIn()
@@ -131,9 +131,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               SizedBox(
                                 width: size.width * 0.25,
                                 child: common.country != null ?
-                                  Label14(text: "${common.country!.initials} (${common.country!.countryCode})", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+                                  Label14(text: "${common.country!.initials} (${common.country!.countryCode})", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
                                     :
-                                  Label14(text: "Pays (+---)", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                                  Label14(text: "Pays (+---)", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
                               ),
                               SizedBox(
                                 width: size.width * 0.65,
@@ -161,7 +161,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               widthSize: size.width * 0.9,
                               context: context,
                               bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                              shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                              shimmerColor: GlobalThemeData.lightColorScheme.primary
                             ).animate().fadeIn()
                               :
                             SizedBox(
@@ -174,9 +174,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   backSize: size.width * 0.87,
                                   context: context,
                                   function: () => _save(),
-                                  textColor: GlobalThemeData.lightColorScheme.tertiary,
+                                  textColor: GlobalThemeData.lightColorScheme.primary,
                                   buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
-                                  backColor: GlobalThemeData.lightColorScheme.tertiary
+                                  backColor: GlobalThemeData.lightColorScheme.primary
                               ).animate().fadeIn(),
                             ),
                         ]
@@ -188,7 +188,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Label12(text: "Vous avez déjà un compte ?", color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
                           TextButton(
                               onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen())),
-                              child: Label12(text: "Se connecter", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1)
+                              child: Label12(text: "Se connecter", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1)
                           ).animate().fadeIn()
                         ]
                     )

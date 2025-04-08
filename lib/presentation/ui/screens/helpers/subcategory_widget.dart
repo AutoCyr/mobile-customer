@@ -42,12 +42,12 @@ class SubcategoryWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             width: size.width,
             decoration: BoxDecoration(
-              color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
+              color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Label10(text: subcategory.name, color: Colors.black, weight: FontWeight.normal, maxLines: 2)
+                Label12(text: subcategory.name, color: Colors.black, weight: FontWeight.normal, maxLines: 2)
               ],
             ),
           )

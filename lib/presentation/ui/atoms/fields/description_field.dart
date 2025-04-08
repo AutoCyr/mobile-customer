@@ -15,24 +15,24 @@ Widget DescriptionField({
     maxLines: maxLines,
     decoration: InputDecoration(
         filled: true,
-        fillColor: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
-        focusColor: GlobalThemeData.lightColorScheme.tertiary,
+        fillColor: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1),
+        focusColor: GlobalThemeData.lightColorScheme.primary,
         focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-                color: GlobalThemeData.lightColorScheme.tertiary,
+                color: GlobalThemeData.lightColorScheme.primary,
                 width: 2
             )
         ),
         labelText: label,
         prefixIcon: Icon(icon),
         labelStyle: TextStyle(
-            color: GlobalThemeData.lightColorScheme.tertiary,
+            color: GlobalThemeData.lightColorScheme.primary,
             fontSize: fontSize
         )
     ),
     style: TextStyle(
         fontSize: fontSize
     ),
-    cursorColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
+    cursorColor: GlobalThemeData.lightColorScheme.primary,
   );
 }

@@ -65,7 +65,7 @@ class _FilterScreenState extends State<FilterScreen> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.onTertiary),
-        backgroundColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
+        backgroundColor: GlobalThemeData.lightColorScheme.primary,
         title: Label14(text: "Choisir des options", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
         actions: [
           Consumer2<CommonNotifier, CustomerNotifier>(
@@ -102,7 +102,7 @@ class _FilterScreenState extends State<FilterScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: BoxDecoration(
-                    color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.7),
+                    color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.7),
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                 ),
                 child: Label12(text: "Types de véhicules", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
@@ -127,12 +127,12 @@ class _FilterScreenState extends State<FilterScreen> {
                               }
                             });
                           },
-                          activeColor: GlobalThemeData.lightColorScheme.tertiary,
+                          activeColor: GlobalThemeData.lightColorScheme.primary,
                         ).animate().fadeIn(),
                         const Gap(10),
                         Label12(
                             text: auto.libelle,
-                            color: autos.contains(auto.id) ? GlobalThemeData.lightColorScheme.tertiary : Colors.black,
+                            color: autos.contains(auto.id) ? GlobalThemeData.lightColorScheme.primary : Colors.black,
                             weight: autos.contains(auto.id) ? FontWeight.bold : FontWeight.normal,
                             maxLines: 1
                         ).animate().fadeIn(),
@@ -144,7 +144,7 @@ class _FilterScreenState extends State<FilterScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: BoxDecoration(
-                    color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.7),
+                    color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.7),
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                 ),
                 child: Label12(text: "Types de moteur", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
@@ -169,12 +169,12 @@ class _FilterScreenState extends State<FilterScreen> {
                               }
                             });
                           },
-                          activeColor: GlobalThemeData.lightColorScheme.tertiary,
+                          activeColor: GlobalThemeData.lightColorScheme.primary,
                         ).animate().fadeIn(),
                         const Gap(10),
                         Label12(
                             text: motor.libelle,
-                            color: moteurs.contains(motor.id) ? GlobalThemeData.lightColorScheme.tertiary : Colors.black,
+                            color: moteurs.contains(motor.id) ? GlobalThemeData.lightColorScheme.primary : Colors.black,
                             weight: moteurs.contains(motor.id) ? FontWeight.bold : FontWeight.normal,
                             maxLines: 1
                         ).animate().fadeIn(),
@@ -186,7 +186,7 @@ class _FilterScreenState extends State<FilterScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: BoxDecoration(
-                    color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.7),
+                    color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.7),
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                 ),
                 child: Label12(text: "Catégories d'engin", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
@@ -211,12 +211,12 @@ class _FilterScreenState extends State<FilterScreen> {
                               }
                             });
                           },
-                          activeColor: GlobalThemeData.lightColorScheme.tertiary,
+                          activeColor: GlobalThemeData.lightColorScheme.primary,
                         ).animate().fadeIn(),
                         const Gap(10),
                         Label12(
                             text: category.libelle,
-                            color: categories.contains(category.id) ? GlobalThemeData.lightColorScheme.tertiary : Colors.black,
+                            color: categories.contains(category.id) ? GlobalThemeData.lightColorScheme.primary : Colors.black,
                             weight: categories.contains(category.id) ? FontWeight.bold : FontWeight.normal,
                             maxLines: 1
                         ).animate().fadeIn(),

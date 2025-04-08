@@ -79,28 +79,29 @@ class _ChooserScreenState extends State<ChooserScreen> {
                                 Image.asset(
                                   "assets/logos/auto.png",
                                   width: 75,
-                                ).animate().tint(color: GlobalThemeData.lightColorScheme.onTertiary).fadeIn(),
+                                ).animate().fadeIn(),
+                                const Gap(10),
                                 Label30(
                                     text: "Autocyr".toUpperCase(),
-                                    color: GlobalThemeData.lightColorScheme.onTertiary,
+                                    color: GlobalThemeData.lightColorScheme.onPrimaryFixedVariant,
                                     weight: FontWeight.bold,
                                     maxLines: 1
                                 ).animate().fadeIn(),
                                 const Gap(15),
                                 Label12(
                                     text: "Trouvez et contactez en un clic les vendeurs de pièces détachées pour vos besoins.",
-                                    color: GlobalThemeData.lightColorScheme.onTertiary,
+                                    color: GlobalThemeData.lightColorScheme.onSecondaryFixed,
                                     weight: FontWeight.normal,
                                     maxLines: 4
                                 ).animate().fadeIn(),
-                                const Gap(40),
+                                const Gap(30),
                                 auth.loading ?
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Label12(
                                         text: "Vérification de votre connexion...",
-                                        color: GlobalThemeData.lightColorScheme.onTertiary,
+                                        color: GlobalThemeData.lightColorScheme.onSecondaryFixed,
                                         weight: FontWeight.bold,
                                         maxLines: 2
                                       ).animate().fadeIn()
@@ -119,7 +120,7 @@ class _ChooserScreenState extends State<ChooserScreen> {
                                         context: context,
                                         function: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen())),
                                         textColor: GlobalThemeData.lightColorScheme.onTertiary,
-                                        buttonColor: GlobalThemeData.lightColorScheme.tertiary,
+                                        buttonColor: GlobalThemeData.lightColorScheme.onPrimaryFixedVariant,
                                         backColor: GlobalThemeData.lightColorScheme.onTertiary
                                     ).animate().fadeIn(),
                                     CustomButton(
@@ -130,9 +131,9 @@ class _ChooserScreenState extends State<ChooserScreen> {
                                         backSize: size.width * 0.43,
                                         context: context,
                                         function: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterScreen())),
-                                        textColor: GlobalThemeData.lightColorScheme.tertiary,
+                                        textColor: GlobalThemeData.lightColorScheme.onPrimaryFixedVariant,
                                         buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
-                                        backColor: GlobalThemeData.lightColorScheme.tertiary
+                                        backColor: GlobalThemeData.lightColorScheme.onPrimaryFixedVariant
                                     ).animate().fadeIn(),
                                   ],
                                 )

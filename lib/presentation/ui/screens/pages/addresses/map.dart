@@ -87,7 +87,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> {
     return Scaffold(
       appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.white),
-          backgroundColor: GlobalThemeData.lightColorScheme.tertiary,
+          backgroundColor: GlobalThemeData.lightColorScheme.primary,
           actions: [
             IconButton(
               onPressed: () => retrieveUserPosition(),
@@ -142,7 +142,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> {
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.7),
                         borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-                        border: Border.all(color: GlobalThemeData.lightColorScheme.tertiaryContainer),
+                        border: Border.all(color: GlobalThemeData.lightColorScheme.primary),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -191,7 +191,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> {
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.9),
                             borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-                            border: Border.all(color: GlobalThemeData.lightColorScheme.tertiaryContainer),
+                            border: Border.all(color: GlobalThemeData.lightColorScheme.primary),
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -217,7 +217,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> {
                                   widthSize: size.width * 0.9,
                                   context: context,
                                   bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                                  shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                                  shimmerColor: GlobalThemeData.lightColorScheme.primary
                                 ).animate().fadeIn()
                                   :
                                 CustomButton(
@@ -228,9 +228,9 @@ class _AddressMapScreenState extends State<AddressMapScreen> {
                                   backSize: size.width * 0.83,
                                   context: context,
                                   function: () => _save(context),
-                                  textColor: GlobalThemeData.lightColorScheme.tertiary,
+                                  textColor: GlobalThemeData.lightColorScheme.primary,
                                   buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
-                                  backColor: GlobalThemeData.lightColorScheme.tertiary
+                                  backColor: GlobalThemeData.lightColorScheme.primary
                                 )
                             ],
                           ),

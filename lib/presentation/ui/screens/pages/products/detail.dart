@@ -58,9 +58,9 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-            iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.tertiary),
+            iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.primary),
             backgroundColor: GlobalThemeData.lightColorScheme.onTertiary,
-            title: Label14(text: "Détail de la pièce", color: GlobalThemeData.lightColorScheme.tertiaryContainer, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+            title: Label14(text: "Détail de la pièce", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
         ),
         body: Consumer<CustomerNotifier>(
             builder: (context, customer, child) {
@@ -82,7 +82,7 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
                     width: size.width,
                     height: size.width,
                     decoration: BoxDecoration(
-                        border: Border.all(color: GlobalThemeData.lightColorScheme.tertiaryContainer, width: 1),
+                        border: Border.all(color: GlobalThemeData.lightColorScheme.primary, width: 1),
                         image: DecorationImage(
                             onError: (Object e, StackTrace? stackTrace) => Image.asset(
                               "assets/images/back-2.webp",
@@ -162,7 +162,7 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
                                 width: size.width,
                                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                 decoration: BoxDecoration(
-                                    color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.7),
+                                    color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.7),
                                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                                 ),
                                 child: Label12(text: "Marques compatibles", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
@@ -197,7 +197,7 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
                                   width: size.width,
                                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                   decoration: BoxDecoration(
-                                      color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.7),
+                                      color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.7),
                                       borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                                   ),
                                   child: Label12(text: "Types de véhicules", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
@@ -224,7 +224,7 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
                                   width: size.width,
                                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                   decoration: BoxDecoration(
-                                      color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.7),
+                                      color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.7),
                                       borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                                   ),
                                   child: Label12(text: "Types de moteur", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
@@ -251,7 +251,7 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
                                   width: size.width,
                                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                   decoration: BoxDecoration(
-                                      color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.7),
+                                      color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.7),
                                       borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                                   ),
                                   child: Label12(text: "Catégories d'engin", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
@@ -308,7 +308,7 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
                             widthSize: size.width * 0.95,
                             context: context,
                             bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                            shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                            shimmerColor: GlobalThemeData.lightColorScheme.primary
                           ).animate().fadeIn()
                             :
                           SizedBox(
@@ -328,9 +328,9 @@ class _PieceDetailScreenState extends State<PieceDetailScreen> {
                                   }
                                 );
                               },
-                              textColor: GlobalThemeData.lightColorScheme.tertiary,
+                              textColor: GlobalThemeData.lightColorScheme.primary,
                               buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
-                              backColor: GlobalThemeData.lightColorScheme.tertiary
+                              backColor: GlobalThemeData.lightColorScheme.primary
                             ).animate().fadeIn(),
                           ),
                       ],

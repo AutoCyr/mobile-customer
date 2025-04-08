@@ -63,7 +63,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       appBar: AppBar(
         backgroundColor: GlobalThemeData.lightColorScheme.onTertiary,
         title: _search == false ?
-          Label14(text: "Catégories de pièces", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+          Label14(text: "Catégories de pièces", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
             :
           SizedBox(
             height: 45,
@@ -71,17 +71,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                   filled: true,
-                  fillColor: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
-                  focusColor: GlobalThemeData.lightColorScheme.tertiary,
+                  fillColor: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1),
+                  focusColor: GlobalThemeData.lightColorScheme.primary,
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
-                          color: GlobalThemeData.lightColorScheme.tertiary,
+                          color: GlobalThemeData.lightColorScheme.primary,
                           width: 2
                       )
                   ),
                   labelText: "Rechercher",
                   labelStyle: TextStyle(
-                      color: GlobalThemeData.lightColorScheme.tertiary,
+                      color: GlobalThemeData.lightColorScheme.primary,
                       fontSize: 13
                   )
               ),
@@ -90,7 +90,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
               autofocus: true,
               onChanged: (value) => filterList(value),
-              cursorColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
+              cursorColor: GlobalThemeData.lightColorScheme.primary,
             ),
           ).animate().fadeIn(),
         actions: [

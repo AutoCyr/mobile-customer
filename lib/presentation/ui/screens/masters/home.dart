@@ -18,9 +18,11 @@ import 'package:autocyr/presentation/ui/organisms/selectors/selector.dart';
 import 'package:autocyr/presentation/ui/screens/helpers/category_widget.dart';
 import 'package:autocyr/presentation/ui/screens/helpers/piece_widget.dart';
 import 'package:autocyr/presentation/ui/screens/pages/addresses/list.dart';
+import 'package:autocyr/presentation/ui/screens/pages/products/ask.dart';
 import 'package:autocyr/presentation/ui/screens/pages/products/category.dart';
 import 'package:autocyr/presentation/ui/screens/pages/products/detail.dart';
 import 'package:autocyr/presentation/ui/screens/pages/products/type_product.dart';
+import 'package:autocyr/presentation/ui/screens/pages/searchs/shop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
@@ -41,6 +43,19 @@ class _HomeScreenState extends State<HomeScreen> {
       "iconData": Icons.location_history_outlined,
       "widget": const AddressListScreen()
     }
+  ];
+
+  List<Map<String, dynamic>> searchOptions = [
+    {
+      "label": "Rechercher une boutique",
+      "image": "assets/pngs/shop.png",
+      "widget": const SearchShopScreen()
+    },
+    {
+      "label": "Emettre une demande personnalisée",
+      "image": "assets/pngs/search.png",
+      "widget": const AskScreen()
+    },
   ];
 
   retrieveCommons() async {
@@ -81,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   "assets/logos/auto.png",
                   width: 45,
                   height: 45,
-                ).animate().fadeIn().tint(color: GlobalThemeData.lightColorScheme.tertiary),
+                ).animate().fadeIn()
               ]
           ),
         ),
@@ -100,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: BoxDecoration(
                       color: Colors.transparent,
                       shape: BoxShape.circle,
-                      border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.5), width: 1.2)
+                      border: Border.all(color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.5), width: 1.2)
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(300),
@@ -171,9 +186,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Label12(text: auth.country!.name, color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                                Label12(text: auth.country!.name, color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
                                 const Gap(5),
-                                Icon(Icons.arrow_drop_down_outlined, color: GlobalThemeData.lightColorScheme.tertiary, size: 15,),
+                                Icon(Icons.arrow_drop_down_outlined, color: GlobalThemeData.lightColorScheme.primary, size: 15,),
                               ],
                             ),
                           ),
@@ -189,7 +204,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Label14(text: "Pièces par engins", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                    Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                GlobalThemeData.lightColorScheme.primary.withOpacity(0.2),
+                                Colors.transparent
+                              ]
+                          ),
+                        ),
+                        child: Label14(text: "Pièces par engins", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+                    ),
                     const Gap(20),
                     common.filling && common.enginTypes.isEmpty ?
                       Column(
@@ -200,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             widthSize: size.width,
                             context: context,
                             bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                            shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                            shimmerColor: GlobalThemeData.lightColorScheme.primary
                           )
                         ]
                       ).animate().fadeIn()
@@ -220,20 +248,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    /*Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        Container(
-                                          height: 60,
-                                          width: 60,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1), width: 1),
-                                              borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-                                              color: GlobalThemeData.lightColorScheme.tertiaryContainer.withOpacity(0.1)
-                                          )
-                                        ),
-                                      ],
-                                    ),*/
                                     ImageCategory().loadImage(e.libelle),
                                     Label12(text: e.libelle, color: Colors.black, weight: FontWeight.normal, maxLines: 2)
                                   ],
@@ -246,56 +260,93 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              const Gap(20),
+              const Gap(40),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Label14(text: "Catégories de pièces", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
-                        TextButton(
-                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoryScreen())),
-                          style: ButtonStyle(
-                            backgroundColor: WidgetStateProperty.all(Colors.transparent),
-                            shape: WidgetStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)))),
-                          ),
-                          child: Label12(text: "Voir tout", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.normal, maxLines: 1)
-                        ).animate().fadeIn()
-                      ],
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            GlobalThemeData.lightColorScheme.primary.withOpacity(0.2),
+                            Colors.transparent
+                          ]
+                        ),
+                      ),
+                      child: Label14(text: "Facilitations", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
                     ),
                     const Gap(20),
-                    common.filling && common.categories.isEmpty ?
-                      Column(
-                        children: [
-                          Label10(text: "Chargement des catégories...", color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
-                          const Gap(10),
-                          Loading(
-                              widthSize: size.width,
-                              context: context,
-                              bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                              shimmerColor: GlobalThemeData.lightColorScheme.tertiary
-                          )
-                        ]
-                      ).animate().fadeIn()
-                        :
-                      GridView.count(
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        mainAxisSpacing: 8,
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 8,
-                        childAspectRatio: 0.65,
-                        children: [
-                          ...common.categories.take(6).map((category) => CategoryWidget(category: category)),
-                        ],
-                      )
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ...searchOptions.map((option) => InkWell(
+                          splashColor: Colors.transparent,
+                          onTap: () {
+                            if(option["widget"] != null) {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => option["widget"]));
+                            }
+                          },
+                          child: SizedBox(
+                            width: size.width * 0.45,
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                  width: size.width,
+                                  decoration: BoxDecoration(
+                                    color: GlobalThemeData.lightColorScheme.onTertiary,
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        Colors.transparent,
+                                        GlobalThemeData.lightColorScheme.primary.withOpacity(0.2)
+                                      ]
+                                    ),
+                                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Image.asset(
+                                        option["image"],
+                                        width: 75,
+                                        height: 75,
+                                        fit: BoxFit.contain,
+                                      ).animate().fadeIn(),
+                                    ],
+                                  ),
+                                ).animate().fadeIn(),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                  width: size.width,
+                                  decoration: BoxDecoration(
+                                    color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.2),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Label12(text: option["label"], color: Colors.black, weight: FontWeight.normal, maxLines: 2)
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ))
+                      ],
+                    )
                   ],
                 ),
               ),
-              const Gap(20),
+              const Gap(40)
             ],
           );
         }

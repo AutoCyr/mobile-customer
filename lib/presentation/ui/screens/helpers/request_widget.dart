@@ -25,7 +25,7 @@ class RequestWidget extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1), width: 1),
+            border: Border.all(color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1), width: 1),
             borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
         ),
         child: Row(
@@ -51,7 +51,7 @@ class RequestWidget extends StatelessWidget {
               width: size.width * 0.1,
               height: size.width * 0.1,
               decoration: BoxDecoration(
-                  color: GlobalThemeData.lightColorScheme.tertiary,
+                  color: GlobalThemeData.lightColorScheme.primary,
                   borderRadius: const BorderRadius.only(topRight: Radius.circular(5))
               ),
               child: Center(

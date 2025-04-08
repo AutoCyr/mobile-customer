@@ -22,7 +22,7 @@ class ShopWidget extends StatelessWidget {
         decoration: BoxDecoration(
             color: GlobalThemeData.lightColorScheme.onTertiary,
             borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-            border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1), width: 1)
+            border: Border.all(color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1), width: 1)
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,9 +32,9 @@ class ShopWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Label14(text: partenaire.raisonSociale, color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
+                  Label14(text: partenaire.raisonSociale, color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
                   const Gap(5),
-                  Label12(text: partenaire.villePartenaire, color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
+                  Label12(text: partenaire.villePartenaire, color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
                 ],
               ),
             ),
@@ -42,7 +42,7 @@ class ShopWidget extends StatelessWidget {
               width: size.width * 0.1,
               height: size.width * 0.1,
               decoration: BoxDecoration(
-                  color: GlobalThemeData.lightColorScheme.tertiary,
+                  color: GlobalThemeData.lightColorScheme.primary,
                   borderRadius: const BorderRadius.only(topRight: Radius.circular(5))
               ),
               child: Center(

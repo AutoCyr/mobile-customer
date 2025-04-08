@@ -56,28 +56,28 @@ class _GlobalScreenState extends State<GlobalScreen> {
         child: StylishBottomBar(
           option: DotBarOptions(
             dotStyle: DotStyle.circle,
-            inkColor: GlobalThemeData.lightColorScheme.tertiary,
+            inkColor: GlobalThemeData.lightColorScheme.primary,
           ),
           items: [
             BottomBarItem(
               icon: const Icon(Icons.house_siding_sharp, size: 20),
               title: Label12(text: "Accueil", color: Colors.black, weight: FontWeight.normal, maxLines: 2),
-              selectedColor: GlobalThemeData.lightColorScheme.tertiary,
+              selectedColor: GlobalThemeData.lightColorScheme.primary,
             ),
             BottomBarItem(
               icon: const Icon(Icons.store, size: 20),
               title: Label12(text: "Articles", color: Colors.black, weight: FontWeight.normal, maxLines: 2),
-              selectedColor: GlobalThemeData.lightColorScheme.tertiary,
+              selectedColor: GlobalThemeData.lightColorScheme.primary,
             ),
             BottomBarItem(
                 icon: const Icon(Icons.history_edu_sharp, size: 20),
                 title: Label12(text: "Parcourir", color: Colors.black, weight: FontWeight.normal, maxLines: 2),
-                selectedColor: GlobalThemeData.lightColorScheme.tertiary
+                selectedColor: GlobalThemeData.lightColorScheme.primary
             ),
             BottomBarItem(
                 icon: const Icon(Icons.person_pin_rounded, size: 20),
                 title: Label12(text: "Profil", color: Colors.black, weight: FontWeight.normal, maxLines: 2),
-                selectedColor: GlobalThemeData.lightColorScheme.tertiary
+                selectedColor: GlobalThemeData.lightColorScheme.primary
             ),
           ],
           currentIndex: selectedIndex,

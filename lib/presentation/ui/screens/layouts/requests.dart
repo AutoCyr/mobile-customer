@@ -20,7 +20,7 @@ class _RequestLayoutScreenState extends State<RequestLayoutScreen> {
       child: Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.onTertiary),
-          backgroundColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
+          backgroundColor: GlobalThemeData.lightColorScheme.primary,
           title: Label14(text: "Demandes", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
           actions: [
             /*IconButton(

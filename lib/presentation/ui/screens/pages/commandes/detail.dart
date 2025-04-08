@@ -35,9 +35,8 @@ class _CommandeDetailScreenState extends State<CommandeDetailScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-          iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.tertiary),
           backgroundColor: GlobalThemeData.lightColorScheme.onTertiary,
-          title: Label14(text: "Détail de la commande", color: GlobalThemeData.lightColorScheme.tertiaryContainer, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+          title: Label14(text: "Détail de la commande", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
@@ -54,10 +53,10 @@ class _CommandeDetailScreenState extends State<CommandeDetailScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: BoxDecoration(
                     color: GlobalThemeData.lightColorScheme.onTertiary.withOpacity(0.7),
-                    border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1), width: 1),
+                    border: Border.all(color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1), width: 1),
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                 ),
-                child: Label13(text: "${DateFormat.yMMMMEEEEd("fr").format(detail!.dateCommande)} à ${DateFormat.Hm("fr").format(detail!.dateCommande)}", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.normal, maxLines: 2),
+                child: Label13(text: "${DateFormat.yMMMMEEEEd("fr").format(detail!.dateCommande)} à ${DateFormat.Hm("fr").format(detail!.dateCommande)}", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.normal, maxLines: 2),
               ).animate().fadeIn()
             ],
           ),
@@ -73,7 +72,7 @@ class _CommandeDetailScreenState extends State<CommandeDetailScreen> {
                 height: size.width * 0.6,
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-                    border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1), width: 1),
+                    border: Border.all(color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1), width: 1),
                     image: DecorationImage(
                         onError: (Object e, StackTrace? stackTrace) => Image.asset(
                           "assets/images/back-2.webp",
@@ -142,39 +141,39 @@ class _CommandeDetailScreenState extends State<CommandeDetailScreen> {
                       style: ButtonStyle(
                         shape: WidgetStateProperty.all(
                             RoundedRectangleBorder(
-                                side: BorderSide(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1)),
+                                side: BorderSide(color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1)),
                                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                             )
                         ),
                         backgroundColor: WidgetStateProperty.all(GlobalThemeData.lightColorScheme.onTertiary),
                       ),
-                      icon: Icon(Icons.settings_phone_sharp, color: GlobalThemeData.lightColorScheme.tertiary, size: 20,)
+                      icon: Icon(Icons.settings_phone_sharp, color: GlobalThemeData.lightColorScheme.primary, size: 20,)
                   ),
                   IconButton(
                       onPressed: () => Redirections().shareWhatsapp(context: context, piece: detail!.pieceDetail, partenaire: detail!.partenaire),
                       style: ButtonStyle(
                         shape: WidgetStateProperty.all(
                             RoundedRectangleBorder(
-                                side: BorderSide(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1)),
+                                side: BorderSide(color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1)),
                                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                             )
                         ),
                         backgroundColor: WidgetStateProperty.all(GlobalThemeData.lightColorScheme.onTertiary),
                       ),
-                      icon: Icon(Bootstrap.whatsapp, color: GlobalThemeData.lightColorScheme.tertiary, size: 20,)
+                      icon: Icon(Bootstrap.whatsapp, color: GlobalThemeData.lightColorScheme.primary, size: 20,)
                   ),
                   IconButton(
                       onPressed: () => Redirections().launchMail(context: context, email: detail!.partenaire.emailPartenaire),
                       style: ButtonStyle(
                         shape: WidgetStateProperty.all(
                             RoundedRectangleBorder(
-                                side: BorderSide(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1)),
+                                side: BorderSide(color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1)),
                                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))
                             )
                         ),
                         backgroundColor: WidgetStateProperty.all(GlobalThemeData.lightColorScheme.onTertiary),
                       ),
-                      icon: Icon(Icons.alternate_email_sharp, color: GlobalThemeData.lightColorScheme.tertiary, size: 20,)
+                      icon: Icon(Icons.alternate_email_sharp, color: GlobalThemeData.lightColorScheme.primary, size: 20,)
                   ),
                 ],
               )

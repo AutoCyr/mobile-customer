@@ -32,18 +32,35 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _startVerification();
+      Future.delayed(const Duration(seconds: 7), () {
+        _startVerification();
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Center(
-        child: Image.asset(
-          "assets/logos/auto.png",
-          width: 200,
-        ).animate().fadeIn().tint(color: GlobalThemeData.lightColorScheme.tertiary),
+      body: Container(
+        width: size.width,
+        height: size.height,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xff094A84),
+              Color(0xff0E98CA),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: Image.asset(
+            "assets/logos/auto_white.png",
+            width: 200,
+          ).animate().fadeIn()
+        ),
       ),
     );
   }

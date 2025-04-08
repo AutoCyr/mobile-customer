@@ -113,7 +113,7 @@ class _SearchShopScreenState extends State<SearchShopScreen> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: GlobalThemeData.lightColorScheme.onTertiary),
-        backgroundColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
+        backgroundColor: GlobalThemeData.lightColorScheme.primary,
         title: _search == false ?
           Label14(text: "Rechercher une boutique", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
             :
@@ -124,16 +124,16 @@ class _SearchShopScreenState extends State<SearchShopScreen> {
               decoration: InputDecoration(
                   filled: true,
                   fillColor: GlobalThemeData.lightColorScheme.onTertiary.withOpacity(0.5),
-                  focusColor: GlobalThemeData.lightColorScheme.tertiary,
+                  focusColor: GlobalThemeData.lightColorScheme.primary,
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
-                          color: GlobalThemeData.lightColorScheme.tertiary,
+                          color: GlobalThemeData.lightColorScheme.primary,
                           width: 2
                       )
                   ),
                   labelText: "Rechercher",
                   labelStyle: TextStyle(
-                      color: GlobalThemeData.lightColorScheme.tertiary,
+                      color: GlobalThemeData.lightColorScheme.primary,
                       fontSize: 13
                   )
               ),
@@ -142,7 +142,7 @@ class _SearchShopScreenState extends State<SearchShopScreen> {
               ),
               autofocus: true,
               onChanged: (value) => filterList(value),
-              cursorColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
+              cursorColor: GlobalThemeData.lightColorScheme.primary,
             ),
           ).animate().fadeIn(),
         actions: [
@@ -169,7 +169,7 @@ class _SearchShopScreenState extends State<SearchShopScreen> {
                 decoration: BoxDecoration(
                   color: GlobalThemeData.lightColorScheme.onTertiary,
                   borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-                  border: Border.all(color: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.5), width: 1)
+                  border: Border.all(color: GlobalThemeData.lightColorScheme.primary.withOpacity(0.5), width: 1)
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -177,14 +177,14 @@ class _SearchShopScreenState extends State<SearchShopScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Label14(text: "Recherche rapide", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
+                        Label14(text: "Recherche rapide", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
                         IconButton(
                           onPressed: () {
                             setState(() {
                               isActive = !isActive;
                             });
                           },
-                          icon: Icon(isActive ? Icons.arrow_drop_up_outlined : Icons.arrow_drop_down_outlined, color: GlobalThemeData.lightColorScheme.tertiary,),
+                          icon: Icon(isActive ? Icons.arrow_drop_up_outlined : Icons.arrow_drop_down_outlined, color: GlobalThemeData.lightColorScheme.primary,),
                         ).animate().fadeIn(),
                       ],
                     ),
@@ -226,7 +226,7 @@ class _SearchShopScreenState extends State<SearchShopScreen> {
                                   widthSize: 50,
                                   context: context,
                                   bgColor: GlobalThemeData.lightColorScheme.onTertiary,
-                                  shimmerColor: GlobalThemeData.lightColorScheme.tertiary
+                                  shimmerColor: GlobalThemeData.lightColorScheme.primary
                                 ).animate().fadeIn()
                                   :
                                 CustomIconButton(
@@ -234,9 +234,9 @@ class _SearchShopScreenState extends State<SearchShopScreen> {
                                   size: size,
                                   context: context,
                                   function: () => searchShop(),
-                                  iconColor: GlobalThemeData.lightColorScheme.tertiary,
+                                  iconColor: GlobalThemeData.lightColorScheme.primary,
                                   buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
-                                  backColor: GlobalThemeData.lightColorScheme.tertiary
+                                  backColor: GlobalThemeData.lightColorScheme.primary
                                 ).animate().fadeIn(),
                             ],
                           ),
@@ -245,7 +245,7 @@ class _SearchShopScreenState extends State<SearchShopScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Gap(10),
-                                Label10(text: "${filteredPartners.length} partenaire(s) trouvé(s).", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
+                                Label10(text: "${filteredPartners.length} partenaire(s) trouvé(s).", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
                               ],
                             )
                         ],

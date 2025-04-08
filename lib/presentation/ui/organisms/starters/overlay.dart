@@ -13,9 +13,9 @@ Widget BackGradientOverlay({required Size size}) {
             end: Alignment.bottomCenter,
             colors: [
               Colors.transparent,
-              GlobalThemeData.lightColorScheme.tertiaryFixed.withOpacity(0.4),
-              GlobalThemeData.lightColorScheme.tertiaryFixed.withOpacity(0.6),
-              GlobalThemeData.lightColorScheme.tertiaryFixed
+              GlobalThemeData.lightColorScheme.secondaryFixedDim.withOpacity(0.4),
+              GlobalThemeData.lightColorScheme.secondaryFixedDim.withOpacity(0.6),
+              GlobalThemeData.lightColorScheme.secondaryFixedDim
             ],
             stops: const [0, 0.2, 0.4, 1],
           )

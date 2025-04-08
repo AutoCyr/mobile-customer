@@ -120,7 +120,7 @@ class _AskProductResultState extends State<AskProductResult> {
       appBar: AppBar(
         backgroundColor: GlobalThemeData.lightColorScheme.onTertiary,
         title: _search == false ?
-          Label14(text: "Résultats", color: GlobalThemeData.lightColorScheme.tertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+          Label14(text: "Résultats", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
             :
         SizedBox(
           height: 45,
@@ -128,17 +128,17 @@ class _AskProductResultState extends State<AskProductResult> {
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
                 filled: true,
-                fillColor: GlobalThemeData.lightColorScheme.tertiary.withOpacity(0.1),
-                focusColor: GlobalThemeData.lightColorScheme.tertiary,
+                fillColor: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1),
+                focusColor: GlobalThemeData.lightColorScheme.primary,
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                        color: GlobalThemeData.lightColorScheme.tertiary,
+                        color: GlobalThemeData.lightColorScheme.primary,
                         width: 2
                     )
                 ),
                 labelText: "Rechercher",
                 labelStyle: TextStyle(
-                    color: GlobalThemeData.lightColorScheme.tertiary,
+                    color: GlobalThemeData.lightColorScheme.primary,
                     fontSize: 13
                 )
             ),
@@ -147,7 +147,7 @@ class _AskProductResultState extends State<AskProductResult> {
             ),
             autofocus: true,
             onChanged: (value) => filterList(value),
-            cursorColor: GlobalThemeData.lightColorScheme.tertiaryContainer,
+            cursorColor: GlobalThemeData.lightColorScheme.primary,
           ),
         ).animate().fadeIn(),
         actions: [
@@ -193,9 +193,9 @@ class _AskProductResultState extends State<AskProductResult> {
                       backSize: size.width * 0.92,
                       context: context,
                       function: () => _save(),
-                      textColor: GlobalThemeData.lightColorScheme.tertiary,
+                      textColor: GlobalThemeData.lightColorScheme.primary,
                       buttonColor: GlobalThemeData.lightColorScheme.onTertiary,
-                      backColor: GlobalThemeData.lightColorScheme.tertiary
+                      backColor: GlobalThemeData.lightColorScheme.primary
                     ).animate().fadeIn(),
                   ],
                 ),

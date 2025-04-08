@@ -37,7 +37,7 @@ class BottomSelector {
                   children: [
                     Label17(
                         text: title,
-                        color: GlobalThemeData.lightColorScheme.secondaryContainer,
+                        color: GlobalThemeData.lightColorScheme.secondary,
                         weight: FontWeight.bold,
                         maxLines: 1
                     ).animate().fadeIn(),
@@ -45,7 +45,7 @@ class BottomSelector {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.close, color: GlobalThemeData.lightColorScheme.secondaryContainer,),
+                      icon: Icon(Icons.close, color: GlobalThemeData.lightColorScheme.secondary,),
                     ).animate().fadeIn(),
                   ],
                 ),
@@ -74,7 +74,7 @@ class BottomSelector {
                               width: 45,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  border: Border.all(color: GlobalThemeData.lightColorScheme.secondaryContainer, width: 0.7)
+                                  border: Border.all(color: GlobalThemeData.lightColorScheme.secondary, width: 0.7)
                               ),
                               child: Stack(
                                 alignment: Alignment.center,
@@ -91,7 +91,7 @@ class BottomSelector {
                                       borderRadius: BorderRadius.circular(300),
                                       child: Icon(
                                         e["iconData"],
-                                        color: GlobalThemeData.lightColorScheme.secondaryContainer,
+                                        color: GlobalThemeData.lightColorScheme.secondary,
                                         size: 15,
                                       ),
                                     ),
@@ -100,7 +100,7 @@ class BottomSelector {
                               )
                           ),
                           const Gap(10),
-                          Label10(text: e["label"], color: GlobalThemeData.lightColorScheme.secondaryContainer, weight: FontWeight.bold, maxLines: 2)
+                          Label10(text: e["label"], color: GlobalThemeData.lightColorScheme.secondary, weight: FontWeight.bold, maxLines: 2)
                         ],
                       ),
                     ).animate().fadeIn()),
@@ -121,7 +121,7 @@ class BottomSelector {
                                     width: 45,
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
-                                      // border: Border.all(color: GlobalThemeData.lightColorScheme.secondaryContainer, width: 0.7)
+                                      // border: Border.all(color: GlobalThemeData.lightColorScheme.secondary, width: 0.7)
                                     ),
                                     child: Stack(
                                       alignment: Alignment.center,
@@ -132,13 +132,13 @@ class BottomSelector {
                                           decoration: BoxDecoration(
                                               color: Colors.transparent,
                                               shape: BoxShape.circle,
-                                              border: Border.all(color: GlobalThemeData.lightColorScheme.errorContainer, width: 0.7)
+                                              border: Border.all(color: GlobalThemeData.lightColorScheme.error, width: 0.7)
                                           ),
                                           child: ClipRRect(
                                             borderRadius: BorderRadius.circular(300),
                                             child: Icon(
                                               Icons.power_settings_new,
-                                              color: GlobalThemeData.lightColorScheme.errorContainer,
+                                              color: GlobalThemeData.lightColorScheme.error,
                                               size: 15,
                                             ),
                                           ),
@@ -147,7 +147,7 @@ class BottomSelector {
                                     )
                                 ),
                                 const Gap(10),
-                                Label10(text: "Déconnexion", color: GlobalThemeData.lightColorScheme.errorContainer, weight: FontWeight.bold, maxLines: 2)
+                                Label10(text: "Déconnexion", color: GlobalThemeData.lightColorScheme.error, weight: FontWeight.bold, maxLines: 2)
                               ],
                             ),
                           ).animate().fadeIn();
@@ -188,7 +188,7 @@ class BottomSelector {
                   children: [
                     Label17(
                         text: title,
-                        color: GlobalThemeData.lightColorScheme.secondaryContainer,
+                        color: GlobalThemeData.lightColorScheme.secondary,
                         weight: FontWeight.bold,
                         maxLines: 1
                     ).animate().fadeIn(),
@@ -196,14 +196,14 @@ class BottomSelector {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.close, color: GlobalThemeData.lightColorScheme.secondaryContainer,),
+                      icon: Icon(Icons.close, color: GlobalThemeData.lightColorScheme.secondary,),
                     ).animate().fadeIn(),
                   ],
                 ),
                 Divider(color: GlobalThemeData.lightColorScheme.outline.withOpacity(0.5),).animate().fadeIn(),
                 const Gap(20),
                 ...options.map((e) => InkWell(
-                  splashColor: GlobalThemeData.lightColorScheme.secondaryContainer.withOpacity(0.1),
+                  splashColor: GlobalThemeData.lightColorScheme.secondary.withOpacity(0.1),
                   onTap: () {
                     onSelected(e);
                     Navigator.pop(context);
@@ -211,7 +211,7 @@ class BottomSelector {
                   child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       height: 50,
-                      child: Label13(text: e, color: GlobalThemeData.lightColorScheme.secondaryContainer, weight: FontWeight.normal, maxLines: 2)
+                      child: Label13(text: e, color: GlobalThemeData.lightColorScheme.secondary, weight: FontWeight.normal, maxLines: 2)
                   ),
                 ).animate().fadeIn()),
                 const Gap(10),
@@ -248,7 +248,7 @@ class BottomSelector {
                   children: [
                     Label17(
                         text: title,
-                        color: GlobalThemeData.lightColorScheme.secondaryContainer,
+                        color: GlobalThemeData.lightColorScheme.secondary,
                         weight: FontWeight.bold,
                         maxLines: 1
                     ).animate().fadeIn(),
@@ -256,21 +256,21 @@ class BottomSelector {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.close, color: GlobalThemeData.lightColorScheme.secondaryContainer,),
+                      icon: Icon(Icons.close, color: GlobalThemeData.lightColorScheme.secondary,),
                     ).animate().fadeIn(),
                   ],
                 ),
                 Divider(color: GlobalThemeData.lightColorScheme.outline.withOpacity(0.5),).animate().fadeIn(),
                 const Gap(20),
                 ...options.map((e) => InkWell(
-                  splashColor: GlobalThemeData.lightColorScheme.secondaryContainer.withOpacity(0.1),
+                  splashColor: GlobalThemeData.lightColorScheme.secondary.withOpacity(0.1),
                   onTap: () {
                     onSelected(e);
                     Navigator.pop(context);
                   },
                   child: SizedBox(
                       height: 45,
-                      child: Label13(text: displayField(e), color: GlobalThemeData.lightColorScheme.secondaryContainer, weight: FontWeight.normal, maxLines: 2)
+                      child: Label13(text: displayField(e), color: GlobalThemeData.lightColorScheme.secondary, weight: FontWeight.normal, maxLines: 2)
                   ),
                 ).animate().fadeIn()),
               ],
