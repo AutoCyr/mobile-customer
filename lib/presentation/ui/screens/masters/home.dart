@@ -152,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: size.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: const AssetImage("assets/images/ads.webp"),
+                    image: const AssetImage("assets/images/banner.webp"),
                     fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.srcATop),
                   )
