@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
       "widget": const SearchShopScreen()
     },
     {
-      "label": "Emettre une demande personnalisée",
+      "label": "Recherche personnalisée",
       "image": "assets/pngs/search.png",
       "widget": const AskScreen()
     },
@@ -213,13 +213,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               ]
                           ),
                         ),
-                        child: Label14(text: "Pièces par engins", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+                        child: Label14(text: "Recherche de pièces par catégorie d'engins", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
                     ),
                     const Gap(20),
                     common.filling && common.enginTypes.isEmpty ?
                       Column(
                         children: [
-                          Label10(text: "Chargement des types d'engin...", color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
+                          Label10(text: "Chargement des catégories d'engins...", color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
                           const Gap(10),
                           Loading(
                             widthSize: size.width,
@@ -275,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ]
                         ),
                       ),
-                      child: Label14(text: "Facilitations", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+                      child: Label14(text: "Autres recherches", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
                     ),
                     const Gap(20),
                     Row(
