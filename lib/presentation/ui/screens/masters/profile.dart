@@ -157,6 +157,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       color: GlobalThemeData.lightColorScheme.primary
                                   )
                               ),
+                              const TextSpan(
+                                  text: " et ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                  )
+                              ),
+                              TextSpan(
+                                  text: "Iservice",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: GlobalThemeData.lightColorScheme.primary
+                                  )
+                              ),
                             ],
                             style: const TextStyle(
                               color: Colors.black,
