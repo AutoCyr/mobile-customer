@@ -202,7 +202,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      width: size.width,
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                               begin: Alignment.centerLeft,
@@ -213,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ]
                           ),
                         ),
-                        child: Label14(text: "Recherche de pièces par catégorie d'engins", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+                        child: Label10(text: "Recherche de pièces par catégorie d'engins", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
                     ),
                     const Gap(20),
                     common.filling && common.enginTypes.isEmpty ?
@@ -264,7 +265,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      width: size.width,
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.centerLeft,
@@ -275,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ]
                         ),
                       ),
-                      child: Label14(text: "Autres recherches", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+                      child: Label10(text: "Autres recherches", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
                     ),
                     const Gap(20),
                     Row(

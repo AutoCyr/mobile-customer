@@ -60,22 +60,22 @@ class _GlobalScreenState extends State<GlobalScreen> {
           ),
           items: [
             BottomBarItem(
-              icon: const Icon(Icons.house_siding_sharp, size: 20),
+              icon: const Icon(Icons.home, size: 25),
               title: Label12(text: "Accueil", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 2),
               selectedColor: GlobalThemeData.lightColorScheme.primary,
             ),
             BottomBarItem(
-              icon: const Icon(Icons.store, size: 20),
-              title: Label12(text: "Articles", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 2),
+              icon: const Icon(Icons.store, size: 25),
+              title: Label12(text: "Pièces", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 2),
               selectedColor: GlobalThemeData.lightColorScheme.primary,
             ),
             BottomBarItem(
-                icon: const Icon(Icons.history_edu_sharp, size: 20),
+                icon: const Icon(Icons.history_edu_sharp, size: 25),
                 title: Label12(text: "Parcourir", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 2),
                 selectedColor: GlobalThemeData.lightColorScheme.primary
             ),
             BottomBarItem(
-                icon: const Icon(Icons.person_pin_rounded, size: 20),
+                icon: const Icon(Icons.person_pin_rounded, size: 25),
                 title: Label12(text: "Profil", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 2),
                 selectedColor: GlobalThemeData.lightColorScheme.primary
             ),

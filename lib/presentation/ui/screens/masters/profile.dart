@@ -27,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       "widget": const CommandeListScreen()
     },
     {
-      "label": "Mes demandes",
+      "label": "Mes demandes personnalisées",
       "iconData": Icons.content_paste_go_rounded,
       "widget": const RequestLayoutScreen()
     }
@@ -122,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             tile["iconData"],
                             color: GlobalThemeData.lightColorScheme.primary,
                           ),
-                          title: Label13(text: tile["label"], color: Colors.black, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
+                          title: Label13(text: tile["label"], color: Colors.black, weight: FontWeight.normal, maxLines: 2).animate().fadeIn(),
                           trailing: const Icon(
                             Icons.keyboard_arrow_right,
                             size: 20,
@@ -141,45 +141,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         RichText(
-                          text: TextSpan(
-                            text: "© Autocyr 2024. ",
-                            children: [
-                              const TextSpan(
-                                  text: "Développé par ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                  )
-                              ),
-                              TextSpan(
-                                  text: "Gine inc.",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: GlobalThemeData.lightColorScheme.primary
-                                  )
-                              ),
-                              const TextSpan(
-                                  text: " et ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                  )
-                              ),
-                              TextSpan(
-                                  text: "Iservice",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: GlobalThemeData.lightColorScheme.primary
-                                  )
-                              ),
-                            ],
-                            style: const TextStyle(
+                          text: const TextSpan(
+                            text: "© Autocyr 2025",
+                            style: TextStyle(
                               color: Colors.black,
                               fontSize: 10,
                               fontWeight: FontWeight.bold,
                               fontFamily: "Lufga",
                             ),
                           ),
-
-
                         )
                       ],
                     ),
