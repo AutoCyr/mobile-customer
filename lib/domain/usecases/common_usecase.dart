@@ -49,4 +49,8 @@ class CommonUseCase {
   Future getArticles() async {
     return await _commonRepositoryImpl.getArticles();
   }
+
+  Future getPublicites() async {
+    return await _commonRepositoryImpl.getPublicites();
+  }
 }

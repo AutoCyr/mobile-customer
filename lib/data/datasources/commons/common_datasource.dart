@@ -20,4 +20,6 @@ abstract class CommonDataSource {
   Future getSubCategories();
 
   Future getArticles();
+
+  Future getPublicites();
 }

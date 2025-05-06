@@ -10,9 +10,11 @@ import 'package:autocyr/presentation/ui/atoms/labels/label13.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label14.dart';
 import 'package:autocyr/presentation/ui/atoms/labels/label17.dart';
 import 'package:autocyr/presentation/ui/atoms/loaders/loading.dart';
+import 'package:autocyr/presentation/ui/atoms/loaders/loading_ads.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
 import 'package:autocyr/presentation/ui/helpers/image_category.dart';
 import 'package:autocyr/presentation/ui/molecules/custom_buttons/custom_icon_button.dart';
+import 'package:autocyr/presentation/ui/organisms/banners/blurred_banner.dart';
 import 'package:autocyr/presentation/ui/organisms/searchables/selectable.dart';
 import 'package:autocyr/presentation/ui/organisms/selectors/selector.dart';
 import 'package:autocyr/presentation/ui/screens/helpers/category_widget.dart';
@@ -22,9 +24,11 @@ import 'package:autocyr/presentation/ui/screens/pages/products/ask.dart';
 import 'package:autocyr/presentation/ui/screens/pages/products/category.dart';
 import 'package:autocyr/presentation/ui/screens/pages/products/detail.dart';
 import 'package:autocyr/presentation/ui/screens/pages/products/type_product.dart';
+import 'package:autocyr/presentation/ui/screens/pages/publicites/detail.dart';
 import 'package:autocyr/presentation/ui/screens/pages/searchs/shop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
@@ -66,6 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
       }
       if(common.enginTypes.isEmpty) {
         await common.retrieveEnginTypes(context: context);
+      }
+      if(common.publicites.isEmpty) {
+        await common.retrievePublicites(context: context);
       }
     }
   }
@@ -148,7 +155,6 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                height: size.height * 0.35,
                 width: size.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -163,12 +169,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Label17(text: "🌍 Vos pièces, où que vous soyez...", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 2).animate().fadeIn(),
-                    const Gap(10),
-                    Label12(text: "Nous adaptons notre catalogue à votre pays pour une recherche encore plus précise. Choisissez le vôtre dès maintenant.", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.normal, maxLines: 4).animate().fadeIn(),
                     const Gap(20),
                     Row(
                       children: [
-                        Label12(text: "Pays actuel ", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+                        Label12(text: "Pays actuel ", color: GlobalThemeData.lightColorScheme.onTertiary, weight: FontWeight.normal, maxLines: 1).animate().fadeIn(),
                         const Gap(10),
                         GestureDetector(
                           onTap: () {
@@ -195,6 +199,59 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ).animate().fadeIn(),
+              const Gap(10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  children: [
+                    if(common.filling && common.publicites.isEmpty)
+                      LoadingAds(
+                          widthSize: size.width,
+                          heightSize: size.height * 0.25,
+                          context: context,
+                          bgColor: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1),
+                          shimmerColor: GlobalThemeData.lightColorScheme.primary
+                      ).animate().fadeIn(),
+
+                    if(!common.filling && common.publicites.isEmpty)
+                      Label14(text: "Aucune annonce trouvée", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn(),
+
+                    if(common.publicites.isNotEmpty)
+                      FlutterCarousel(
+                        options: FlutterCarouselOptions(
+                            autoPlay: true,
+                            autoPlayInterval: const Duration(seconds: 10),
+                            disableCenter: true,
+                            viewportFraction: 1,
+                            height: size.height * 0.25,
+                            indicatorMargin: 10,
+                            enableInfiniteScroll: true,
+                            autoPlayAnimationDuration: const Duration(milliseconds: 1000),
+                            autoPlayCurve: Curves.slowMiddle,
+                            slideIndicator: CircularSlideIndicator(
+                              slideIndicatorOptions: const SlideIndicatorOptions(
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  itemSpacing: 10,
+                                  indicatorRadius: 4,
+                                  alignment: Alignment.topRight
+                              ),
+                            ),
+                            onPageChanged: (index, r) {
+                              setState(() {
+                              });
+                            }
+                        ),
+                        items: common.publicites.map((e) {
+                          return InkWell(
+                            splashColor: Colors.transparent,
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PubliciteDetailScreen(publicite: e))),
+                            child: BlurredBanner(imageUrl: e.banner)
+                          );
+                        }).toList(),
+                      ).animate().fadeIn(),
+                  ],
+                )
+              ),
               const Gap(20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),

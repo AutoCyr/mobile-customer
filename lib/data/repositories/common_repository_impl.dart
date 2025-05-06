@@ -62,4 +62,9 @@ class CommonRepositoryImpl extends CommonRepository {
     return await _commonDataSourceImpl.getSubCategories();
   }
 
+  @override
+  Future getPublicites() async {
+    return await _commonDataSourceImpl.getPublicites();
+  }
+
 }
