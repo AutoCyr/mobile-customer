@@ -60,22 +60,22 @@ class _GlobalScreenState extends State<GlobalScreen> {
           ),
           items: [
             BottomBarItem(
-              icon: const Icon(Icons.home, size: 25),
+              icon: Image.asset("assets/pngs/home.png", width: 25, height: 25).animate().tint(color: Colors.grey),
               title: Label12(text: "Accueil", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 2),
               selectedColor: GlobalThemeData.lightColorScheme.primary,
             ),
             BottomBarItem(
-              icon: const Icon(Icons.store, size: 25),
+              icon: Image.asset("assets/pngs/gears.png", width: 20, height: 20).animate().tint(color: Colors.grey),
               title: Label12(text: "Pièces", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 2),
               selectedColor: GlobalThemeData.lightColorScheme.primary,
             ),
             BottomBarItem(
-                icon: const Icon(Icons.history_edu_sharp, size: 25),
+                icon: Image.asset("assets/pngs/menu.png", width: 20, height: 20).animate().tint(color: Colors.grey),
                 title: Label12(text: "Parcourir", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 2),
                 selectedColor: GlobalThemeData.lightColorScheme.primary
             ),
             BottomBarItem(
-                icon: const Icon(Icons.person_pin_rounded, size: 25),
+                icon: Image.asset("assets/pngs/user.png", width: 25, height: 25).animate().tint(color: Colors.grey),
                 title: Label12(text: "Profil", color: GlobalThemeData.lightColorScheme.primary, weight: FontWeight.bold, maxLines: 2),
                 selectedColor: GlobalThemeData.lightColorScheme.primary
             ),

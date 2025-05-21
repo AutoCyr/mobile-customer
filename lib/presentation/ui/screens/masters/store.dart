@@ -129,7 +129,7 @@ class _StoreScreenState extends State<StoreScreen> {
       appBar: AppBar(
         backgroundColor: GlobalThemeData.lightColorScheme.onTertiary,
         title: _search == false ?
-          Label14(text: "Articles", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
+          Label14(text: "Pièces", color: Colors.black, weight: FontWeight.bold, maxLines: 1).animate().fadeIn()
             :
           SizedBox(
             height: 45,
