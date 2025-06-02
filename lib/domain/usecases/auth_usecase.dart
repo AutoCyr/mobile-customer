@@ -25,4 +25,16 @@ class AuthUseCase {
   Future getProfile() async {
     return await _authRepositoryImpl.getProfile();
   }
+
+  Future checkVerificationStatus(Map<String, dynamic> body) async {
+    return await _authRepositoryImpl.checkVerificationStatus(body);
+  }
+
+  Future sendVerificationCode(Map<String, dynamic> body) async {
+    return await _authRepositoryImpl.sendVerificationCode(body);
+  }
+
+  Future verifyCode(Map<String, dynamic> body) async {
+    return await _authRepositoryImpl.verifyCode(body);
+  }
 }

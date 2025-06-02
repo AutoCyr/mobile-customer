@@ -8,4 +8,10 @@ abstract class AuthDataSource {
   Future getProfile();
 
   Future logout();
+
+  Future sendVerificationCode(Map<String, dynamic> body);
+
+  Future verifyCode(Map<String, dynamic> body);
+
+  Future checkVerificationStatus(Map<String, dynamic> body);
 }

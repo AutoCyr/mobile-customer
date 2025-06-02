@@ -11,6 +11,8 @@ import 'package:autocyr/domain/usecases/auth_usecase.dart';
 import 'package:autocyr/presentation/notifier/common_notifier.dart';
 import 'package:autocyr/presentation/ui/helpers/snacks.dart';
 import 'package:autocyr/presentation/ui/screens/auths/login.dart';
+import 'package:autocyr/presentation/ui/screens/auths/send_code.dart';
+import 'package:autocyr/presentation/ui/screens/auths/verify_code.dart';
 import 'package:autocyr/presentation/ui/screens/global.dart';
 import 'package:autocyr/presentation/ui/screens/starters/chooser.dart';
 import 'package:flutter/material.dart';
@@ -110,8 +112,22 @@ class AuthNotifier extends ChangeNotifier {
         Failure failure = Failure.fromJson(data);
 
         if(context.mounted) {
-          Snacks.failureBar(failure.message, context);
+          if(failure.except.containsKey("is_not_verified") && failure.except["is_not_verified"]){
+            Snacks.failureBar("Votre compte n'est pas vérifié.", context);
+            User user = User.fromJson(failure.except["user"]);
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SendCodeScreen(userId: user.id, phone: user.phone)));
+          } else {
+            Snacks.failureBar(failure.message, context);
+          }
         }
+
+        /*if(failure.except.containsKey("is_not_verified") && failure.except["is_not_verified"]){
+          Snacks.failureBar("Votre compte n'est pas vérifié.", context);
+          User user = User.fromJson(failure.except["user"]);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SendCodeScreen(userId: user.id, phone: user.phone)));
+        } else if(context.mounted) {
+          Snacks.failureBar(failure.message, context);
+        }*/
         setLoading(false);
       }
     } catch (e) {
@@ -128,10 +144,11 @@ class AuthNotifier extends ChangeNotifier {
       if(data['error'] == false) {
         Success success = Success.fromJson(data);
 
+        Client client = Client.fromJson(success.data);
         setLoading(false);
         if (context.mounted) {
           Snacks.successBar(success.message, context);
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SendCodeScreen(userId: client.userId, phone: client.telephone1)));
         }
       }else{
         Failure failure = Failure.fromJson(data);
@@ -152,6 +169,64 @@ class AuthNotifier extends ChangeNotifier {
     if(context.mounted){
       Snacks.successBar("Déconnexion effectuée. Bonne journée.", context);
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const ChooserScreen()), (route) => false);
+    }
+  }
+
+  Future sendVerificationCode({required BuildContext context, required Map<String, dynamic> body}) async {
+    setLoading(true);
+
+    try {
+      var data = await authUseCase.sendVerificationCode(body);
+
+      if(data['error'] == false) {
+        Success success = Success.fromJson(data);
+
+        setLoading(false);
+        if (context.mounted) {
+          Snacks.successBar(success.message, context);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VerifyCodeScreen(userId: int.parse(body["user_id"]), phone: body["phone"])));
+        }
+      } else {
+        Failure failure = Failure.fromJson(data);
+
+        if(context.mounted) {
+          Snacks.failureBar(failure.message, context);
+        }
+        setLoading(false);
+      }
+    } catch (e, stackTrace) {
+      print(e);
+      print(stackTrace);
+      setLoading(false);
+      Snacks.failureBar("Une erreur est survenue", context);
+    }
+  }
+
+  Future verifyCode({required BuildContext context, required Map<String, dynamic> body}) async {
+    setLoading(true);
+
+    try {
+      var data = await authUseCase.verifyCode(body);
+
+      if(data['error'] == false) {
+        Success success = Success.fromJson(data);
+
+        setLoading(false);
+        if (context.mounted) {
+          Snacks.successBar(success.message, context);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+        }
+      } else {
+        Failure failure = Failure.fromJson(data);
+
+        if(context.mounted) {
+          Snacks.failureBar(failure.message, context);
+        }
+        setLoading(false);
+      }
+    } catch (e) {
+      setLoading(false);
+      Snacks.failureBar("Une erreur est survenue", context);
     }
   }
 

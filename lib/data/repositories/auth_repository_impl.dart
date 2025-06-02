@@ -30,4 +30,19 @@ class AuthRepositoryImpl extends AuthRepository {
   Future getProfile() async {
     return await _authDataSourceImpl.getProfile();
   }
+
+  @override
+  Future checkVerificationStatus(Map<String, dynamic> body) async {
+    return await _authDataSourceImpl.checkVerificationStatus(body);
+  }
+
+  @override
+  Future sendVerificationCode(Map<String, dynamic> body) async {
+    return await _authDataSourceImpl.sendVerificationCode(body);
+  }
+
+  @override
+  Future verifyCode(Map<String, dynamic> body) async {
+    return await _authDataSourceImpl.verifyCode(body);
+  }
 }
