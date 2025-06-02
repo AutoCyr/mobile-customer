@@ -373,8 +373,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       Image.asset(
                                         option["image"],
-                                        width: 75,
-                                        height: 75,
+                                        width: 100,
+                                        height: 100,
                                         fit: BoxFit.contain,
                                       ).animate().fadeIn(),
                                     ],

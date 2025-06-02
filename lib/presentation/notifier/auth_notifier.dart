@@ -90,6 +90,7 @@ class AuthNotifier extends ChangeNotifier {
             saveToPreferences("client", success.data["client"])
           ]);
           await Preferences().saveString("token", success.data['token']);
+          await Preferences().saveBool("isVerified", success.data['is_verified']);
 
           await setUser(User.fromJson(success.data["user"]));
           await setClient(Client.fromJson(success.data["client"]));
@@ -99,8 +100,13 @@ class AuthNotifier extends ChangeNotifier {
 
           setLoading(false);
           if(context.mounted) {
-            Snacks.successBar("Connexion réussie", context);
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const GlobalScreen(index: 0)), (route) => false);
+            if(success.data['is_verified']) {
+              Snacks.successBar("Connexion réussie", context);
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const GlobalScreen(index: 0)), (route) => false);
+            } else {
+              Snacks.failureBar("Votre compte n'est pas vérifié.", context);
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SendCodeScreen(userId: client!.userId, phone: client!.telephone1)));
+            }
           }
         } else {
           if(context.mounted) {
@@ -112,22 +118,8 @@ class AuthNotifier extends ChangeNotifier {
         Failure failure = Failure.fromJson(data);
 
         if(context.mounted) {
-          if(failure.except.containsKey("is_not_verified") && failure.except["is_not_verified"]){
-            Snacks.failureBar("Votre compte n'est pas vérifié.", context);
-            User user = User.fromJson(failure.except["user"]);
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SendCodeScreen(userId: user.id, phone: user.phone)));
-          } else {
-            Snacks.failureBar(failure.message, context);
-          }
-        }
-
-        /*if(failure.except.containsKey("is_not_verified") && failure.except["is_not_verified"]){
-          Snacks.failureBar("Votre compte n'est pas vérifié.", context);
-          User user = User.fromJson(failure.except["user"]);
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SendCodeScreen(userId: user.id, phone: user.phone)));
-        } else if(context.mounted) {
           Snacks.failureBar(failure.message, context);
-        }*/
+        }
         setLoading(false);
       }
     } catch (e) {
@@ -210,6 +202,7 @@ class AuthNotifier extends ChangeNotifier {
 
       if(data['error'] == false) {
         Success success = Success.fromJson(data);
+        await Preferences().clear();
 
         setLoading(false);
         if (context.mounted) {

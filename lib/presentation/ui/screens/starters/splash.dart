@@ -1,5 +1,7 @@
+import 'package:autocyr/data/helpers/preferences.dart';
 import 'package:autocyr/presentation/notifier/auth_notifier.dart';
 import 'package:autocyr/presentation/ui/core/theme.dart';
+import 'package:autocyr/presentation/ui/screens/auths/send_code.dart';
 import 'package:autocyr/presentation/ui/screens/global.dart';
 import 'package:autocyr/presentation/ui/screens/starters/chooser.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +23,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if(connection) {
       if(mounted) {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const GlobalScreen(index: 0)), (route) => false);
+        final isVerified = await Preferences().getBool("isVerified") ?? false;
+        if(isVerified) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SendCodeScreen(userId: auth.client!.userId, phone: auth.client!.telephone1)));
+        } else {
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const GlobalScreen(index: 0)), (route) => false);
+        }
       }
     } else {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ChooserScreen()));
