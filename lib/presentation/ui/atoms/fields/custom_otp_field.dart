@@ -10,6 +10,7 @@ Widget CustomOtpField({
     showFieldAsBox: false,
     numberOfFields: fieldLength,
     decoration: InputDecoration(
+      counterText: "",
       filled: true,
       fillColor: GlobalThemeData.lightColorScheme.primary.withOpacity(0.1),
       focusColor: GlobalThemeData.lightColorScheme.primary,
@@ -24,5 +25,6 @@ Widget CustomOtpField({
       onSubmit(value);
     },
     hasCustomInputDecoration: true,
+    clearText: true,
   );
 }

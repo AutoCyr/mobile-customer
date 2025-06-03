@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if(connection) {
       if(mounted) {
         final isVerified = await Preferences().getBool("isVerified") ?? false;
-        if(isVerified) {
+        if(!isVerified) {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SendCodeScreen(userId: auth.client!.userId, phone: auth.client!.telephone1)));
         } else {
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const GlobalScreen(index: 0)), (route) => false);
