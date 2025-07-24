@@ -57,7 +57,7 @@ class MapNotifier extends ChangeNotifier {
   void setStoreIcons() async {
     storeIcon = await BitmapDescriptor.asset(
       const ImageConfiguration(devicePixelRatio: 2.0),
-      'assets/markers/store.png',
+      'assets/markers/place.png',
       width: 35,
       height: 35
     );
